@@ -1,5 +1,6 @@
 import memberPic from "../../static/images/Placeholder.jpg";
 import teamPic from "../../static/images/PlaceholderTeam.jpg";
+import clayPic from "../../static/images/Clay-Photo.jpg"
 
 export const teamData =
     {
@@ -14,7 +15,7 @@ export const memberData = [
         name: "Clay Roberson",
         bio: "My name is Clay Roberson. I'm currently a Junior at CSU studying Computer Science with a concentration on Machine Learning and Artificial Intelligence. My current goal is to move into the field of AI-Ops. The perfect combination of Dev-Ops and AI could bring efficiency to any work force. My biggest achievement is becoming the Editor in Chief of my national award-winning High School yearbook.",
         homeTown: "Centennial, CO",
-        imagePath: memberPic
+        imagePath: clayPic
     },
     {
         name: "Team Member 2 ",
