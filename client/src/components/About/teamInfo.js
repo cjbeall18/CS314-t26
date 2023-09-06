@@ -35,9 +35,9 @@ export const memberData = [
         imagePath: memberPic
     },
     {
-        name: "Team Member 5",
+        name: "Evan Loy",
         bio: "Bio Here",
-        homeTown: "Hometown",
+        homeTown: "Davis, CA",
         imagePath: memberPic
     },
 ];
