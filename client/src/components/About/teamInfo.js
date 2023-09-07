@@ -20,7 +20,7 @@ export const memberData = [
     },
     {
         name: "Team Member 2 ",
-        bio: "Bio Here",
+        bio: "My name is Ethan Pitera and I am currently a second semester junior at Colorado State University. My goal is to become a Software Engineer after graduation. My biggest achievement is graduating in the top ten of my class in high school.",
         homeTown: "Hometown",
         imagePath: memberPic
     },
