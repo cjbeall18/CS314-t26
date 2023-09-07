@@ -20,9 +20,9 @@ export const memberData = [
         imagePath: clayPic
     },
     {
-        name: "Team Member 2 ",
+        name: "Ethan Pitera",
         bio: "My name is Ethan Pitera and I am currently a second semester junior at Colorado State University. My goal is to become a Software Engineer after graduation. My biggest achievement is graduating in the top ten of my class in high school.",
-        homeTown: "Hometown",
+        homeTown: "Colorado Springs",
         imagePath: memberPic
     },
     {
