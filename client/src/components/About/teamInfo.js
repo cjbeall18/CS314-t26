@@ -6,7 +6,7 @@ import benPic from "../../static/images/Ben-image.jpg";
 
 export const teamData =
     {
-        teamName: "Team Name",
+        teamName: "t26 Loco FoCo",
         missionStatement: "Mission Statement: We are a dedicated team of engineers dedicated to connecting you and your favorite breweries locally, nationally, and globally. Through constant and iterative updates, we get ever closer to achieving that shining goal of foamy, frosty, refreshment.",
         imagePath: teamPic,
     };
