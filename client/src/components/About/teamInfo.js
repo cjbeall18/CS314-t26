@@ -3,6 +3,7 @@ import teamPic from "../../static/images/Team-Photo.jpg";
 import clayPic from "../../static/images/Clay-Photo.jpg"
 import chrisPic from "../../static/images/chrisPhoto.jpg";
 import benPic from "../../static/images/Ben-image.jpg";
+import evanPic from "../../static/images/Evan-Photo.jpg"
 
 export const teamData =
     {
@@ -41,6 +42,6 @@ export const memberData = [
         name: "Evan Loy",
         bio: "My name is Evan Loy. I am a undergraduate student at Colorado State University majoring in Computer Science. After I graduate I hope to become a full stack developer. I am interested in the areas of Big Data and Machine Learning. My biggest achievement was getting second pace in my Fantasy football league last year.",
         homeTown: "Davis, CA",
-        imagePath: memberPic
+        imagePath: evanPic
     },
 ];
