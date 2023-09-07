@@ -4,6 +4,7 @@ import clayPic from "../../static/images/Clay-Photo.jpg"
 import chrisPic from "../../static/images/chrisPhoto.jpg";
 import benPic from "../../static/images/Ben-image.jpg";
 import evanPic from "../../static/images/Evan-Photo.jpg"
+import ethanPic from "../../static/images/Ethan-image.jpg";
 
 export const teamData =
     {
@@ -24,7 +25,7 @@ export const memberData = [
         name: "Ethan Pitera",
         bio: "My name is Ethan Pitera and I am currently a second semester junior at Colorado State University. My goal is to become a Software Engineer after graduation. My biggest achievement is graduating in the top ten of my class in high school.",
         homeTown: "Colorado Springs",
-        imagePath: memberPic
+        imagePath: ethanPic
     },
     {
         name: "Benjamin Ayala",
