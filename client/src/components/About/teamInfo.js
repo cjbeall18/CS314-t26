@@ -1,6 +1,7 @@
 import memberPic from "../../static/images/Placeholder.jpg";
 import teamPic from "../../static/images/Team-Photo.jpg";
 import clayPic from "../../static/images/Clay-Photo.jpg"
+import chrisPic from "../../static/images/chrisPhoto.jpg";
 
 export const teamData =
     {
@@ -33,7 +34,7 @@ export const memberData = [
         name: "Chris Beall",
         bio: "My name is Chris Beall and I am a student at CSU studying computer science with a concentration in networks. When I graduate, I plan on becoming a pen-tester or working in an IT field. Currently, my biggest achievement is graduating from Front Range Community College",
         homeTown: "Loveland, CO",
-        imagePath: memberPic
+        imagePath: chrisPic
     },
     {
         name: "Evan Loy",
