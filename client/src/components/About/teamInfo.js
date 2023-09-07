@@ -2,6 +2,7 @@ import memberPic from "../../static/images/Placeholder.jpg";
 import teamPic from "../../static/images/Team-Photo.jpg";
 import clayPic from "../../static/images/Clay-Photo.jpg"
 import chrisPic from "../../static/images/chrisPhoto.jpg";
+import benPic from "../../static/images/Ben-image.jpg";
 
 export const teamData =
     {
@@ -25,10 +26,10 @@ export const memberData = [
         imagePath: memberPic
     },
     {
-        name: "Team Member 3",
-        bio: "Bio Here",
-        homeTown: "Hometown",
-        imagePath: memberPic
+        name: "Benjamin Ayala",
+        bio: "I am an undergraduate student on track to graduate Fall of 2024, with a B.A.S in Computer Science with a concentration in Network & Security. Although I am interested in Cybersecurity, Quantum Computing and AI are both fields I also hope to have a hand in. I have an A.A.S in Graphic Design and like creating digital 3D artwork when I have time!",
+        homeTown: "San Antonio, TX",
+        imagePath: benPic
     },
     {
         name: "Chris Beall",
