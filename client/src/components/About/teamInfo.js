@@ -1,11 +1,11 @@
 import memberPic from "../../static/images/Placeholder.jpg";
-import teamPic from "../../static/images/PlaceholderTeam.jpg";
+import teamPic from "../../static/images/Team-Photo.jpg";
 import clayPic from "../../static/images/Clay-Photo.jpg"
 
 export const teamData =
     {
         teamName: "Team Name",
-        missionStatement: "Mission Statement",
+        missionStatement: "Mission Statement: We are a dedicated team of engineers dedicated to connecting you and your favorite breweries locally, nationally, and globally. Through constant and iterative updates, we get ever closer to achieving that shining goal of foamy, frosty, refreshment.",
         imagePath: teamPic,
     };
 
