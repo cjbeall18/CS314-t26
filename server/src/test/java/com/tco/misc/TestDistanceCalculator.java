@@ -54,7 +54,7 @@ public class TestDistanceCalculator {
 
     // test same location
     @Test
-    @DisplayName("clayroby: distance to self. Expected 0")
+    @DisplayName("davematt: distance to self. Expected 0")
     public void testDistanceToSelf() {
         assertEquals(0L, calculator(origin, origin, small_radius));
         assertEquals(0L, calculator(origin, origin, big_radius));
@@ -62,7 +62,7 @@ public class TestDistanceCalculator {
 
     // test same place, different location
     @Test
-    @DisplayName("clayroby: distance to same place. Expected 0")
+    @DisplayName("davematt: distance to same place. Expected 0")
     public void testDistanceToSamePlace() {
         assertEquals(0L, calculator(east_180, west_180, small_radius));
         assertEquals(0L, calculator(west_180, east_180, big_radius));
