@@ -68,7 +68,7 @@ public class TestDistanceCalculator {
         assertEquals(0L, calculator(west_180, east_180, big_radius));
     }
 
-    // test halfway around world (won't work for small_radius due to rounding)
+    // test halfway around world
     @Test
     @DisplayName("clayroby: halfway around world. Expected earthRadius / 2")
     public void testDistanceToHalfway() {
