@@ -30,6 +30,9 @@ server/*.iml
 
 .idea/
 
+# VSCode Files
+.vscode/
+
 # Coverage Files, Bundled Files, Dependencies
 
 client/dist
