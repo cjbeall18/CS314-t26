@@ -21,7 +21,7 @@ public final class DistanceCalculator {
         Double toLat = to.latRadians();
         Double toLon = to.lonRadians();
         Double deltaLon = abs(fromLon - toLon);
-
+             
         // calculate the x value for atan
         Double y = sqrt(
             pow(cos(toLat) * sin(deltaLon), 2) + 
