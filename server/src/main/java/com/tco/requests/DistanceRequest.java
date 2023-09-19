@@ -1,7 +1,7 @@
 package com.tco.requests;
 
-import com.tco.requests.Distances.java;
-import com.tco.requests.Places.java;
+import com.tco.requests.Distances;
+import com.tco.requests.Places;
 
 import java.util.List;
 import java.util.ArrayList;
