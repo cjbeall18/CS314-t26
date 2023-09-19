@@ -27,4 +27,8 @@ public class DistanceRequest extends Request {
     public void DistanceRequest() {
         this.requestType = "distances";
     }
+
+    public Places getPlaces() {
+        return places;
+    }
 }
