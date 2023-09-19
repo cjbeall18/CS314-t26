@@ -31,4 +31,8 @@ public class DistanceRequest extends Request {
     public Places getPlaces() {
         return places;
     }
+
+    public Distances getDistances(){
+        return distances;
+    }
 }
