@@ -1,6 +1,7 @@
 package com.tco.misc;
 
 import com.tco.requests.ConfigRequest;
+import com.tco.requests.DistanceRequest;
 
 import java.lang.reflect.Type;
 
@@ -37,6 +38,18 @@ public class TestJSONValidator {
     public void testConfigRequestPass() {
         test("{\"requestType\":\"config\",\"features\":[\"config\"]}", ConfigRequest.class, true);
     }
+
+    @Test
+    @DisplayName("base: Distances request should fail schema validation")
+    public void testDistanceRequestFail() {
+        test("{}", DistanceRequest.class, false);
+    }
+
+    // @Test
+    // @DisplayName("base: Distances request should pass schema validation")
+    // public void testDistanceRequestPass() {
+    //     test("{\"requestType\":\"distances\"}", DistanceRequest.class, true);
+    // }
 
     @Test
     @DisplayName("base: There should be no schema for the JSONValidator class")
