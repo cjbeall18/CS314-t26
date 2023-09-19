@@ -35,4 +35,8 @@ public class DistanceRequest extends Request {
     public Distances getDistances(){
         return distances;
     }
+
+    public long getEarthRadius() {
+        return earthRadius;
+    }
 }
