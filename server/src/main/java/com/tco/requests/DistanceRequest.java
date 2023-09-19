@@ -24,7 +24,7 @@ public class DistanceRequest extends Request {
 
     }
 
-    public DistanceRequestRequest() {
+    public void DistanceRequest() {
         this.requestType = "distances";
     }
 }
