@@ -19,7 +19,7 @@ export async function sendAPIRequest(requestBody, serverUrl) {
     return null;
 }
 
-function isRequestNotSupported(requestBody){
+export function isRequestNotSupported(requestBody){
     return (!Object.keys(SCHEMAS).includes(requestBody.requestType));
 }
 

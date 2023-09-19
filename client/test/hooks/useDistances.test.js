@@ -60,7 +60,7 @@ describe('useDistances', () => {
             hook = result;
         });
         
-        expect(hook.current.distances).toEqual({leg:[],cumulative:[],total:[]});
+        expect(hook.current.distances).toEqual({leg:[],cumulative:[],total:0});
         // Use this to test API once server side is completed
         // expect(hook.current.distances).toEqual({leg:[],cumulative:[],total:0});
 
@@ -83,7 +83,7 @@ describe('useDistances', () => {
         await act(async () => hook.current.placeActions.append(mock_places_2[0]));
       
         expect(hook.current.places).toHaveLength(1);
-        expect(hook.current.distances).toEqual({leg:[],cumulative:[],total:[]});
+        expect(hook.current.distances).toEqual({leg:[0],cumulative:[0],total:0});
         // Use this to test API once server side is completed
         //expect(hook.current.distances).toEqual({leg:[0],cumulative:[0],total:0});
 
@@ -94,7 +94,7 @@ describe('useDistances', () => {
         await act(async () => hook.current.placeActions.append(mock_places_2[1]));
       
         expect(hook.current.places).toHaveLength(2);
-        expect(hook.current.distances).toEqual({leg:[], cumulative:[], total:[]});
+        expect(hook.current.distances).toEqual({leg:[0,0], cumulative:[0,0], total:0});
         // Use this to test API once server side is completed
         // expect(hook.current.distances).toEqual({leg:[1234,4567], cumulative:[0,1234], total:5801});
 

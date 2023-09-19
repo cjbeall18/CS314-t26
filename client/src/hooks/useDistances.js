@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { LOG } from '../utils/constants';
-import { sendAPIRequest } from '../utils/restfulAPI';
+import { sendAPIRequest, isRequestNotSupported } from '../utils/restfulAPI';
 
 export function useDistances(places, earthRadius, serverURL) {
     const [leg, setLeg] = useState([]);
@@ -33,31 +33,25 @@ async function makeDistancesRequest(places, earthRadius, serverURL, distanceActi
 
     // This statement and logic needs to be adjusted once you have implemented the server side of distances.
     // Happy coding!
-    let distances_API_implemented = false
-    if (distances_API_implemented) {
+    if (isRequestNotSupported("distances")) {
+      let list_of_zero = places.map((place) => (0))
+      setLeg(list_of_zero);
+      setCumulative(list_of_zero)
+      setTotal(0) 
+    }
+
+    else{ 
       const distancesResponse = await sendAPIRequest(requestBody, serverURL);
       setLeg(distancesResponse.distances);
       setCumulative(calcCumulative(distancesResponse.distances))
-      setTotal(calcTotal(distancesResponse.distances))
-    }
-
-    else{
-      setLeg([]);
-      setCumulative([])
-      setTotal([])    
+      setTotal(calcTotal(distancesResponse.distances))  
     }
 }
 
 function calcCumulative(distances){
-  let cumulativeArray = [];
-  let runningSum = 0;
-  for (let index = 0; index < distances.length; i++){
-    runningSum += distances[index];
-    cumulativeArray.push(runningSum);
-  }
-  return cumulativeArray;
+  return distances.map((accumulator,runningSum) => runningSum + accumulator, runningSum);
 }
 
 function calcTotal(distances){
-  return distances.reduce((accumulator, currentValue)=>accumulator + currentValue, 0);
+  return distances.reduce((accumulator, currentValue)=>accumulator + currentValue, currentValue);
 }

@@ -1,7 +1,6 @@
 {
   "scripts": {
     "test": "jest --coverageDirectory=${BUILD_DIRECTORY_PREFIX}/target/coverage/client/",
-    "postman": "newman run ../server/src/test/postman/314-api-tests.postman_collection.json",
     "devClient": "webpack serve --env CLIENT_PORT=${CLIENT_PORT} --env SERVER_PORT=${SERVER_PORT} --env CLIENT_LOG_LEVEL=INFO --env BUILD_DIRECTORY_PREFIX=$BUILD_DIRECTORY_PREFIX --mode 'development'",
     "prodClient": "webpack --env CLIENT_LOG_LEVEL=ERROR --env BUILD_DIRECTORY_PREFIX=$BUILD_DIRECTORY_PREFIX --mode 'production' --define-process-env-node-env production",
     "devServer": "java -Dorg.slf4j.simpleLogger.log.com.tco=info -jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 $BUILD_DIRECTORY_PREFIX/target/server-local.jar ${SERVER_PORT}",
