@@ -40,6 +40,10 @@ public class TestDistanceCalculator {
     final Geo south_90 = new Geo(-90., 0.);
     final Geo north_90 = new Geo(90., 0.);
     final Geo lessThanOneDegree = new Geo(0.00000000001, 0.);
+    final Geo north_45 = new Geo(45.0, 0.0);
+    final Geo south_45 = new Geo(-45.0, 0.0);
+    final Geo east_90 = new Geo(0.0, 90.0);
+    final Geo west_90 = new Geo(0.0, -90.0); 
 
     // Setup a small earthRadius variable set
     final static long small_radius = 1L;
@@ -96,5 +100,20 @@ public class TestDistanceCalculator {
     public void testEquatorToPoles() {
         assertEquals((long)round(small_circumference / 4), calculator(origin, north_90, small_radius));
         assertEquals((long)round(big_circumference / 4), calculator(origin, south_90, big_radius));
+    }
+
+    @Test
+    @DisplayName("tamo: testing equator half way north, south, east, west. Expected circumference / 8 NORTH&SOUTH. Expected circumference / 4 EAST&WEST")
+    public void testHalfNorthSouthEastWest() {
+        assertEquals((long)round(small_circumference / 8), calculator(origin,  north_45, small_radius));
+        assertEquals((long)round(big_circumference / 8), calculator(origin,  north_45, big_radius));
+        assertEquals((long)round(small_circumference / 8), calculator(origin,  south_45, small_radius));
+        assertEquals((long)round(big_circumference / 8), calculator(origin,  south_45, big_radius));
+
+        assertEquals((long)round(small_circumference / 4), calculator(origin,  east_90, small_radius));
+        assertEquals((long)round(big_circumference / 4), calculator(origin,  east_90, big_radius));
+        assertEquals((long)round(small_circumference / 4), calculator(origin,  west_90, small_radius));
+        assertEquals((long)round(big_circumference / 4), calculator(origin,  west_90, big_radius));
+
     }
 }
