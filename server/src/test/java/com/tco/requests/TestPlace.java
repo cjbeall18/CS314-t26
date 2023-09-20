@@ -63,5 +63,11 @@ public class TestPlace {
         assertEquals(-PI, place.latRadians());
         assertEquals(PI, place.lonRadians());
     }
-
+    @Test
+    @DisplayName("cjbeall: Testing lat 60, long 120. Expected output: (PI/3, 2PI/3)")
+    public void test60_120() {
+        Place place = new Place("60", "120");
+        assertEquals(PI/3, place.latRadians());
+        assertEquals(2*PI/3, place.lonRadians());
+    }
 }
