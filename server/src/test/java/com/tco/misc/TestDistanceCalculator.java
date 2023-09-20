@@ -39,6 +39,7 @@ public class TestDistanceCalculator {
     final Geo west_180 = new Geo(0., -180.);
     final Geo south_180 = new Geo(-180., 0.);
     final Geo north_180 = new Geo(180., 0.);
+    final Geo lessThanOneDegree = new Geo(0.001, 0.);
 
     // Setup a small earthRadius variable set
     final static long small_radius = 1L;
@@ -74,5 +75,11 @@ public class TestDistanceCalculator {
     public void testDistanceToHalfway() {
         assertEquals((long)round(small_circumference / 2), calculator(origin, west_180, small_radius));
         assertEquals((long)round(big_circumference / 2), calculator(origin, east_180, big_radius));
+    }
+
+    @Test
+    @DisplayName("Cjbeall18: testing distance between origin and lat value less than 1 degree. Expected 0")
+    public void testDistanceBetweenCoorinatePoints() {
+        assertEquals(0L, calculator(origin, lessThanOneDegree, small_radius));
     }
 }
