@@ -104,7 +104,7 @@ public class TestDistanceCalculator {
 
     @Test
     @DisplayName("tamo: testing equator half way north, south, east, west. Expected circumference / 8 NORTH&SOUTH. Expected circumference / 4 EAST&WEST")
-    public void test() {
+    public void testHalfNorthSouthEastWest() {
         assertEquals((long)round(small_circumference / 8), calculator(origin,  north_45, small_radius));
         assertEquals((long)round(big_circumference / 8), calculator(origin,  north_45, big_radius));
         assertEquals((long)round(small_circumference / 8), calculator(origin,  south_45, small_radius));
