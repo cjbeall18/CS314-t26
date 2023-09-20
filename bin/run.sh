@@ -2,8 +2,8 @@
 
 umask 077;
 
-export SERVER_PORT=$((0+${CS314_SERVER_BASE:-41300}+${CS314_TEAM:-0}))
-export CLIENT_PORT=$((0+${CS314_CLIENT_BASE:-43100}+${CS314_TEAM:-0}))
+export SERVER_PORT=$((0+${CS314_SERVER_BASE:-41300}+${CS314_TEAM:-26}))
+export CLIENT_PORT=$((0+${CS314_CLIENT_BASE:-43100}+${CS314_TEAM:-26}))
 echo Using client/server ports: $CLIENT_PORT / $SERVER_PORT
 
 if [[ -z "$REVISION" ]]; then
