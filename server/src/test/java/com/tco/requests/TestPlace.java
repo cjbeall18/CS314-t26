@@ -49,7 +49,7 @@ public class TestPlace {
     }
 
     @Test
-    @DisplayName("epitera: Testing lat 45, long 150. Expected output: (Pi/4, 5*PI/6)")
+    @DisplayName("ejpitera: Testing lat 45, long 150. Expected output: (Pi/4, 5*PI/6)")
     public void test45_150() {
         Place place = new Place("45", "150");
         assertEquals(PI/4, place.latRadians());

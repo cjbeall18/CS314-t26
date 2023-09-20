@@ -96,7 +96,7 @@ public class TestDistanceCalculator {
 	}
 
     @Test
-    @DisplayName("epitera: testing equator to the poles. Expected circumference / 4")
+    @DisplayName("ejpitera: testing equator to the poles. Expected circumference / 4")
     public void testEquatorToPoles() {
         assertEquals((long)round(small_circumference / 4), calculator(origin, north_90, small_radius));
         assertEquals((long)round(big_circumference / 4), calculator(origin, south_90, big_radius));
