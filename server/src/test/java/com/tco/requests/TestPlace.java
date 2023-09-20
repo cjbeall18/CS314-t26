@@ -48,4 +48,12 @@ public class TestPlace {
         assertEquals(0, place.lonRadians());
     }
 
+    @Test
+    @DisplayName("epitera: Testing lat 45, long 150. Expected output: (Pi/4, 5*PI/6)")
+    public void test45_150() {
+        Place place = new Place("45", "150");
+        assertEquals(PI/4, place.latRadians());
+        assertEquals(5*PI/6, place.lonRadians());
+    }
+
 }
