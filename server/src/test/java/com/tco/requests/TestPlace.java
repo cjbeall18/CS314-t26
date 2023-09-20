@@ -56,4 +56,12 @@ public class TestPlace {
         assertEquals(5*PI/6, place.lonRadians());
     }
 
+    @Test
+    @DisplayName("tamo: Testing lat -180, long 180. Expected output: (-PI, PI)")
+    public void testNeg180_180() {
+        Place place = new Place("-180", "180");
+        assertEquals(-PI, place.latRadians());
+        assertEquals(PI, place.lonRadians());
+    }
+
 }
