@@ -82,7 +82,7 @@ public class TestDistanceCalculator {
     }
 
     @Test
-    @DisplayName("Cjbeall18: testing distance between origin and lat value less than 1 degree. Expected 0")
+    @DisplayName("cjbeall: testing distance between origin and lat value less than 1 degree. Expected 0")
     public void testDistanceBetweenCoorinatePoints() {
         assertEquals(0L, calculator(origin, lessThanOneDegree, small_radius));
         assertEquals(0L, calculator(origin, lessThanOneDegree, big_radius));
