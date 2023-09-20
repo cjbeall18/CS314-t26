@@ -37,8 +37,8 @@ public class TestDistanceCalculator {
     final Geo origin = new Geo(0., 0.);
     final Geo east_180 = new Geo(0., 180.);
     final Geo west_180 = new Geo(0., -180.);
-    final Geo south_180 = new Geo(-180., 0.);
-    final Geo north_180 = new Geo(180., 0.);
+    final Geo south_90 = new Geo(-90., 0.);
+    final Geo north_90 = new Geo(90., 0.);
     final Geo lessThanOneDegree = new Geo(0.00000000001, 0.);
 
     // Setup a small earthRadius variable set
@@ -83,4 +83,12 @@ public class TestDistanceCalculator {
         assertEquals(0L, calculator(origin, lessThanOneDegree, small_radius));
         assertEquals(0L, calculator(origin, lessThanOneDegree, big_radius));
     }
+
+    @Test
+	@DisplayName("evanloy: Distance from North Pole to South Pole. Expected earthCircumference / 2")
+	public void testDistancePoleToPole() {
+		assertEquals((long)round(small_circumference / 2), calculator(north_90, south_90, small_radius));
+		assertEquals((long)round(big_circumference / 2), calculator(north_90, south_90, big_radius));
+	}
+
 }
