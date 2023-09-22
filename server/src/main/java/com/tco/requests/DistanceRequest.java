@@ -21,12 +21,13 @@ public class DistanceRequest extends Request {
 
     @Override
     public void buildResponse() {
-        
-        // FILL WITH IMPLEMENTATION
+        distances = buildDistanceList();
+        log.trace("buildResponse -> {}", this);
+    }
 
-        places = new Places();
-        earthRadius = 1L;
-        distances = new Distances();
+    private Distances buildDistanceList() {
+
+        Distances distances = new Distances();
 
         Place to;
         for(int i = 0; i < places.size(); i++) {
@@ -38,10 +39,15 @@ public class DistanceRequest extends Request {
             }
             distances.add(calculator(from, to, earthRadius));
         }
+
+        return distances;
     }
 
-    public DistanceRequest() {
+    public DistanceRequest(long earthRadius, Places places) {
+        super();
         this.requestType = "distances";
+        this.earthRadius = earthRadius;
+        this.places = places;
     }
 
     public Places getPlaces() {

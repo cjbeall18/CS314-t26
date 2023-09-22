@@ -10,15 +10,12 @@ public class TestDistanceRequest {
     
     private DistanceRequest distance;
 
-    @BeforeEach
-    public void createDistanceForTestCases() {
-        distance = new DistanceRequest();
-        distance.buildResponse();
-    }
-
     @Test
     @DisplayName("cjbeall: testing that request type is distances")
     public void testType() {
+        Places places = new Places();
+        distance = new DistanceRequest(1L, places);
+        distance.buildResponse();
         String type = distance.getRequestType();
         assertEquals("distances", type);
     }
