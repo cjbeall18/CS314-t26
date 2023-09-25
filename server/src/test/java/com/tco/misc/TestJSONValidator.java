@@ -1,7 +1,7 @@
 package com.tco.misc;
 
 import com.tco.requests.ConfigRequest;
-import com.tco.requests.DistanceRequest;
+import com.tco.requests.DistancesRequest;
 
 import java.lang.reflect.Type;
 
@@ -41,8 +41,8 @@ public class TestJSONValidator {
 
     @Test
     @DisplayName("base: Distances request should fail schema validation")
-    public void testDistanceRequestFail() {
-        test("{}", DistanceRequest.class, false);
+    public void testDistancesRequestFail() {
+        test("{}", DistancesRequest.class, false);
     }
 
     // @Test

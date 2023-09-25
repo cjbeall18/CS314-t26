@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DistanceRequest extends Request {
+public class DistancesRequest extends Request {
 
     private static final transient Logger log = LoggerFactory.getLogger(ConfigRequest.class);
 
@@ -43,7 +43,7 @@ public class DistanceRequest extends Request {
         return distances;
     }
 
-    public DistanceRequest(long earthRadius, Places places) {
+    public DistancesRequest(long earthRadius, Places places) {
         super();
         this.requestType = "distances";
         this.earthRadius = earthRadius;
