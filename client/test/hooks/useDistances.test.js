@@ -17,7 +17,9 @@ describe('useDistances', () => {
     
     const earthRadius = 1234.5;
     const serverUrl = "serverURLExample.com";
-  
+    const serverConfig = ['config','distances']
+    const serverSettings = [serverUrl, serverConfig]
+
     const VALID_DISTANCES_RESPONSE_0 = JSON.stringify(
         {
             "earthRadius": earthRadius,
@@ -56,7 +58,7 @@ describe('useDistances', () => {
         fetch.mockResponseOnce(VALID_DISTANCES_RESPONSE_0);
       
         await act(async () => {
-            const { result } = renderHook(() => useDistances(mock_places_0, earthRadius, serverUrl));
+            const { result } = renderHook(() => useDistances(mock_places_0, earthRadius, serverSettings));
             hook = result;
         });
         
@@ -72,7 +74,7 @@ describe('useDistances', () => {
         await act(async () => {
             const { result } = renderHook(() => {
                 const { places, selectedIndex, placeActions } = usePlaces();
-                const {distances} = useDistances(places, earthRadius, serverUrl) 
+                const {distances} = useDistances(places, earthRadius, serverSettings) 
                 return {places, placeActions, distances}
             });
             hook = result;

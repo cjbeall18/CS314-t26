@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { LOG } from '../utils/constants';
-import { sendAPIRequest, isRequestNotSupported } from '../utils/restfulAPI';
+import { sendAPIRequest } from '../utils/restfulAPI';
 
-export function useDistances(places, earthRadius, serverURL) {
+export function useDistances(places, earthRadius, serverSettings) {
     const [leg, setLeg] = useState([]);
     const [cumulative, setCumulative] = useState([]);
     const [total, setTotal] = useState(0);
-    
+
     const distances = {
       leg: leg,
       cumulative: cumulative,
@@ -19,33 +19,31 @@ export function useDistances(places, earthRadius, serverURL) {
       setTotal: setTotal
     }
     
-    useEffect(() => {makeDistancesRequest(places, earthRadius, serverURL, distanceActions);},
+    useEffect(() => {makeDistancesRequest(places, earthRadius, serverSettings, distanceActions);},
               [places,earthRadius])
   
     return {distances};
 }
 
-async function makeDistancesRequest(places, earthRadius, serverURL, distanceActions) {
-  
-    const {setLeg, setCumulative, setTotal} = distanceActions;
+async function makeDistancesRequest(places, earthRadius, serverSettings, distanceActions) {  
 
-    const requestBody = { requestType: "distances", places: places, earthRadius: earthRadius };
+  const {setLeg, setCumulative, setTotal} = distanceActions;
 
-    // This statement and logic needs to be adjusted once you have implemented the server side of distances.
-    // Happy coding!
-    if (isRequestNotSupported("distances")) {
-      let list_of_zero = places.map((place) => (0))
-      setLeg(list_of_zero);
-      setCumulative(list_of_zero)
-      setTotal(0) 
-    }
+  const requestBody = { requestType: "distances", places: places, earthRadius: earthRadius };
 
-    else{ 
-      const distancesResponse = await sendAPIRequest(requestBody, serverURL);
-      setLeg(distancesResponse.distances);
-      setCumulative(calcCumulative(distancesResponse.distances))
-      setTotal(calcTotal(distancesResponse.distances))  
-    }
+  if(serverSettings != null && serverSettings.serverConfig != null && serverSettings.serverConfig.features.includes("distances")){
+    const distancesResponse = await sendAPIRequest(requestBody, serverSettings.serverURL);
+    setLeg(distancesResponse.distances);
+    setCumulative(calcCumulative(distancesResponse.distances))
+    setTotal(calcTotal(distancesResponse.distances)) 
+  }
+
+  else{ 
+    let list_of_zero = places.map((place) => (0))
+    setLeg(list_of_zero);
+    setCumulative(list_of_zero)
+    setTotal(0)  
+  }
 }
 
 function calcCumulative(distances){
