@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "551f2169-77b8-4669-b8fa-de53ebe6fe9e",
+		"_postman_id": "f602709c-327c-491a-8c2f-b06e4f009b80",
 		"name": "distances",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_uid": "29600443-551f2169-77b8-4669-b8fa-de53ebe6fe9e"
+		"_uid": "25883428-f602709c-327c-491a-8c2f-b06e4f009b80"
 	},
 	"item": [
 		{
@@ -12,7 +12,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4b679d19-2f3d-4b42-83cc-74539ac4b378",
+						"id": "1fb1167c-aeee-4dc5-9502-ffce5e0ea900",
 						"exec": [
 							"pm.test(\"Response is HTTP200 status\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -23,7 +23,7 @@
 					}
 				}
 			],
-			"id": "a713a1e7-9497-423a-a4d8-300837b706bb",
+			"id": "b770a715-9132-4581-9325-cc1326925982",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -58,7 +58,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0cd56e0a-3421-4e5f-b9f0-cbd9cce43145",
+						"id": "71c2db2d-3ff5-4bf8-92e9-44c27bdb0359",
 						"exec": [
 							"pm.test(\"Testing for one location. Distances should be size 1\", () => {",
 							"    const response = pm.response.json();",
@@ -76,7 +76,7 @@
 					}
 				}
 			],
-			"id": "822c76e0-ae00-4210-8a41-6b939c9c61ac",
+			"id": "34d59c3f-abbf-4b58-a985-deef8668bd28",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
