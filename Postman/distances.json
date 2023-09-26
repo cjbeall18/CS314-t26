@@ -99,6 +99,62 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "BBD-postman-DistanceTest1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba748cb0-b6e3-477c-9823-405dfb54998b",
+						"exec": [
+							"pm.test(\"tamo: Testing 4 locations w/ duplicate location. Distances should be 4\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    const expectedDistanceSize = 4;\r",
+							"    pm.expect(response.distances.length).to.eql(expectedDistanceSize);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"tamo: Testing 4 distances, indexes 0-3\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    const expectedDistanceSize = 0;\r",
+							"    pm.expect(response.distances[0]).to.eql(1);\r",
+							"    pm.expect(response.distances[1]).to.eql(1);\r",
+							"    pm.expect(response.distances[2]).to.eql(1);\r",
+							"    pm.expect(response.distances[3]).to.eql(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "7fbe5b3c-0372-4ec7-b0d5-1c30d0ecb538",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [{\"name\": \"Prime MeridianxEquator\", \"latitude\": \"0.0\", \"longitude\": \"0.0\"},\r\n               {\"name\": \"North30 East30\", \"latitude\": \"25.36\", \"longitude\": \"13.5\"},\r\n               {\"name\": \"South30 West30\", \"latitude\": \"-30.0\", \"longitude\": \"-30.0\"},\r\n               {\"name\": \"Prime MeridianxEquator\", \"latitude\": \"0.0\", \"longitude\": \"0.0\"}],\r\n    \"earthRadius\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
