@@ -158,6 +158,59 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "cjbeall-test-a-quarter-around-the-world",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b0da438-ef9e-4abc-a63d-6734b32a5f83",
+						"exec": [
+							"pm.test(\"Testing for a quarter around the world. Distances should be size 2\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    const expectedDistanceSize = 2;\r",
+							"    pm.expect(response.distances.length).to.eql(expectedDistanceSize);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Testing for one location. Element at index 0 should be 1571 for earth radius 1000\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    const expectedDistanceSize = 1571;\r",
+							"    pm.expect(response.distances[0]).to.eql(expectedDistanceSize);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "7990160f-2844-4833-9a71-1e933a3c1299",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [{\"name\": \"place1\", \"latitude\": \"0\", \"longitude\": \"45\"}, \r\n               {\"name\": \"place2\", \"latitude\": \"0\", \"longitude\": \"-45\"}],\r\n    \"earthRadius\": 1000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
