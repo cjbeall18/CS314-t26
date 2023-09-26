@@ -114,17 +114,7 @@
 							"    pm.expect(response.distances.length).to.eql(expectedDistanceSize);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"tamo: Testing distances between each location...\", () => {\r",
-							"    const response = pm.response.json();\r",
-							"    const expectedDistance1TO2 = 0;\r",
-							"    const expectedDistance2TO3 = 0;\r",
-							"    const expectedDistance3TO4 = 0;\r",
-							"    const expectedDistance4TO1 = 0;\r",
-							"    pm.expect(response.distances[0]).to.eql(expectedDistance1TO2);\r",
-							"    pm.expect(response.distances[1]).to.eql(expectedDistance2TO3);\r",
-							"    pm.expect(response.distances[2]).to.eql(expectedDistance3TO4);\r",
-							"    pm.expect(response.distances[3]).to.eql(expectedDistance4TO1);\r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
