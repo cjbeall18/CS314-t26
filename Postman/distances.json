@@ -129,7 +129,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [{\"name\": \"Prime MeridianxEquator\", \"latitude\": \"0.0\", \"longitude\": \"0.0\"},\r\n               {\"name\": \"North30 East30\", \"latitude\": \"25.36\", \"longitude\": \"13.5\"},\r\n               {\"name\": \"South30 West30\", \"latitude\": \"-30.0\", \"longitude\": \"-30.0\"},\r\n               {\"name\": \"Prime MeridianxEquator\", \"latitude\": \"0.0\", \"longitude\": \"0.0\"}],\r\n    \"earthRadius\": 1.0\r\n}",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [{\"name\": \"Prime MeridianxEquator\", \"latitude\": \"0.0\", \"longitude\": \"0.0\"},\r\n               {\"name\": \"North30 East30\", \"latitude\": \"30.0\", \"longitude\": \"30.0\"},\r\n               {\"name\": \"South30 West30\", \"latitude\": \"-30.0\", \"longitude\": \"-30.0\"},\r\n               {\"name\": \"Prime MeridianxEquator\", \"latitude\": \"0.0\", \"longitude\": \"0.0\"}],\r\n    \"earthRadius\": 1.0\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
