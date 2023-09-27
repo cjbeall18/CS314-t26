@@ -19,5 +19,22 @@ public class TestDistanceRequest {
         String type = distance.getRequestType();
         assertEquals("distances", type);
     }
+
+    @BeforeEach
+    public void setup() {
+        Places places = new Places();
+        places.add(new Place("0", "0"));
+        places.add(new Place("0", "90"));
+        distance = new DistancesRequest(6371L, places);
+    }
+
+    
+    @Test
+    @DisplayName("evanloy: Test Earth radius")
+    public void testEarthRadius() {
+        long radius = distance.getEarthRadius();
+        assertEquals(6371L, radius);
+    }   
+
 }
 
