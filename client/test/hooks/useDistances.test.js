@@ -56,9 +56,6 @@ describe('useDistances', () => {
     
     test('base: useDistances', async () => {
         fetch.mockResponseOnce(VALID_DISTANCES_RESPONSE_0);
-        console.log("serverSettings,serverConfig in testDistances");
-        console.log(serverSettings);
-        console.log(serverSettings.serverConfig);
         await act(async () => {
             const { result } = renderHook(() => useDistances(mock_places_0, earthRadius, serverSettings));
             hook = result;
