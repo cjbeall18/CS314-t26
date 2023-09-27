@@ -62,3 +62,14 @@ export function isJsonResponseValid(object, schema) {
     return false;
 }
 
+export function isFeatureImplemented(serverSettings,featureToCheck){
+    if(serverSettings == null) {
+        return false;
+    }
+    if(serverSettings.serverUrl != null && serverSettings.serverConfig != null && serverSettings.serverConfig.features.includes(featureToCheck)){
+        return true;
+    }
+    else {
+      return false;
+    }
+  }

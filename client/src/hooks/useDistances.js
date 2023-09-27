@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { LOG } from '../utils/constants';
-import { sendAPIRequest } from '../utils/restfulAPI';
+import { sendAPIRequest, isFeatureImplemented, isRequestNotSupported } from '../utils/restfulAPI';
+import { EARTH_RADIUS_UNITS_DEFAULT } from '../utils/constants';
 
 export function useDistances(places, earthRadius, serverSettings) {
     const [leg, setLeg] = useState([]);
@@ -29,13 +29,12 @@ async function makeDistancesRequest(places, earthRadius, serverSettings, distanc
 
   const {setLeg, setCumulative, setTotal} = distanceActions;
 
-  const requestBody = { requestType: "distances", places: places, earthRadius: earthRadius };
-
-  if(serverSettings != null && serverSettings.serverConfig != null && serverSettings.serverConfig.features.includes("distances")){
-    const distancesResponse = await sendAPIRequest(requestBody, serverSettings.serverURL);
+  const requestBody = { requestType: "distances", places: places, earthRadius:earthRadius };
+  if(isFeatureImplemented(serverSettings,"distances")){
+    const distancesResponse = await sendAPIRequest(requestBody, serverSettings.serverUrl);
     setLeg(distancesResponse.distances);
-    setCumulative(calcCumulative(distancesResponse.distances))
-    setTotal(calcTotal(distancesResponse.distances)) 
+    setCumulative(calcCumulative(distancesResponse.distances));
+    setTotal(calcTotal(distancesResponse.distances));
   }
 
   else{ 
@@ -47,9 +46,12 @@ async function makeDistancesRequest(places, earthRadius, serverSettings, distanc
 }
 
 function calcCumulative(distances){
-  return distances.map((accumulator,runningSum) => runningSum + accumulator, runningSum);
+  let sum = 0;
+  return distances.map((sum = 0, n => sum += n));
 }
 
 function calcTotal(distances){
+  let currentValue = 0
   return distances.reduce((accumulator, currentValue)=>accumulator + currentValue, currentValue);
 }
+
