@@ -9,6 +9,10 @@ import Units from './Units';
 import {useDistances} from "../../../hooks/useDistances";
 
 export default function Itinerary(props) {
+
+	const [earthRadius, setEarthRadius] = useState(3959.0);
+	const [distanceUnits, setDistanceUnits] = useState("miles");
+
 	const placeListProps = {
 		places: props.places,
 		placeActions: props.placeActions,
