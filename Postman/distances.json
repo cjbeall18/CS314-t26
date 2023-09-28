@@ -270,6 +270,18 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "evanloy-test-nomovement",
+			"id": "0f90f1d7-5ca3-4e3f-a8be-933002eeeb60",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }
