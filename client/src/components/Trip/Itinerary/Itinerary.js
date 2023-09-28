@@ -8,9 +8,15 @@ import Distance from './Distance';
 import Units from './Units';
 import {useDistances} from "../../../hooks/useDistances";
 
+const [earthRadius, setEarthRadius] = useState(3959.0);
+const [distanceUnits, setDistanceUnits] = useState("miles");
+
+const {distances} = useDistances(props.places, earthRadius, props.serverSettings);
+
 export default function Itinerary(props) {
 	const placeListProps = {
 		places: props.places,
+		distances: distances,
 		placeActions: props.placeActions,
 		selectedIndex: props.selectedIndex
 	}
