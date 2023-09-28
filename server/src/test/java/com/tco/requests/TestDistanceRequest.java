@@ -63,4 +63,15 @@ public class TestDistanceRequest {
         distance.buildResponse();
         assertEquals(distance.getDistances().total(), 193921231);
     }
+
+    @Test
+    @DisplayName("clayroby: Test same place")
+    public void testSamePlace() {
+        Places clayPlaces = new Places();
+        clayPlaces.add(new Place("-31.91", "124.45"));
+        clayPlaces.add(new Place("-31.91", "124.45"));
+        distance = new DistancesRequest(26713603L, clayPlaces);
+        distance.buildResponse();
+        assertEquals(distance.getDistances().total(), 0l);
+    }
 }
