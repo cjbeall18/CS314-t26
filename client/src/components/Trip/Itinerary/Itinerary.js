@@ -96,6 +96,8 @@ function PlaceRow(props) {
 				<strong>{name}</strong>
 				<AdditionalPlaceInfo {...props} showFullName={showFullName} location={location}/>
 			</td>
+			<td align={'right'}>{/*LOCATION FOR CLAY TO ADD LEGDISTANCE*/}</td>
+			<td align={'right'}>{/*LOCATION FOR CLAY TO ADD CUMULATIVEDISTANCE*/}</td>
 			<RowArrow toggleShowFullName={toggleShowFullName} index={props.index}/>
 		</tr>
 	);
