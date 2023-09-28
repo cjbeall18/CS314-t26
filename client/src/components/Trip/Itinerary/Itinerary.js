@@ -16,6 +16,8 @@ export default function Itinerary(props) {
 		<Table responsive>
 			<TripHeader
 				tripName={props.tripName}
+				legTitle={props.legTitle}
+				cumulativeTitle={props.cumulativeTitle}
 			/>
 			<PlaceList 
 				{...placeListProps}
@@ -34,6 +36,18 @@ function TripHeader(props) {
 				>
 					{props.tripName}
 				</th>
+				<th
+					className='leg-header-title'
+					data-testid='leg-header-title'
+				>
+					{props.legTitle}
+				</th>
+				<th
+					className='cumulative-header-title'
+					data-testid='cumulative-header-title'
+				>
+					{props.cumulativeTitle}
+					</th>
 			</tr>
 		</thead>
 	);
