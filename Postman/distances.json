@@ -273,13 +273,56 @@
 		},
 		{
 			"name": "evanloy-test-nomovement",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ac6130c5-730e-4890-8097-d83f1f558146",
+						"exec": [
+							"pm.test(\"Testing for a two places, same location. Distances should be size 2\", () => {",
+							"    const response = pm.response.json();",
+							"    const expectedDistanceSize = 2;",
+							"    pm.expect(response.distances.length).to.eql(expectedDistanceSize);",
+							"});",
+							"",
+							"pm.test(\"Testing distances between each location. Should be 0 for each.\", () => {",
+							"    const response = pm.response.json();",
+							"    const expectedDistance1TO2 = 0;",
+							"    const expectedDistance2TO1 = 0;",
+							"    pm.expect(response.distances[0]).to.eql(expectedDistance1TO2);",
+							"    pm.expect(response.distances[1]).to.eql(expectedDistance2TO1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"id": "0f90f1d7-5ca3-4e3f-a8be-933002eeeb60",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"distances\",\n    \"places\": [{\"name\": \"origin\", \"latitude\": \"0\", \"longitude\": \"0\"},\n               {\"name\": \"origin\", \"latitude\": \"0\", \"longitude\": \"0\"}],\n    \"earthRadius\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
 			},
 			"response": []
 		}
