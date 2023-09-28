@@ -4,6 +4,9 @@ import { Table, Collapse } from 'reactstrap';
 import { latLngToText, placeToLatLng } from '../../../utils/transformers';
 import { BsChevronDown } from 'react-icons/bs';
 import PlaceActions from './PlaceActions';
+import Distance from './Distance';
+import Units from './Units';
+import {useDistances} from "../../../hooks/useDistances";
 
 export default function Itinerary(props) {
 	const placeListProps = {
