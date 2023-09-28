@@ -211,6 +211,65 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "ejpitera-test-4-hemishperes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "864c5dbe-1598-4e48-ab2e-6c779905f748",
+						"exec": [
+							"pm.test(\"Testing all 4 hemispheres, Distances should be size 4\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    const expectedDistanceSize = 4;\r",
+							"    pm.expect(response.distances.length).to.eql(expectedDistanceSize);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Testing distances between each location\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    const expectedDistance1TO2 = 7440527;\r",
+							"    const expectedDistance2TO3 = 15150747;\r",
+							"    const expectedDistance3TO4 = 6413607;\r",
+							"    const expectedDistance4TO1 = 10980343;\r",
+							"    pm.expect(response.distances[0]).to.eql(expectedDistance1TO2);\r",
+							"    pm.expect(response.distances[1]).to.eql(expectedDistance2TO3);\r",
+							"    pm.expect(response.distances[2]).to.eql(expectedDistance3TO4);\r",
+							"    pm.expect(response.distances[3]).to.eql(expectedDistance4TO1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "3ec1a84a-4a0d-4691-b18c-b033f102319e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [{\"name\": \"Colorado Mountain Brewery\", \"latitude\": \"38.84\", \"longitude\": \"-104.859\"},\r\n               {\"name\": \"Dama Bier Brewery\", \"latitude\": \"-22.739\", \"longitude\": \"-47.629\"},\r\n               {\"name\": \"Fujizakura Heights Beer\", \"latitude\": \"35.458\", \"longitude\": \"138.76\"},\r\n               {\"name\": \"Batch Brewing Company\", \"latitude\": \"-33.9\", \"longitude\": \"151.165\"}],\r\n    \"earthRadius\": 5225616\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/distances",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"distances"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
