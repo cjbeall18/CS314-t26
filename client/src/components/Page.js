@@ -12,12 +12,16 @@ export default function Page(props) {
 	const [serverSettings, processServerConfigSuccess] = useServerSettings(props.showMessage);
 	const { places, selectedIndex, placeActions } = usePlaces();
 	const [tripName, setTripName] = useState('My Trip');
+	const [legTitle, setLegTitle] = useState('Leg Length');
+	const [cumulativeTitle, setCumulativeTitle] = useState('Cumulative Length');
 
 	const context = {
 		showAbout, toggleAbout,
 		serverSettings, processServerConfigSuccess,
 		places, placeActions,
 		tripName, setTripName,
+		legTitle, setLegTitle,
+		cumulativeTitle, setCumulativeTitle,
 		disableRemoveAll : !places?.length,
 		selectedIndex
 	}
