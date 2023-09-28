@@ -47,5 +47,20 @@ public class TestDistanceRequest {
         long radius = distance.getEarthRadius();
         assertEquals(6371L, radius);
     }   
+    @Test
+    @DisplayName("cjbeall: Test my total distances with two points in each quadrant")
+    public void testTwoPointsInEachQuadrant() {
+        Places chrisPlaces = new Places();
+        chrisPlaces.add(new Place("-31.91", "124.45"));
+        chrisPlaces.add(new Place("-26.91", "147.30"));
+        chrisPlaces.add(new Place("31.49", "111.09"));
+        chrisPlaces.add(new Place("59.26", "93.87"));
+        chrisPlaces.add(new Place("61.01", "-98.44"));
+        chrisPlaces.add(new Place("56.07", "-117.42"));
+        chrisPlaces.add(new Place("-6.50", "-78.48"));
+        chrisPlaces.add(new Place("-24.87", "-48.52"));
+        distance = new DistancesRequest(26713603L, chrisPlaces);
+        distance.buildResponse();
+        assertEquals(distance.getDistances().total(), 193921231);
+    }
 }
-
