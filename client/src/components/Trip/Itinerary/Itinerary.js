@@ -81,6 +81,8 @@ function PlaceRow(props) {
 	const [showFullName, toggleShowFullName] = useToggle(false);
 	const name = props.place.defaultDisplayName;
 	const location = latLngToText(placeToLatLng(props.place));
+	const leg = props.distances.leg[props.index] || 0;
+	const cumulative = props.distances.cumulative[props.index] || 0;
 	return (
 		<tr className={props.selectedIndex === props.index ? 'selected-row' : ''}>
 			<td
@@ -96,8 +98,8 @@ function PlaceRow(props) {
 				<strong>{name}</strong>
 				<AdditionalPlaceInfo {...props} showFullName={showFullName} location={location}/>
 			</td>
-			<td align={'right'}>{/*LOCATION FOR LEG DISTANCE*/}</td>
-			<td align={'right'}>{/*LOCATION FOR CUMULATIVE DISTANCE*/}</td>
+			<td align={'right'}><Distance distance = {leg}/></td>
+			<td align={'right'}><Distance distance = {cumulative}/></td>
 			<RowArrow toggleShowFullName={toggleShowFullName} index={props.index}/>
 		</tr>
 	);
