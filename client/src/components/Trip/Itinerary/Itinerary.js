@@ -22,12 +22,21 @@ export default function Itinerary(props) {
 		selectedIndex: props.selectedIndex
 	}
 
+	const unitsProps = {
+		earthRadius: earthRadius,
+		setEarthRadius: setEarthRadius,
+		distanceUnits: distanceUnits,
+		setDistanceUnits: setDistanceUnits,
+	}
+
 	const total = distances.total;
 	
 	return (
 		<Table responsive>
 			<TripHeader
+				{...unitsProps}
 				tripName={props.tripName}
+				total = {total}
 			/>
 			<PlaceList 
 				{...placeListProps}
