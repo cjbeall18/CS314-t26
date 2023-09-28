@@ -13,11 +13,16 @@ export default function Itinerary(props) {
 	const [earthRadius, setEarthRadius] = useState(3959.0);
 	const [distanceUnits, setDistanceUnits] = useState("miles");
 
+	const {distances} = useDistances(props.places, earthRadius, props.serverSettings);
+
 	const placeListProps = {
 		places: props.places,
+		distances: distances,
 		placeActions: props.placeActions,
 		selectedIndex: props.selectedIndex
 	}
+
+	const total = distances.total;
 	
 	return (
 		<Table responsive>
