@@ -53,7 +53,7 @@ function TripHeader(props) {
 					className='trip-header-title'
 					data-testid='trip-header-title'
 				>
-					{props.tripName}
+					{props.tripName} is <Distance distance={props.total}/> <Units {...props}/>
 				</th>
 				<td align={'center'}>Leg Distance</td>
 				<td align={'center'}>Cumulative Distance</td>
