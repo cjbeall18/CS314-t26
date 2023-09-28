@@ -7,6 +7,8 @@ import PlaceActions from './PlaceActions';
 import Distance from './Distance';
 import Units from './Units';
 import {useDistances} from "../../../hooks/useDistances";
+import {LuArrowBigRight, LuArrowBigRightDash } from 'react-icons/lu';
+
 
 export default function Itinerary(props) {
 
@@ -55,8 +57,8 @@ function TripHeader(props) {
 				>
 					{props.tripName} is <Distance distance={props.total}/> <Units {...props}/>
 				</th>
-				<td align={'center'}>Leg Distance</td>
-				<td align={'center'}>Cumulative Distance</td>
+				<td align={'center'}><LuArrowBigRight fontSize={24}></LuArrowBigRight></td>
+				<td align={'center'}><LuArrowBigRightDash fontSize={24}></LuArrowBigRightDash></td>
 			</tr>
 		</thead>
 	);
