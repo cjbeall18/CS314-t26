@@ -12,7 +12,7 @@ public class TestFindRequest {
     @Test
     @DisplayName("cjbeall: testing that request type is Find")
     public void testType() {
-        findObject = new FindRequest();
+        findObject = new FindRequest("Denver", 20);
         findObject.buildResponse();
         String type = findObject.getRequestType();
         assertEquals("Find", type);
