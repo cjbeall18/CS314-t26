@@ -36,4 +36,16 @@ public class TestConfigRequest {
         String name = conf.getServerName();
         assertEquals("t26 loco foco", name);
     }
+
+    @Test
+    @DisplayName("clayroby: Features includes \"distances\"")
+    public void testDistancesFeatures(){
+        assertTrue(conf.validFeature("distances"));
+    }
+
+    @Test
+    @DisplayName("clayroby: Features includes \"find\"")
+    public void testFindFeatures(){
+        assertTrue(conf.validFeature("find"));
+    }
 }
