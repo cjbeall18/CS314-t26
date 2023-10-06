@@ -30,7 +30,7 @@ public class FindRequest extends Request {
 
     public FindRequest (String match, Integer limit) {
         super();
-        this.requestType = "Find";
+        this.requestType = "find";
         this.match = match;
         this.limit = limit;
     }
