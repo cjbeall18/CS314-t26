@@ -90,6 +90,84 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "testLimit4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "51fcf0e9-37fb-4ae4-91e5-226739381b8c",
+						"exec": [
+							"pm.test(\"Limit of 4. Places length should return 4\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.places.length).to.eql(4);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "d2a64f60-d22a-47ec-b863-2dd031c0d76f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"New York\",\r\n    \"limit\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testLimit0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db6262bf-d79f-499d-b88c-c2c80e69a43d",
+						"exec": [
+							"pm.test(\"Match is Chris, but limit is 0. Expect places to be empty\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.places.length).to.eql(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "bfbc098c-c282-496c-862e-c6b75cfcc092",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"Chris\",\r\n    \"limit\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
 		}
 	]
 }
