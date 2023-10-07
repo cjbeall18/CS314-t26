@@ -12,29 +12,29 @@ import static java.lang.Math.round;
 public final class DistanceCalculator {
     private DistanceCalculator() {}
 
-    public static long calculator(GeographicCoordinate from, 
-                                  GeographicCoordinate to, 
+    public static long calculator(GeographicCoordinate place1, 
+                                  GeographicCoordinate place2, 
                                   double earthRadius) {
 
-        Double fromLat = from.latRadians();
-        Double fromLon = from.lonRadians();
-        Double toLat = to.latRadians();
-        Double toLon = to.lonRadians();
-        Double deltaLon = abs(fromLon - toLon);
+        Double place1Lat = place1.latRadians();
+        Double place1Lon = place1.lonRadians();
+        Double place2Lat = place2.latRadians();
+        Double place2Lon = place2.lonRadians();
+        Double deltaLon = abs(place1Lon - place2Lon);
              
-        // calculate the x value for atan
+        // calculate the y value for atan
         Double y = sqrt(
-            pow(cos(toLat) * sin(deltaLon), 2) + 
-            pow(cos(fromLat) * sin(toLat) - sin(fromLat) * cos(toLat) * cos(deltaLon), 2)
+            pow(cos(place2Lat) * sin(deltaLon), 2) + 
+            pow(cos(place1Lat) * sin(place2Lat) - sin(place1Lat) * cos(place2Lat) * cos(deltaLon), 2)
         );
 
-        // calculate the y value for atan
-        Double x = sin(fromLat) * sin(toLat) + cos(fromLat) * cos(toLat) * cos(deltaLon);
+        // calculate the x value for atan
+        Double x = sin(place1Lat) * sin(place2Lat) + cos(place1Lat) * cos(place2Lat) * cos(deltaLon);
 
-        // calculate arctan(x/y)
+        // calculate arctan(y/x)
         Double arctan = atan2(y, x);
         
-        // calculate arc_length = r * arctan(x/y)
+        // calculate arc_length = r * arctan(y/x)
         Double distance = earthRadius * arctan;
 
         return (long)round(distance);
