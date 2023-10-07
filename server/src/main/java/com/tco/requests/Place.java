@@ -8,6 +8,10 @@ import static java.lang.Double.parseDouble;
 
 class Place extends HashMap<String,String> implements GeographicCoordinate{
 
+    // required for GSON
+
+    Place() {}
+    
     // for testing
 
     Place(String lat, String lon) {
@@ -15,9 +19,6 @@ class Place extends HashMap<String,String> implements GeographicCoordinate{
         this.put("longitude", lon);
     }
 
-    // required for GSON
-
-    Place() {}
 
     // implements the interface
 
