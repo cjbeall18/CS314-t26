@@ -51,6 +51,45 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "testJeddah",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f410217-cec8-48c5-9719-9c78867616f9",
+						"exec": [
+							"pm.test(\"Match is Jeddah. Expect Jeddah in municipality\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.places[0].municipality).to.eql(\"Jeddah\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "df633ac2-c5f4-4cb8-b6f9-59e2fa63b96c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"Jeddah\",\r\n    \"limit\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
 		}
 	]
 }
