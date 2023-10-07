@@ -15,6 +15,6 @@ public class TestFindRequest {
         findObject = new FindRequest("Denver", 20);
         findObject.buildResponse();
         String type = findObject.getRequestType();
-        assertEquals("Find", type);
+        assertEquals("find", type);
     }
 }
