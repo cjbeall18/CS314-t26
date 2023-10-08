@@ -45,11 +45,10 @@ public class TestJSONValidator {
         test("{}", DistancesRequest.class, false);
     }
 
-    // @Test
-    // @DisplayName("base: Distances request should pass schema validation")
-    // public void testDistanceRequestPass() {
-    //     test("{\"requestType\":\"distances\"}", DistanceRequest.class, true);
-    // }
+    @DisplayName("base: Distances request should pass schema validation")
+     public void testDistanceRequestPass() {
+        test("{\"requestType\":\"distances\",\"places\":[],\"earthRadius\":1}", DistancesRequest.class, true);
+     }
 
     @Test
     @DisplayName("base: There should be no schema for the JSONValidator class")
