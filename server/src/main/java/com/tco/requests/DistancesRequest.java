@@ -29,14 +29,16 @@ public class DistancesRequest extends Request {
 
         Distances distances = new Distances();
 
-        Place to;
         for(int i = 0; i < places.size(); i++) {
             Place from = places.get(i);
-            try {
-                to = places.get(i+1);
-            } catch (Exception e) {
+            Place to;
+
+            if (i + 1 < places.size()) {
+                to = places.get(i + 1);
+            } else {
                 to = places.get(0);
             }
+            
             distances.add(calculator(from, to, earthRadius));
         }
 
