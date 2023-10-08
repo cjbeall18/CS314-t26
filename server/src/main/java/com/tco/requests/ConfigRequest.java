@@ -15,7 +15,7 @@ public class ConfigRequest extends Request {
 
     @Override
     public void buildResponse() {
-        serverName = "t26 loco foco";
+        serverName = "t26 Loco FoCo";
         features = new ArrayList<>();
         features.add("config");
         features.add("distances");
