@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class DistancesRequest extends Request {
 
-    private static final transient Logger log = LoggerFactory.getLogger(ConfigRequest.class);
+    private static final transient Logger log = LoggerFactory.getLogger(DistancesRequest.class);
 
     private Places places;
     private long earthRadius;
