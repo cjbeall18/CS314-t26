@@ -1,3 +1,5 @@
+package com.tco.requests;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -12,7 +14,7 @@ class Credential {
 	final static String PASSWORD = "eiK5liet1uej";
 	// connection information when using port forwarding from localhost
 	
-	private String url() {
+	static protected String url() {
         String useTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
         String onDocker = System.getenv("CS314_DOCKER");
         String URL = "";

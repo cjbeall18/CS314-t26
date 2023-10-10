@@ -1,3 +1,5 @@
+package com.tco.requests;
+
 public class Select {
 
     private static String COLUMNS = "id,name,municipality,iso_region,iso_country,continent,latitude,longitude,altitude";
