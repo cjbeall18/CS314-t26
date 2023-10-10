@@ -16,6 +16,6 @@ public class TestDatabase {
     @DisplayName("tamo: existential test")
     public void testDatabaseInit() {
         db = new Database();
-        assertTrue(db);
+        assertEquals(0, db.found());
     }
 }
