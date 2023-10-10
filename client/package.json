@@ -17,6 +17,7 @@
     "notistack": "1.0.10",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-select": "4.1.0",
     "react-leaflet": "^2.8.0",
     "react-leaflet-control": "^2.1.2",
     "reactstrap": "^9.1.5",
