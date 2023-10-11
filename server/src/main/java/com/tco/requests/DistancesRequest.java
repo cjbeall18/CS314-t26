@@ -45,6 +45,10 @@ public class DistancesRequest extends Request {
         return distances;
     }
 
+    public DistancesRequest() {
+        this(6371L, new Places());
+    }
+
     public DistancesRequest(long earthRadius, Places places) {
         super();
         this.requestType = "distances";

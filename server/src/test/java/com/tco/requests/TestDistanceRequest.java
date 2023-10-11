@@ -74,4 +74,13 @@ public class TestDistanceRequest {
         distance.buildResponse();
         assertEquals(distance.getDistances().total(), 0l);
     }
+
+    @Test
+    @DisplayName("ejpitera: test default constructor")
+    public void testDefaultConstructor() {
+        distance = new DistancesRequest();
+        distance.buildResponse();
+        assertEquals(distance.getEarthRadius(), 6371L);
+        assertEquals(distance.getDistances().total(), 0l);
+    }
 }
