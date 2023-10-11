@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.tco.requests.Database;
 
 public class TestDatabase {
-    private Database db;
+    private Database db = new Database();
 
     @Test
     @DisplayName("tamo: existential test")
     public void testDatabaseInit() {
-        db = new Database();
+        // db = new Database();
         try {
             assertEquals(35, db.found("Texas"));
         } catch (Exception e) {
