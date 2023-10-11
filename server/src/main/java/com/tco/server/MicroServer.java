@@ -39,7 +39,7 @@ public final class MicroServer {
             before("/*", (req, res) -> logRequest(req));
             post("/config", (req, res) -> processHttpRequest(req, res, ConfigRequest.class));
             post("/distances", (req, res) -> processHttpRequest(req, res, DistancesRequest.class));
-            post("/find", (req, res) -> processHttpRequest(req, res, FindRequest.class));
+            // post("/find", (req, res) -> processHttpRequest(req, res, FindRequest.class));
         });
     }
 
