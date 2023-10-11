@@ -3,9 +3,9 @@ import java.util.ArrayList;
 
 public class Distances extends ArrayList<Long> {
     
-    public long total() {
+    public Long total() {
         
-        long totalDistance = 0;
+        Long totalDistance = 0L;
 
         for (Long distance : this) {
                 totalDistance += distance;
