@@ -66,7 +66,7 @@
 							"    pm.expect(response.distances.length).to.eql(expectedDistanceSize);",
 							"});",
 							"",
-							"pm.test(\"Testing for one location. Element at index 0 should be 0\", () => {",
+							"pm.test(\"Testing for 1 location. Element at index 0 should be 0\", () => {",
 							"    const response = pm.response.json();",
 							"    const expectedDistanceSize = 0;",
 							"    pm.expect(response.distances[0]).to.eql(expectedDistanceSize);",
