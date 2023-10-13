@@ -70,7 +70,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "ce3829ce-1778-48fb-a759-4d9183aed41e",
+				"id": "07c40942-9d04-4de9-bb0e-58c7f29b46ed",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -80,7 +80,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "c77c9fbe-fa64-4d77-a37f-c543f9455968",
+				"id": "e0e7acdf-6bf2-40f7-bb66-7184097f0468",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -90,14 +90,14 @@
 	],
 	"variable": [
 		{
-			"id": "47f590b7-5f74-4119-82a7-e5a123abd978",
+			"id": "e2cc206c-38bc-4c0f-8cfa-70e6561e437d",
 			"key": "BASE_URL",
 			"value": "http://localhost:41326"
 		},
 		{
-			"id": "ad75f07e-8018-449a-8150-80e308d9b13a",
+			"id": "c73a8889-b698-4874-82ad-f0ac50572f8e",
 			"key": "TEAM_NAME",
-			"value": "t26 Loco Foco"
+			"value": "t26 Loco FoCo"
 		}
 	]
 }
