@@ -11,12 +11,12 @@ public class TestSelect {
     @Test
     @DisplayName("cjbeall: test match, chris limit 15")
     public void testMatch() {
-        assertEquals(sel.match("Chris", 15), "SELECT DISTINCT id,name,municipality,iso_region,iso_country,continent,latitude,longitude,altitude FROM world WHERE name LIKE \"%" + "Chris" + "%\" " + "LIMIT 15 ;"); 
+        assertEquals(sel.match("Chris", 15), "SELECT DISTINCT id,name,municipality,iso_region,iso_country,continent,latitude,longitude,altitude FROM world WHERE name LIKE \"%" + "Chris" + "%\"" + " OR iso_region LIKE \"%" + "Chris" + "%\"" + " OR municipality LIKE \"%" + "Chris" + "%\"" + " LIMIT 15 ;"); 
     }
 
     @Test
     @DisplayName("cjbeall: test match chris")
     public void testFound() {
-        assertEquals( sel.found("Chris"), "SELECT COUNT(*) AS count  FROM world WHERE name LIKE \"%" + "Chris" + "%\"" + "  ;"); 
+        assertEquals( sel.found("Chris"), "SELECT COUNT(*) AS count  FROM world WHERE name LIKE \"%" + "Chris" + "%\"" + " OR iso_region LIKE \"%" + "Chris" + "%\"" + " OR municipality LIKE \"%" + "Chris" + "%\"" + "  ;"); 
     }
 }

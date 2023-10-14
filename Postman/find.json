@@ -61,9 +61,9 @@
 						"id": "adf28015-ee04-4d4a-9438-71e5a5a45abd",
 						"exec": [
 							"\r",
-							"pm.test(\"Found 35 Texas entries\", () => {\r",
+							"pm.test(\"Found 40 Texas entries\", () => {\r",
 							"    const response = pm.response.json();\r",
-							"    pm.expect(response.found).to.eql(35);\r",
+							"    pm.expect(response.found).to.eql(40);\r",
 							"});"
 						],
 						"type": "text/javascript"
