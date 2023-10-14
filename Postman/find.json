@@ -51,6 +51,53 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "tamo-PostmanBasic",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "adf28015-ee04-4d4a-9438-71e5a5a45abd",
+						"exec": [
+							"\r",
+							"pm.test(\"Found 35 Texas entries\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.found).to.eql(35);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "bc020cf2-3eeb-47b9-a52e-3f1573bdbd7e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"Texas\",\r\n    \"limit\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
