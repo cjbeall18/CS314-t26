@@ -245,6 +245,21 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "ejpitera-test-melbourne",
+			"id": "0a9f1cb9-c90d-4920-85fc-30632477ebb7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
 		}
 	]
 }
