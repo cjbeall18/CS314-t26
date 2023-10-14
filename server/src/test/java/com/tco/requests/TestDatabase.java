@@ -21,4 +21,14 @@ public class TestDatabase {
             System.err.println("Caught Error from Database: " + e);
         }
     }
+
+    @Test
+    @DisplayName("tamo: empty string")
+    public void testEmptyString() {
+        try {
+            assertEquals(50427, db.found(""));
+        } catch (Exception e) {
+            System.err.println("Caught Error from Database: " + e);
+        }
+    }
 }
