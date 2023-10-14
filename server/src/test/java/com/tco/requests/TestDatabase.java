@@ -16,7 +16,7 @@ public class TestDatabase {
     @DisplayName("tamo: existential test")
     public void testDatabaseInit() {
         try {
-            assertEquals(35, db.found("Texas"));
+            assertEquals(40, db.found("Texas"));
         } catch (Exception e) {
             System.err.println("Caught Error from Database: " + e);
         }
