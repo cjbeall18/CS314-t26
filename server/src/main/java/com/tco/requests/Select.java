@@ -17,7 +17,10 @@ public class Select {
         return "SELECT "
             + data
             + " FROM " + TABLE
-            + " WHERE name LIKE \"%" + match + "%\" "
+            + " WHERE "
+            + "name LIKE \"%" + match + "%\" "
+            + "OR iso_region LIKE \"%" + match + "%\" "
+            + "OR municipality LIKE \"%" + match + "%\" "
             + limit
             + " ;";
     }
