@@ -98,6 +98,54 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "cjbeall-test-limit-0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "875a776d-58ee-4b85-b03d-74072f899d37",
+						"exec": [
+							"\r",
+							"pm.test(\"Match is Chris, but limit is 0. Expect places to be empty\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.placesList.length).to.eql(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "075461bf-172f-4534-b618-05705f77b092",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"Chris\",\r\n    \"limit\": 0\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
