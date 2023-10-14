@@ -17,4 +17,12 @@ public class TestFindRequest {
         String type = findObject.getRequestType();
         assertEquals("find", type);
     }
+
+    @Test
+    @DisplayName("tamo: test FindRequest buildQuery")
+    public void testBuildQuery() {
+        findObject = new FindRequest("Texas", 10);
+        findObject.buildResponse();
+        assertEquals(10, findObject.getPlacesListSize());
+    }
 }

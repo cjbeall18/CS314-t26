@@ -2,6 +2,7 @@ package com.tco.requests;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.tco.requests.Database;
 
 public class FindRequest extends Request {
     private static final transient Logger log = LoggerFactory.getLogger(FindRequest.class);
@@ -13,25 +14,30 @@ public class FindRequest extends Request {
     private Integer limit;
     private Integer found;
 
-
-    @Override
-    public void buildResponse() {
-        placesList = buildPlacesList();
-        log.trace("buildResponse -> {}", this);
-    }
-    private Places buildPlacesList() {
-        Places placesList = new Places();
-
-        //function buildPlacesList is incomplete. Complete by matching variable "match"
-        // to results found in database
-        found = (Integer)placesList.size();
-        return placesList;
-    }
-
     public FindRequest (String match, Integer limit) {
         super();
         this.requestType = "find";
         this.match = match;
         this.limit = limit;
     }
+
+    @Override
+    public void buildResponse() {
+        // placesList = buildPlacesList();
+        buildQuery();
+        log.trace("buildResponse -> {}", this);
+    }
+
+    private void buildQuery() {
+        Database db = new Database();
+
+        try {
+            this.placesList = db.places(this.match, this.limit);
+            this.found = db.found(this.match);
+        } catch (Exception e) {
+            System.err.println("Caught Error from Database: " + e);
+        }
+    }
+
+    public Integer getPlacesListSize() { return this.placesList.size(); }
 }
