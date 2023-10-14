@@ -146,6 +146,105 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "clayroby-test-limit-10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65348a55-43ff-44b9-b8d0-1abedd3b5620",
+						"exec": [
+							"pm.test(\"clayroby: Limit is 10. Places length should return 10\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response.placesList.length).to.eql(10);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "ff72bdc3-ee5a-46d6-995f-9e9b2c9a15e3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"denver\",\n    \"limit\": 10\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clayroby-test-moscow-municpality",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "36107534-ef4a-4e22-9614-3d66d10c7329",
+						"exec": [
+							"pm.test(\"clayroby: Match is Moscow. Expect Moscow in municipality\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response.placesList[0].municipality).to.eql(\"Moscow\");",
+							"});",
+							"",
+							"pm.test(\"clayroby: Found in Moscow. Expected 44\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response.found).to.eql(44);",
+							"});",
+							"",
+							"pm.test(\"clayroby: Limit in Moscow query. Expected 1\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response.limit).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"clayroby: Size of placesList in Moscow. Expected 1\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response.placesList.length).to.eql(1);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "f392deff-8ef6-4b28-8156-68bdc6a408ca",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"Moscow\",\n    \"limit\": 1\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
