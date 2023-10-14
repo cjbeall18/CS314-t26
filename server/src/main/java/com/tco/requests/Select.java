@@ -21,7 +21,9 @@ public class Select {
             + "name LIKE \"%" + match + "%\" "
             + "OR iso_region LIKE \"%" + match + "%\" "
             + "OR municipality LIKE \"%" + match + "%\" "
-            + limit
+            + "OR iso_country LIKE \"%" + match + "%\" "
+            + "OR id LIKE \"%" + match + "%\" "
+            + "ORDER BY name " + limit
             + " ;";
     }
 }
