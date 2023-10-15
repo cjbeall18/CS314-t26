@@ -18,7 +18,11 @@ public class FindRequest extends Request {
         super();
         this.requestType = "find";
         this.match = match;
-        this.limit = limit;
+        if(limit <= 0) {
+            this.limit = 100;
+        } else {
+            this.limit = limit;
+        }
     }
 
     @Override
