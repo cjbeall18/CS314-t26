@@ -43,9 +43,9 @@ public class TestConfigRequest {
         assertTrue(conf.validFeature("distances"));
     }
 
-    // @Test
-    // @DisplayName("clayroby: Features includes \"find\"")
-    // public void testFindFeatures(){
-    //     assertTrue(conf.validFeature("find"));
-    // }
+    @Test
+    @DisplayName("clayroby: Features includes \"find\"")
+    public void testFindFeatures(){
+        assertTrue(conf.validFeature("find"));
+    }
 }

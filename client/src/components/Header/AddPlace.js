@@ -14,6 +14,8 @@ import { FaHome } from 'react-icons/fa';
 import Coordinates from 'coordinate-parser';
 import { DEFAULT_STARTING_POSITION } from '../../utils/constants';
 import { reverseGeocode } from '../../utils/reverseGeocode';
+import { Place } from '../../models/place.model';
+import { getOriginalServerUrl, sendAPIRequest } from '../../utils/restfulAPI';
 
 export default function AddPlace(props) {
 	const [foundPlace, setFoundPlace] = useState();
@@ -99,14 +101,31 @@ function AddPlaceFooter(props) {
 
 async function verifyCoordinates(coordString, setFoundPlace) {
 	try {
-		const latLngPlace = new Coordinates(coordString);
-		const lat = latLngPlace.getLatitude();
-		const lng = latLngPlace.getLongitude();
 		if (isCoordinateText(coordString)) {
-			const fullPlace = await reverseGeocode({ lat, lng });
-			setFoundPlace(fullPlace);
-		} else if (coordString > 2) {
-			// Implementation for non-Coordinate search query
+			const latLngPlace = new Coordinates(coordString);
+			const lat = latLngPlace.getLatitude();
+			const lng = latLngPlace.getLongitude();
+			if (isLatLngValid(lat,lng)) {
+				const fullPlace = await reverseGeocode({ lat, lng });
+				setFoundPlace(fullPlace);
+			}
+		} else if (coordString.length > 2) {
+			const serverUrl = getOriginalServerUrl();
+			let limit = 0;
+			if(limit <= 0) {
+				limit = 100;
+			}
+			const requestBody = {
+				"requestType": "find",
+				"match": coordString,
+				"limit": limit
+			};
+
+			const response = await sendAPIRequest(requestBody, serverUrl);
+			for (let i = 0; i < response.places.length; i++) {
+				const place = new Place(response.places[i]);
+				setFoundPlace(place);
+			}
 		}
 	} catch (error) {
 		setFoundPlace(undefined);
