@@ -7,7 +7,7 @@ import com.tco.requests.Database;
 public class FindRequest extends Request {
     private static final transient Logger log = LoggerFactory.getLogger(FindRequest.class);
 
-    private Places placesList;
+    private Places places;
     private String match;
     private String [] type;
     private String [] where;
