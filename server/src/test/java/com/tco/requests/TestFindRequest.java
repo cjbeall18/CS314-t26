@@ -31,6 +31,6 @@ public class TestFindRequest {
     public void testDefaultLimit() {
         findObject = new FindRequest("C", 0);
         findObject.buildResponse();
-        assertEquals(100, findObject.getPlacesListSize());
+        assertEquals(100, findObject.getPlacesSize());
     }
 }
