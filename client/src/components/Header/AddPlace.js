@@ -14,6 +14,8 @@ import { FaHome } from 'react-icons/fa';
 import Coordinates from 'coordinate-parser';
 import { DEFAULT_STARTING_POSITION } from '../../utils/constants';
 import { reverseGeocode } from '../../utils/reverseGeocode';
+import { Place } from '../../models/place.model';
+import { getOriginalServerUrl, sendAPIRequest } from '../../utils/restfulAPI';
 
 export default function AddPlace(props) {
 	const [foundPlace, setFoundPlace] = useState();
@@ -99,12 +101,14 @@ function AddPlaceFooter(props) {
 
 async function verifyCoordinates(coordString, setFoundPlace) {
 	try {
-		const latLngPlace = new Coordinates(coordString);
-		const lat = latLngPlace.getLatitude();
-		const lng = latLngPlace.getLongitude();
 		if (isCoordinateText(coordString)) {
-			const fullPlace = await reverseGeocode({ lat, lng });
-			setFoundPlace(fullPlace);
+			const latLngPlace = new Coordinates(coordString);
+			const lat = latLngPlace.getLatitude();
+			const lng = latLngPlace.getLongitude();
+			if (isLatLngValid(lat,lng)) {
+				const fullPlace = await reverseGeocode({ lat, lng });
+				setFoundPlace(fullPlace);
+			}
 		} else if (coordString.length > 2) {
 			const serverUrl = getOriginalServerUrl();
 			let limit = 0;
