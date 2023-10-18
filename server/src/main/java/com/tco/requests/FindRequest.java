@@ -27,7 +27,6 @@ public class FindRequest extends Request {
 
     @Override
     public void buildResponse() {
-        // placesList = buildPlacesList();
         buildQuery();
         log.trace("buildResponse -> {}", this);
     }
@@ -36,12 +35,12 @@ public class FindRequest extends Request {
         Database db = new Database();
 
         try {
-            this.placesList = db.places(this.match, this.limit);
+            this.places = db.places(this.match, this.limit);
             this.found = db.found(this.match);
         } catch (Exception e) {
             System.err.println("Caught Error from Database: " + e);
         }
     }
 
-    public Integer getPlacesListSize() { return this.placesList.size(); }
+    public Integer getPlacesSize() { return this.places.size(); }
 }
