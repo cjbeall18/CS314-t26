@@ -14,9 +14,19 @@ class Credential {
 	final static String PASSWORD = "eiK5liet1uej";
 	// connection information when using port forwarding from localhost
 	
+    // method to get the 'CS314_USE_DATABASE_TUNNEL' environment variable
+    protected static String useTunnelEnv() {
+        return System.getenv("CS314_USE_DATABASE_TUNNEL");
+    }
+    
+    // method to get the 'CS314_DOCKER' environment variable
+    protected static String onDockerEnv() {
+        return System.getenv("CS314_DOCKER");
+    }
+
 	static protected String url() {
-        String useTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
-        String onDocker = System.getenv("CS314_DOCKER");
+        String useTunnel = useTunnelEnv();
+        String onDocker = onDockerEnv();
         String URL = "";
 
         if(useTunnel != null && useTunnel.equals("true")) {
