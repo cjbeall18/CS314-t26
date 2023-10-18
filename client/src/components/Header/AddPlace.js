@@ -114,3 +114,7 @@ async function verifyCoordinates(coordString, setFoundPlace) {
 function isLatLngValid(lat,lng) {
 	return (lat !== undefined && lng !== undefined);
 }
+
+function isCoordinateText(inputString) {
+    return /^-*[0-9]*.[0-9]*,* *-*[0-9]*.[0-9]*$/.test(inputString);
+}
