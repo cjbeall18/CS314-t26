@@ -105,8 +105,23 @@ async function verifyCoordinates(coordString, setFoundPlace) {
 		if (isCoordinateText(coordString)) {
 			const fullPlace = await reverseGeocode({ lat, lng });
 			setFoundPlace(fullPlace);
-		} else if (coordString > 2) {
-			// Implementation for non-Coordinate search query
+		} else if (coordString.length > 2) {
+			const serverUrl = getOriginalServerUrl();
+			let limit = 0;
+			if(limit <= 0) {
+				limit = 100;
+			}
+			const requestBody = {
+				"requestType": "find",
+				"match": coordString,
+				"limit": limit
+			};
+
+			const response = await sendAPIRequest(requestBody, serverUrl);
+			for (let i = 0; i < response.places.length; i++) {
+				const place = new Place(response.places[i]);
+				setFoundPlace(place);
+			}
 		}
 	} catch (error) {
 		setFoundPlace(undefined);
