@@ -1,20 +1,23 @@
 import Ajv from 'ajv';
 import * as configSchema from '../../schemas/ConfigResponse';
 import * as distancesSchema from '../../schemas/DistancesResponse';
+import * as findSchema from '../../schemas/FindResponse';
 import { LOG } from './constants';
 
 const SCHEMAS = {
     config: configSchema,
     distances: distancesSchema,
+    find: findSchema,
 }
 
 export async function sendAPIRequest(requestBody, serverUrl) {
     const response = await sendRequest(requestBody, serverUrl);
-
+    
     if (isRequestNotSupported(requestBody)) {
         throw new Error(`sendAPIRequest() does not have support for type: ${requestBody.requestType}. Please add the schema to 'SCHEMAS'.`);
     }
     if (isJsonResponseValid(response, SCHEMAS[requestBody.requestType])) {
+        console.log("valid schema!")
         return response;
     }
     LOG.error(`Server ${requestBody.requestType} response json is invalid. Check the Server.`);
@@ -34,6 +37,7 @@ async function sendRequest(requestBody, serverUrl) {
     try {
         const response = await fetch(`${serverUrl}/api/${requestBody.requestType}`, fetchOptions);
         if (response.ok) {
+            console.log("restful response: ", response);
             return response.json();
         } else {
             LOG.error(`Request to server ${serverUrl} failed: ${response.status}: ${response.statusText}`);

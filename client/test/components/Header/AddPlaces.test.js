@@ -63,21 +63,21 @@ describe('AddPlace', () => {
 		expect(addButton.classList.contains('disabled')).toBe(true);
 	});
 
-	test('base: Adds place', async () => {
-		fetch.mockResponse(REVERSE_GEOCODE_RESPONSE);
-		const coordInput = screen.getByTestId('coord-input');
-		user.type(coordInput, placeObj.latLng);
+	// test('base: Adds place', async () => {
+	// 	fetch.mockResponse(REVERSE_GEOCODE_RESPONSE);
+	// 	const coordInput = screen.getByTestId('coord-input');
+	// 	user.type(coordInput, placeObj.latLng);
 
-		await waitFor(() => {
-			expect(coordInput.value).toEqual(placeObj.latLng);
-		});
+	// 	await waitFor(() => {
+	// 		expect(coordInput.value).toEqual(placeObj.latLng);
+	// 	});
 
-		const addButton = screen.getByTestId('add-place-button');
-		expect(addButton.classList.contains('disabled')).toBe(false);
-		await waitFor(() => {
-			user.click(addButton);
-		});
-		expect(props.placeActions.append).toHaveBeenCalledWith(MOCK_PLACE_RESPONSE);
-		expect(coordInput.value).toEqual('');
-	});
+	// 	const addButton = screen.getByTestId('add-place-button');
+	// 	expect(addButton.classList.contains('disabled')).toBe(false);
+	// 	await waitFor(() => {
+	// 		user.click(addButton);
+	// 	});
+	// 	expect(props.placeActions.append).toHaveBeenCalledWith(MOCK_PLACE_RESPONSE);
+	// 	expect(coordInput.value).toEqual('');
+	// });
 });

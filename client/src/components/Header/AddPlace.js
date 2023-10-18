@@ -14,6 +14,9 @@ import { FaHome } from 'react-icons/fa';
 import Coordinates from 'coordinate-parser';
 import { DEFAULT_STARTING_POSITION } from '../../utils/constants';
 import { reverseGeocode } from '../../utils/reverseGeocode';
+import { getOriginalServerUrl, sendAPIRequest } from '../../utils/restfulAPI';
+import { element } from 'prop-types';
+import { Place } from '../../models/place.model';
 
 export default function AddPlace(props) {
 	const [foundPlace, setFoundPlace] = useState();
@@ -99,18 +102,50 @@ function AddPlaceFooter(props) {
 
 async function verifyCoordinates(coordString, setFoundPlace) {
 	try {
-		const latLngPlace = new Coordinates(coordString);
-		const lat = latLngPlace.getLatitude();
-		const lng = latLngPlace.getLongitude();
-		if (isLatLngValid(lat,lng)) {
-			const fullPlace = await reverseGeocode({ lat, lng });
-			setFoundPlace(fullPlace);
+		if (isCoordinateText(coordString)) {
+			const latLngPlace = new Coordinates(coordString);
+			const lat = latLngPlace.getLatitude();
+			const lng = latLngPlace.getLongitude();
+			if (isLatLngValid(lat,lng)) {
+				const fullPlace = await reverseGeocode({ lat, lng });
+				console.log("fullPlace: ", fullPlace);
+				setFoundPlace(fullPlace);
+			}
+		} else if (coordString.length > 2) {
+			console.log("inside else");
+			const serverUrl = getOriginalServerUrl();
+			let limit = 0;
+			if(limit <= 0) {
+				limit = 100;
+			}
+			const requestBody = {
+				"requestType": "find",
+				"match": coordString,
+				"limit": limit
+			};
+
+			const response = await sendAPIRequest(requestBody, serverUrl);
+			console.log("returned response: ", response);
+			// let places = [];
+			for (let i = 0; i < response.places.length; i++) {
+				console.log("entry: ", response.places[i])
+				const place = new Place(response.places[i]);
+				setFoundPlace(place);
+				// places.push(place);
+			}
+			// response.places.foreach((element) => console.log(element));
 		}
 	} catch (error) {
+		console.log("catch");
+		console.log(error);
 		setFoundPlace(undefined);
 	}
 }
 
 function isLatLngValid(lat,lng) {
 	return (lat !== undefined && lng !== undefined);
+}
+
+function isCoordinateText(inputString) {
+    return /^-*[0-9]*.[0-9]*,* *-*[0-9]*.[0-9]*$/.test(inputString);
 }
