@@ -102,9 +102,11 @@ async function verifyCoordinates(coordString, setFoundPlace) {
 		const latLngPlace = new Coordinates(coordString);
 		const lat = latLngPlace.getLatitude();
 		const lng = latLngPlace.getLongitude();
-		if (isLatLngValid(lat,lng)) {
+		if (isCoordinateText(coordString)) {
 			const fullPlace = await reverseGeocode({ lat, lng });
 			setFoundPlace(fullPlace);
+		} else if (coordString > 2) {
+			// Implementation for non-Coordinate search query
 		}
 	} catch (error) {
 		setFoundPlace(undefined);
