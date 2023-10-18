@@ -23,6 +23,6 @@ public class TestFindRequest {
     public void testBuildQuery() {
         findObject = new FindRequest("Texas", 10);
         findObject.buildResponse();
-        assertEquals(10, findObject.getPlacesListSize());
+        assertEquals(10, findObject.getPlacesSize());
     }
 }
