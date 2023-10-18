@@ -110,7 +110,7 @@
 							"\r",
 							"pm.test(\"Match is Chris, but limit is 0. Expect places to be empty\", () => {\r",
 							"    const response = pm.response.json();\r",
-							"    pm.expect(response.placesList.length).to.eql(0);\r",
+							"    pm.expect(response.places.length).to.eql(0);\r",
 							"});\r",
 							""
 						],
@@ -155,9 +155,9 @@
 					"script": {
 						"id": "65348a55-43ff-44b9-b8d0-1abedd3b5620",
 						"exec": [
-							"pm.test(\"clayroby: Limit is 10. Places length should return 10\", () => {",
+							"pm.test(\"clayroby: Limit is 10. places length should return 10\", () => {",
 							"    const response = pm.response.json();",
-							"    pm.expect(response.placesList.length).to.eql(10);",
+							"    pm.expect(response.places.length).to.eql(10);",
 							"});",
 							""
 						],
@@ -199,7 +199,7 @@
 						"exec": [
 							"pm.test(\"clayroby: Match is Moscow. Expect Moscow in municipality\", () => {",
 							"    const response = pm.response.json();",
-							"    pm.expect(response.placesList[0].municipality).to.eql(\"Moscow\");",
+							"    pm.expect(response.places[0].municipality).to.eql(\"Moscow\");",
 							"});",
 							"",
 							"pm.test(\"clayroby: Found in Moscow. Expected 44\", () => {",
@@ -212,9 +212,9 @@
 							"    pm.expect(response.limit).to.eql(1);",
 							"});",
 							"",
-							"pm.test(\"clayroby: Size of placesList in Moscow. Expected 1\", () => {",
+							"pm.test(\"clayroby: Size of places in Moscow. Expected 1\", () => {",
 							"    const response = pm.response.json();",
-							"    pm.expect(response.placesList.length).to.eql(1);",
+							"    pm.expect(response.places.length).to.eql(1);",
 							"});",
 							""
 						],
