@@ -63,4 +63,13 @@ public class TestDatabase {
             System.err.println("Caught Error from Database: " + e);
         }
     }
+    @Test
+    @DisplayName("cjbeall: Austin Test Case")
+    public void testAustin() {
+        try {
+            assertEquals(41, db.found("Austin"));
+        } catch (Exception e) {
+            System.err.println("Caught Error from Database: " + e);
+        }
+    }
 }
