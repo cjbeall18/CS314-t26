@@ -41,4 +41,12 @@ public class TestFindRequest {
         findObject.buildResponse();
         assertEquals(100, findObject.getPlacesSize());
     }
+
+    @Test
+    @DisplayName("evanloy: response with no string")
+    public void testNoString() {
+        findObject = new FindRequest("", 1);
+        findObject.buildResponse();
+        assertEquals(1, findObject.getPlacesSize());
+    }
 }
