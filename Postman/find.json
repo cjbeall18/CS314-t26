@@ -297,6 +297,62 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "ejpitera-test-melbourne",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3150ea44-f4bc-45fd-a724-bb35b70a0749",
+						"exec": [
+							"pm.test(\"ejpitera: check that municipality is melbourne\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.places[0].municipality).to.eql(\"Melbourne\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ejpitera: check that limit is 15\", () => {\r",
+							"    const repsonse = pm.response.json();\r",
+							"    pm.expect(response.limit).to.eql(15);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ejpitera: check that size of places list is 15\", () => {\r",
+							"    const repsonse = pm.response.json();\r",
+							"    pm.expect(response.places.length).to.eql(15);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "3704a76c-d3b6-45e2-a738-852e00132752",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"melbourne\",\r\n    \"limit\": 15\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
