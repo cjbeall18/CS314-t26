@@ -52,4 +52,15 @@ public class TestDatabase {
             System.err.println("Caught Error from Database: " + e);
         }
     }
+
+    @Test
+    @DisplayName("ejpitera: test colorado")
+    public void testColorado() {
+        try {
+            Places result = db.places("Colorado", 40);
+            assertEquals(40, result.size());
+        } catch (Exception e) {
+            System.err.println("Caught Error from Database: " + e);
+        }
+    }
 }
