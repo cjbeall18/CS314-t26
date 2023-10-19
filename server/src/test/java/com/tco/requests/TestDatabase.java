@@ -31,4 +31,14 @@ public class TestDatabase {
             System.err.println("Caught Error from Database: " + e);
         }
     }
+
+    @Test
+    @DisplayName("clayroby: ryp match")
+    public void testRYPString() {
+        try {
+            assertEquals(4, db.found("ryp"));
+        } catch (Exception e) {
+            System.err.println("Caught Error from Database: " + e);
+        }
+    }
 }
