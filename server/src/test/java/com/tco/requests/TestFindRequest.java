@@ -27,6 +27,14 @@ public class TestFindRequest {
     }
 
     @Test
+    @DisplayName("clayroby: testing FindRequest Ryp")
+    public void testRYPQuery() {
+        findObject = new FindRequest("ryp", 0);
+        findObject.buildResponse();
+        assertEquals(4, findObject.getPlacesSize());
+    }
+
+    @Test
     @DisplayName("ejpitera: testing default limit")
     public void testDefaultLimit() {
         findObject = new FindRequest("C", 0);
