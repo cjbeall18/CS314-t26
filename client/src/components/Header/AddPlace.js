@@ -9,6 +9,7 @@ import {
 	InputGroup,
 	Collapse,
 	ModalFooter,
+	Label
 } from 'reactstrap';
 import { FaHome } from 'react-icons/fa';
 import Coordinates from 'coordinate-parser';
@@ -67,6 +68,7 @@ function PlaceSearch(props) {
 	return (
 		<ModalBody>
 			<Col>
+				<Label for="searchInput">Search:</Label>
 				<InputGroup>
 					<Input
 						onChange={(input) => props.setCoordString(input.target.value)}
@@ -78,6 +80,7 @@ function PlaceSearch(props) {
 						<FaHome/>
 					</Button>
 				</InputGroup>
+				<Label for="limitInput" className="mt-2">Limit:</Label>
 				<Input
 				id = "limitInput"
 				type = "number"
@@ -91,6 +94,7 @@ function PlaceSearch(props) {
 				}}
 				placeholder = "Enter limit for search results"
 				/>
+				<Label className="mt-2">Select a place:</Label>
 				<Select
 					options={placeOptions}
 					onChange={(selectedOption) => {
