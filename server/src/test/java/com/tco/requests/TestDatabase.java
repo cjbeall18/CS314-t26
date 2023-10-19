@@ -41,4 +41,15 @@ public class TestDatabase {
             System.err.println("Caught Error from Database: " + e);
         }
     }
+
+    @Test
+    @DisplayName("evanloy: retrieve places based on match")
+    public void testRetrievePlaces() {
+        try {
+            Places result = db.places("Texas", 5);
+            assertEquals(5, result.size());
+        } catch (Exception e) {
+            System.err.println("Caught Error from Database: " + e);
+        }
+    }
 }
