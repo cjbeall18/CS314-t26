@@ -88,7 +88,9 @@ public class TestMicroServer {
     @DisplayName("cjbeall: Valid find request succeeds with 200 status")
     public void testValidFindRequest() throws IOException {
         String requestBodyJSON = new JSONObject()
-            .put("requestType", "find", "match", "denver", "limit", 1)
+            .put("requestType", "find")
+            .put("match", "denver")
+            .put("limit", 1)
             .toString();
         HttpResponse response = postRequest("/api/find", requestBodyJSON);
         assertEquals(200, response.getStatusLine().getStatusCode());
