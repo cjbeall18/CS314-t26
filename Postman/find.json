@@ -248,6 +248,32 @@
 		},
 		{
 			"name": "evanloy-test-keys",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "901e8172-9646-48ff-8e0c-daf14a8a13a9",
+						"exec": [
+							"pm.test(\"evanloy: Match is Fresno. Expect Fresno in second index municipality\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response.places[1].municipality).to.eql(\"Fresno\");",
+							"});",
+							"",
+							"pm.test(\"evanloy: Limit in Fresno query. Expected 200\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response.limit).to.eql(200);",
+							"});",
+							"",
+							"pm.test(\"evanloy: Check if all expected keys are present in the response\", () => {",
+							"    const response = pm.response.json();",
+							"    pm.expect(response).to.have.keys('places', 'found', 'limit', 'match', 'requestType');",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"id": "6e6c0767-86b8-4e6d-8552-3058be074397",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
