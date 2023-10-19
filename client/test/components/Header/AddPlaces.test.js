@@ -7,6 +7,7 @@ import { DEFAULT_STARTING_POSITION } from '../../../src/utils/constants';
 import {
 	REVERSE_GEOCODE_RESPONSE,
 	MOCK_PLACE_RESPONSE,
+	MOCK_PLACES,
 } from '../../sharedMocks';
 
 describe('AddPlace', () => {
@@ -79,5 +80,32 @@ describe('AddPlace', () => {
 		});
 		expect(props.placeActions.append).toHaveBeenCalledWith(MOCK_PLACE_RESPONSE);
 		expect(coordInput.value).toEqual('');
+	});
+	
+	test('evanloy: Limit Input correctly updates the value', async () => {
+    	const limitInput = screen.getByTestId('limit-input');  // Assume you have added the 'data-testid' to the limit input
+    	user.type(limitInput, '5');
+
+    	await waitFor(() => {
+        	expect(limitInput.value).toEqual('5');
+    	});
+	});
+
+	test('evanloy: Limit Input does not accept non-positive numbers', async () => {
+    	const limitInput = screen.getByTestId('limit-input');
+    	user.type(limitInput, '-5');
+
+    	await waitFor(() => {
+        	expect(limitInput.value).not.toEqual('-5');
+    	});
+	});
+
+	test('evanloy: Empty Limit Input resets the value', async () => {
+    	const limitInput = screen.getByTestId('limit-input');
+    	user.clear(limitInput);
+
+    	await waitFor(() => {
+        	expect(limitInput.value).toEqual('');
+    	});
 	});
 });
