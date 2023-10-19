@@ -84,6 +84,7 @@ function PlaceSearch(props) {
 				<Input
 				id = "limitInput"
 				type = "number"
+				data-testid='limit-input'
 				value = {props.limit || ''}
 				onChange={(e) => {
 					const inputValue = e.target.value;
