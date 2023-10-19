@@ -12,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
+import com.tco.requests.Places;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -82,6 +84,19 @@ public class TestMicroServer {
         String invalidRequestJSON = "{ }";
         HttpResponse response = postRequest("/api/invalid", invalidRequestJSON);
         assertEquals(404, response.getStatusLine().getStatusCode());
+    }
+
+    @Test
+    @DisplayName("clayroby: Valid distances request succeeds with 200 status")
+    public void testValidDistancesRequest() throws IOException {
+        Places empty_places = new Places();
+        String requestBodyJSON = new JSONObject()
+            .put("requestType", "distances")
+            .put("places", empty_places)
+            .put("earthRadius", 1)
+            .toString();
+        HttpResponse response = postRequest("/api/distances", requestBodyJSON);
+        assertEquals(200, response.getStatusLine().getStatusCode());
     }
 
     @Test
