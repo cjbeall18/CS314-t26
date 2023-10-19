@@ -16,14 +16,18 @@ import { DEFAULT_STARTING_POSITION } from '../../utils/constants';
 import { reverseGeocode } from '../../utils/reverseGeocode';
 import { Place } from '../../models/place.model';
 import { getOriginalServerUrl, sendAPIRequest } from '../../utils/restfulAPI';
+import Select from "react-select";
 
 export default function AddPlace(props) {
-	const [foundPlace, setFoundPlace] = useState();
+	const [foundPlaces, setFoundPlaces] = useState([]);
+	const [selectedPlace, setSelectedPlace] = useState(null); 
 
 	const [coordString, setCoordString] = useState('');
 	const addPlaceProps = {
-		foundPlace,
-		setFoundPlace,
+		foundPlaces,
+		setFoundPlaces,
+		selectedPlace,
+		setSelectedPlace,
 		coordString,
 		setCoordString,
 		append: props.placeActions.append
@@ -49,8 +53,13 @@ function AddPlaceHeader(props) {
 
 function PlaceSearch(props) {
 	useEffect(() => {
-		verifyCoordinates(props.coordString, props.setFoundPlace);
+		verifyCoordinates(props.coordString, props.setFoundPlaces, props.setSelectedPlace);
 	}, [props.coordString]);
+    
+	const placeOptions = props.foundPlaces.map(place => ({
+        value: place,
+        label: place.formatPlace()
+    }));
 
 	return (
 		<ModalBody>
@@ -58,7 +67,7 @@ function PlaceSearch(props) {
 				<InputGroup>
 					<Input
 						onChange={(input) => props.setCoordString(input.target.value)}
-						placeholder='Enter Place Coordinates'
+						placeholder='Enter Place or Coordinates'
 						data-testid='coord-input'
 						value={props.coordString}
 					/>
@@ -66,7 +75,15 @@ function PlaceSearch(props) {
 						<FaHome/>
 					</Button>
 				</InputGroup>
-				<PlaceInfo foundPlace={props.foundPlace} />
+				<Select
+					options={placeOptions}
+					onChange={(selectedOption) => {
+						props.setSelectedPlace(selectedOption ? selectedOption.value : null);
+					}}
+					placeholder="Select a place..."
+					isClearable
+					isSearchable
+				/>
 			</Col>
 		</ModalBody>
 	);
@@ -87,11 +104,11 @@ function AddPlaceFooter(props) {
 			<Button
 				color='primary'
 				onClick={() => {
-					props.append(props.foundPlace);
+					props.append(props.selectedPlace);
 					props.setCoordString('');
 				}}
 				data-testid='add-place-button'
-				disabled={!props.foundPlace}
+				disabled={!props.selectedPlace}
 			>
 				Add Place
 			</Button>
@@ -99,7 +116,7 @@ function AddPlaceFooter(props) {
 	);
 }
 
-async function verifyCoordinates(coordString, setFoundPlace) {
+async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace) {
 	try {
 		if (isCoordinateText(coordString)) {
 			const latLngPlace = new Coordinates(coordString);
@@ -107,7 +124,8 @@ async function verifyCoordinates(coordString, setFoundPlace) {
 			const lng = latLngPlace.getLongitude();
 			if (isLatLngValid(lat,lng)) {
 				const fullPlace = await reverseGeocode({ lat, lng });
-				setFoundPlace(fullPlace);
+				setFoundPlaces([fullPlace]);
+				setSelectedPlace(fullPlace);
 			}
 		} else if (coordString.length > 2) {
 			const serverUrl = getOriginalServerUrl();
@@ -122,13 +140,13 @@ async function verifyCoordinates(coordString, setFoundPlace) {
 			};
 
 			const response = await sendAPIRequest(requestBody, serverUrl);
-			for (let i = 0; i < response.places.length; i++) {
-				const place = new Place(response.places[i]);
-				setFoundPlace(place);
-			}
+			const places = response.places.map(place => new Place(place));
+			setFoundPlaces(places);
+			setSelectedPlace(null);
 		}
 	} catch (error) {
-		setFoundPlace(undefined);
+		setFoundPlaces([]);
+		setSelectedPlace(null);
 	}
 }
 
