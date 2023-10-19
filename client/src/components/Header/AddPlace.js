@@ -21,8 +21,9 @@ import Select from "react-select";
 export default function AddPlace(props) {
 	const [foundPlaces, setFoundPlaces] = useState([]);
 	const [selectedPlace, setSelectedPlace] = useState(null); 
-
 	const [coordString, setCoordString] = useState('');
+	const [limit, setLimit] = useState(null);
+
 	const addPlaceProps = {
 		foundPlaces,
 		setFoundPlaces,
@@ -30,7 +31,9 @@ export default function AddPlace(props) {
 		setSelectedPlace,
 		coordString,
 		setCoordString,
-		append: props.placeActions.append
+		append: props.placeActions.append,
+		limit,
+		setLimit
 	}
 	return (
 		<Modal isOpen={props.showAddPlace} toggle={props.toggleAddPlace}>
@@ -53,8 +56,8 @@ function AddPlaceHeader(props) {
 
 function PlaceSearch(props) {
 	useEffect(() => {
-		verifyCoordinates(props.coordString, props.setFoundPlaces, props.setSelectedPlace);
-	}, [props.coordString]);
+		verifyCoordinates(props.coordString, props.setFoundPlaces, props.setSelectedPlace, props.limit);
+	}, [props.coordString, props.limit]);
     
 	const placeOptions = props.foundPlaces.map(place => ({
         value: place,
@@ -75,6 +78,19 @@ function PlaceSearch(props) {
 						<FaHome/>
 					</Button>
 				</InputGroup>
+				<Input
+				id = "limitInput"
+				type = "number"
+				value = {props.limit || ''}
+				onChange={(e) => {
+					const inputValue = e.target.value;
+					if (inputValue ==='' || (Number(inputValue) >= 1)) {
+						props.setLimit(inputValue === '' ? null : Number(inputValue));
+					}
+				
+				}}
+				placeholder = "Enter limit for search results"
+				/>
 				<Select
 					options={placeOptions}
 					onChange={(selectedOption) => {
@@ -116,7 +132,7 @@ function AddPlaceFooter(props) {
 	);
 }
 
-async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace) {
+async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, limit) {
 	try {
 		if (isCoordinateText(coordString)) {
 			const latLngPlace = new Coordinates(coordString);
@@ -129,14 +145,11 @@ async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace) 
 			}
 		} else if (coordString.length > 2) {
 			const serverUrl = getOriginalServerUrl();
-			let limit = 0;
-			if(limit <= 0) {
-				limit = 100;
-			}
+			const actualLimit = limit || 100;
 			const requestBody = {
 				"requestType": "find",
 				"match": coordString,
-				"limit": limit
+				"limit": actualLimit
 			};
 
 			const response = await sendAPIRequest(requestBody, serverUrl);
