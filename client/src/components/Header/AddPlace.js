@@ -148,7 +148,11 @@ async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, 
 				setFoundPlaces([fullPlace]);
 				setSelectedPlace(fullPlace);
 			}
-		} else if (coordString.length > 2) {
+		} else if (coordString.length > 2 || false) {
+			// If random flag is true. Update false in the above, and below IF statements
+			if (false) { 
+				coordString = "Random " + coordString;
+			}
 			const serverUrl = getOriginalServerUrl();
 			const actualLimit = limit || 100;
 			const requestBody = {
