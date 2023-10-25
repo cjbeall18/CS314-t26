@@ -14,6 +14,12 @@ public class Select {
     }
 
     static String statement(String match, String data, String limit) {
+        String order = "name";
+        if (match.contains(("Random").toUpperCase())) {
+            order = "rand()";
+            match = match.substring(6);
+        }
+
         return "SELECT "
             + data
             + " FROM " + TABLE
@@ -23,7 +29,7 @@ public class Select {
             + "OR municipality LIKE \"%" + match + "%\" "
             + "OR iso_country LIKE \"%" + match + "%\" "
             + "OR id LIKE \"%" + match + "%\" "
-            + "ORDER BY name " + limit
+            + "ORDER BY " + order + " " + limit
             + " ;";
     }
 }
