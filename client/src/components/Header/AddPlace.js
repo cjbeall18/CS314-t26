@@ -25,7 +25,7 @@ export default function AddPlace(props) {
 	const [selectedPlace, setSelectedPlace] = useState(null); 
 	const [coordString, setCoordString] = useState('');
 	const [limit, setLimit] = useState(null);
-	const [randomState, setRandomState] = useState(null);
+	const [randomState, setRandomState] = useState(false);
 
 	const addPlaceProps = {
 		foundPlaces,
@@ -69,17 +69,14 @@ function PlaceSearch(props) {
         label: place.formatPlace()
     }));
 
+	//props.setRandomState(false);
+
 	return (
 		<ModalBody>
 			<Col>
 				<Label for="randomInput">Random:</Label>
 				<InputGroup>
-					<Button
-					onClick={() => {
-						props.setCoordString("RANDOM");
-						props.setRandomState(true);
-					}}
-					>
+					<Button data-testid='random-button' onClick={() => props.setRandomState(true)}>
 					<BsFillDice1Fill/>
 				</Button> 
 				</InputGroup>
@@ -163,9 +160,9 @@ async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, 
 				setFoundPlaces([fullPlace]);
 				setSelectedPlace(fullPlace);
 			}
-		} else if (coordString.length > 2 || randomState === "RANDOM") {
+		} else if (coordString.length > 2 || randomState) {
 			// If random flag is true. Update false in the above, and below IF statements
-			if (randomState === "RANDOM") { 
+			if (randomState) { 
 				coordString = "Random " + coordString;
 			}
 			const serverUrl = getOriginalServerUrl();
