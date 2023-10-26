@@ -148,6 +148,10 @@ function AddPlaceFooter(props) {
 }
 
 async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, limit, randomState) {
+	if (coordString === "") {
+		randomState = true;
+	}
+
 	try {
 		if (isCoordinateText(coordString)) {
 			const latLngPlace = new Coordinates(coordString);
