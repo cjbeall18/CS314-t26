@@ -76,9 +76,13 @@ function PlaceSearch(props) {
 			<Col>
 				<Label for="randomInput">Random:</Label>
 				<InputGroup>
-					<Button data-testid='random-button' onClick={() => props.setRandomState(true)}>
+					<Button data-testid='random-button' 
+					onClick={() => {
+					//props.setCoordString("RANDOM"); 
+					props.setRandomState(true);
+					}}>
 					<BsFillDice1Fill/>
-				</Button> 
+					</Button> 
 				</InputGroup>
 				<Label for="searchInput">Search:</Label>
 				<InputGroup>
@@ -163,7 +167,7 @@ async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, 
 		} else if (coordString.length > 2 || randomState) {
 			// If random flag is true. Update false in the above, and below IF statements
 			if (randomState) { 
-				coordString = "Random " + coordString;
+				coordString = "RANDOM " + coordString;
 			}
 			const serverUrl = getOriginalServerUrl();
 			const actualLimit = limit || 100;
