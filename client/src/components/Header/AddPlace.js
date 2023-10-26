@@ -75,16 +75,6 @@ function PlaceSearch(props) {
 	return (
 		<ModalBody>
 			<Col>
-				<Label for="randomInput">Random:</Label>
-				<InputGroup>
-					<Button data-testid='random-button' 
-					onClick={() => {
-					//props.setCoordString("RANDOM"); 
-					props.setRandomState(true);
-					}}>
-					<BsFillDice1Fill/>
-					</Button> 
-				</InputGroup>
 				<Label for="searchInput">Search:</Label>
 				<InputGroup>
 					<Input
@@ -96,6 +86,9 @@ function PlaceSearch(props) {
 					<Button data-testid='home-button' onClick={() => props.append(DEFAULT_STARTING_POSITION)}>
 						<FaHome/>
 					</Button>
+					<Button data-testid='random-button' onClick={() => props.setRandomState(true)}>
+						<BsFillDice1Fill/>
+					</Button> 
 				</InputGroup>
 				<Label for="limitInput" className="mt-2">Limit:</Label>
 				<Input
