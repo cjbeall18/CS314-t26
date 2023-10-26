@@ -12,7 +12,7 @@ import {
 	Label
 } from 'reactstrap';
 import { FaHome } from 'react-icons/fa';
-import {BsFillDice1Fill} from 'react-icons/bs';
+import {BsFillDice6Fill} from 'react-icons/bs';
 import Coordinates from 'coordinate-parser';
 import { DEFAULT_STARTING_POSITION } from '../../utils/constants';
 import { reverseGeocode } from '../../utils/reverseGeocode';
@@ -87,7 +87,7 @@ function PlaceSearch(props) {
 						<FaHome/>
 					</Button>
 					<Button data-testid='random-button' onClick={() => props.setRandomState(true)}>
-						<BsFillDice1Fill/>
+						<BsFillDice6Fill/>
 					</Button> 
 				</InputGroup>
 				<Label for="limitInput" className="mt-2">Limit:</Label>
