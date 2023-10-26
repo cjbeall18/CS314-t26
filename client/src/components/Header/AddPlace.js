@@ -12,6 +12,7 @@ import {
 	Label
 } from 'reactstrap';
 import { FaHome } from 'react-icons/fa';
+import {BsFillDice6Fill} from 'react-icons/bs';
 import Coordinates from 'coordinate-parser';
 import { DEFAULT_STARTING_POSITION } from '../../utils/constants';
 import { reverseGeocode } from '../../utils/reverseGeocode';
@@ -24,6 +25,7 @@ export default function AddPlace(props) {
 	const [selectedPlace, setSelectedPlace] = useState(null); 
 	const [coordString, setCoordString] = useState('');
 	const [limit, setLimit] = useState(null);
+	const [randomState, setRandomState] = useState(false);
 
 	const addPlaceProps = {
 		foundPlaces,
@@ -34,7 +36,9 @@ export default function AddPlace(props) {
 		setCoordString,
 		append: props.placeActions.append,
 		limit,
-		setLimit
+		setLimit,
+		randomState,
+		setRandomState
 	}
 	return (
 		<Modal isOpen={props.showAddPlace} toggle={props.toggleAddPlace}>
@@ -56,14 +60,17 @@ function AddPlaceHeader(props) {
 }
 
 function PlaceSearch(props) {
+	
 	useEffect(() => {
-		verifyCoordinates(props.coordString, props.setFoundPlaces, props.setSelectedPlace, props.limit);
-	}, [props.coordString, props.limit]);
+		verifyCoordinates(props.coordString, props.setFoundPlaces, props.setSelectedPlace, props.limit, props.randomState);
+	}, [props.coordString, props.limit, props.randomState]);
     
 	const placeOptions = props.foundPlaces.map(place => ({
         value: place,
         label: place.formatPlace()
     }));
+
+	props.setRandomState(false);
 
 	return (
 		<ModalBody>
@@ -79,6 +86,9 @@ function PlaceSearch(props) {
 					<Button data-testid='home-button' onClick={() => props.append(DEFAULT_STARTING_POSITION)}>
 						<FaHome/>
 					</Button>
+					<Button data-testid='random-button' onClick={() => props.setRandomState(true)}>
+						<BsFillDice6Fill/>
+					</Button> 
 				</InputGroup>
 				<Label for="limitInput" className="mt-2">Limit:</Label>
 				<Input
@@ -137,7 +147,7 @@ function AddPlaceFooter(props) {
 	);
 }
 
-async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, limit) {
+async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, limit, randomState) {
 	try {
 		if (isCoordinateText(coordString)) {
 			const latLngPlace = new Coordinates(coordString);
@@ -148,10 +158,10 @@ async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, 
 				setFoundPlaces([fullPlace]);
 				setSelectedPlace(fullPlace);
 			}
-		} else if (coordString.length > 2 || false) {
+		} else if (coordString.length > 2 || randomState) {
 			// If random flag is true. Update false in the above, and below IF statements
-			if (false) { 
-				coordString = "Random " + coordString;
+			if (randomState) { 
+				coordString = "RANDOM " + coordString;
 			}
 			const serverUrl = getOriginalServerUrl();
 			const actualLimit = limit || 100;

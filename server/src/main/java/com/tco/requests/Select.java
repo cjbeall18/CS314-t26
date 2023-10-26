@@ -15,9 +15,11 @@ public class Select {
 
     static String statement(String match, String data, String limit) {
         String order = "name";
-        if (match.contains(("Random").toUpperCase())) {
+        if (match.contains(("Random").toUpperCase()) || match == "") {
             order = "rand()";
-            match = match.substring(6);
+            if (match != "") {
+                match = match.substring(6);
+            }
         }
 
         return "SELECT "
