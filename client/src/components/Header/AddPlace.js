@@ -60,6 +60,7 @@ function AddPlaceHeader(props) {
 }
 
 function PlaceSearch(props) {
+	
 	useEffect(() => {
 		verifyCoordinates(props.coordString, props.setFoundPlaces, props.setSelectedPlace, props.limit, props.randomState);
 	}, [props.coordString, props.limit, props.randomState]);
@@ -69,7 +70,7 @@ function PlaceSearch(props) {
         label: place.formatPlace()
     }));
 
-	//props.setRandomState(false);
+	props.setRandomState(false);
 
 	return (
 		<ModalBody>
