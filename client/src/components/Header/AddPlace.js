@@ -24,7 +24,6 @@ export default function AddPlace(props) {
 	const [foundPlaces, setFoundPlaces] = useState([]);
 	const [selectedPlace, setSelectedPlace] = useState(null); 
 	const [coordString, setCoordString] = useState('');
-	const [limit, setLimit] = useState(null);
 	const [randomState, setRandomState] = useState(false);
 
 	const addPlaceProps = {
@@ -35,8 +34,6 @@ export default function AddPlace(props) {
 		coordString,
 		setCoordString,
 		append: props.placeActions.append,
-		limit,
-		setLimit,
 		randomState,
 		setRandomState
 	}
@@ -62,8 +59,8 @@ function AddPlaceHeader(props) {
 function PlaceSearch(props) {
 	
 	useEffect(() => {
-		verifyCoordinates(props.coordString, props.setFoundPlaces, props.setSelectedPlace, props.limit, props.randomState);
-	}, [props.coordString, props.limit, props.randomState]);
+		verifyCoordinates(props.coordString, props.setFoundPlaces, props.setSelectedPlace, props.randomState);
+	}, [props.coordString, props.randomState]);
     
 	const placeOptions = props.foundPlaces.map(place => ({
         value: place,
@@ -90,21 +87,6 @@ function PlaceSearch(props) {
 						<BsFillDice6Fill/>
 					</Button> 
 				</InputGroup>
-				<Label for="limitInput" className="mt-2">Limit:</Label>
-				<Input
-				id = "limitInput"
-				type = "number"
-				data-testid='limit-input'
-				value = {props.limit || ''}
-				onChange={(e) => {
-					const inputValue = e.target.value;
-					if (inputValue ==='' || (Number(inputValue) >= 1)) {
-						props.setLimit(inputValue === '' ? null : Number(inputValue));
-					}
-				
-				}}
-				placeholder = "Enter limit for search results"
-				/>
 				<Label className="mt-2">Select a place:</Label>
 				<Select
 					options={placeOptions}
