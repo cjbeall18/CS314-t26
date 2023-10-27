@@ -165,7 +165,7 @@ async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, 
 }
 
 function isLatLngValid(lat,lng) {
-	return (lat !== undefined && lng !== undefined);
+	return ((lat !== undefined && lng !== undefined) && ((lat <=90 && lat >= -90) && (lng >= -180 && lng <= 180)));
 }
 
 function isCoordinateText(inputString) {
