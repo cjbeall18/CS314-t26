@@ -129,8 +129,9 @@ function AddPlaceFooter(props) {
 	);
 }
 
-async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, limit, randomState) {
+async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, randomState) {
 	try {
+		let limit = 20;
 		if (isCoordinateText(coordString)) {
 			const latLngPlace = new Coordinates(coordString);
 			const lat = latLngPlace.getLatitude();
@@ -144,13 +145,13 @@ async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, 
 			// If random flag is true. Update false in the above, and below IF statements
 			if (randomState) { 
 				coordString = "RANDOM " + coordString;
+				limit = 1;
 			}
 			const serverUrl = getOriginalServerUrl();
-			const actualLimit = limit || 100;
 			const requestBody = {
 				"requestType": "find",
 				"match": coordString,
-				"limit": actualLimit
+				"limit": limit
 			};
 
 			const response = await sendAPIRequest(requestBody, serverUrl);
