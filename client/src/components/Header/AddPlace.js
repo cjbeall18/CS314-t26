@@ -143,7 +143,6 @@ async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, 
 				setSelectedPlace(fullPlace);
 			}
 		} else if (coordString.length > 2 || randomState) {
-			// If random flag is true. Update false in the above, and below IF statements
 			if (randomState) { 
 				coordString = "RANDOM " + coordString;
 				limit = 1;
