@@ -81,4 +81,12 @@ describe('AddPlace', () => {
 		expect(props.placeActions.append).toHaveBeenCalledWith(MOCK_PLACE_RESPONSE);
 		expect(coordInput.value).toEqual('');
 	});
+	test('cjbeall: test that press of random button sets randomState to true', async () => {
+		const randomButton = screen.getByTestId('random-button');
+		await waitFor(() => {
+			user.click(randomButton);
+		});
+		const randomState = screen.getByTestId('random-state-element')
+		expect(randomState).toBeTruthy();
+	});
 });
