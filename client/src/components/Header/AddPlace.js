@@ -25,6 +25,7 @@ export default function AddPlace(props) {
 	const [selectedPlace, setSelectedPlace] = useState(null); 
 	const [coordString, setCoordString] = useState('');
 	const [randomState, setRandomState] = useState(false);
+	const serverSettings = props.serverSettings;
 
 	const addPlaceProps = {
 		foundPlaces,
@@ -35,7 +36,8 @@ export default function AddPlace(props) {
 		setCoordString,
 		append: props.placeActions.append,
 		randomState,
-		setRandomState
+		setRandomState,
+		serverSettings
 	}
 	return (
 		<Modal isOpen={props.showAddPlace} toggle={props.toggleAddPlace}>
@@ -60,7 +62,7 @@ function PlaceSearch(props) {
 	
 	useEffect(() => {
 		props.setRandomState(false);
-		verifyCoordinates(props.coordString, props.setFoundPlaces, props.setSelectedPlace, props.randomState);
+		verifyCoordinates(props.coordString, props.setFoundPlaces, props.setSelectedPlace, props.randomState, props.serverSettings);
 	}, [props.coordString, props.randomState]);
     
 	const placeOptions = props.foundPlaces.map(place => ({
@@ -128,7 +130,7 @@ function AddPlaceFooter(props) {
 	);
 }
 
-async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, randomState) {
+async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, randomState, serverSettings) {
 	try {
 		let limit = 20;
 		if (isCoordinateText(coordString)) {
@@ -146,14 +148,13 @@ async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, 
 				coordString = "RANDOM " + coordString;
 				limit = 1;
 			}
-			const serverUrl = getOriginalServerUrl();
 			const requestBody = {
 				"requestType": "find",
 				"match": coordString,
 				"limit": limit
 			};
 
-			const response = await sendAPIRequest(requestBody, serverUrl);
+			const response = await sendAPIRequest(requestBody, serverSettings.serverUrl);
 			const places = response.places.map(place => new Place(place));
 			setFoundPlaces(places);
 			setSelectedPlace(null);
