@@ -14,6 +14,6 @@ public class TourRequest extends Request {
     }
 
     public TourRequest () {
-        this.requestType = "Tour";
+        this.requestType = "tour";
     }
 }
