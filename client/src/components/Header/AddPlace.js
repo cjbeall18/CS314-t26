@@ -46,7 +46,7 @@ export default function AddPlace(props) {
 			<AddPlaceFooter
 				{...addPlaceProps}
 			/>
-			<div data-testid="random-state-element">{randomState.toString()}</div>
+			<div data-testid="random-state-element">{randomState}</div>
 		</Modal>
 	);
 }
