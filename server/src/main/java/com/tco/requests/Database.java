@@ -13,7 +13,7 @@ import com.tco.requests.Credential;
 
 public class Database {
 	
-	private final static String COLUMNS = "id,name,municipality,iso_region,iso_country,continent,latitude,longitude,altitude";
+	private final static String COLUMNS = "id,name,municipality,region,country,continent,latitude,longitude,altitude";
 	private static final transient Logger log = LoggerFactory.getLogger(Database.class);
 
 	Database() {}
@@ -45,6 +45,7 @@ public class Database {
 		String url      = Credential.url();
 		String user     = Credential.USER;
 		String password = Credential.PASSWORD;
+		// System.out.println("Query string: ");
 		try (
 			// connect to the database and query
 			Connection conn    = DriverManager.getConnection(url, user, password);
