@@ -61,9 +61,9 @@
 						"id": "adf28015-ee04-4d4a-9438-71e5a5a45abd",
 						"exec": [
 							"\r",
-							"pm.test(\"Found 40 Texas entries\", () => {\r",
+							"pm.test(\"Found 2150 Texas entries\", () => {\r",
 							"    const response = pm.response.json();\r",
-							"    pm.expect(response.found).to.eql(40);\r",
+							"    pm.expect(response.found).to.eql(2150);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -197,14 +197,14 @@
 					"script": {
 						"id": "36107534-ef4a-4e22-9614-3d66d10c7329",
 						"exec": [
-							"pm.test(\"clayroby: Match is Moscow. Expect Moscow in municipality\", () => {",
+							"pm.test(\"clayroby: Match is Moscow. Expect Moscow in name\", () => {",
 							"    const response = pm.response.json();",
-							"    pm.expect(response.places[0].municipality).to.eql(\"Moscow\");",
+							"    pm.expect(response.places[0].name).to.include(\"Moscow\");",
 							"});",
 							"",
-							"pm.test(\"clayroby: Found in Moscow. Expected 44\", () => {",
+							"pm.test(\"clayroby: Found in Moscow. Expected 102\", () => {",
 							"    const response = pm.response.json();",
-							"    pm.expect(response.found).to.eql(44);",
+							"    pm.expect(response.found).to.eql(102);",
 							"});",
 							"",
 							"pm.test(\"clayroby: Limit in Moscow query. Expected 1\", () => {",
