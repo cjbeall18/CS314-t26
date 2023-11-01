@@ -32,7 +32,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"requestType\": \"tour\"\n}",
+					"raw": "{\n  \"requestType\"    : \"tour\",\n  \"earthRadius\"    : 3959.0,\n  \"response\"       : 0.0,\n  \"places\"         : []\n}",
 					"options": {
 						"raw": {
 							"language": "json"
