@@ -48,4 +48,10 @@ public class TestConfigRequest {
     public void testFindFeatures(){
         assertTrue(conf.validFeature("find"));
     }
+
+    @Test
+    @DisplayName("clayroby: Features includes \"tour\"")
+    public void testTourFeatures(){
+        assertTrue(conf.validFeature("tour"));
+    }
 }
