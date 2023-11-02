@@ -110,4 +110,18 @@ public class TestMicroServer {
         HttpResponse response = postRequest("/api/find", requestBodyJSON);
         assertEquals(200, response.getStatusLine().getStatusCode());
     }
+
+    @Test
+    @DisplayName("tamo: Valid tour request succeeds with 200 status")
+    public void testValidTourRequest() throws IOException {
+        Places places = new Places();
+        String requestBodyJSON = new JSONObject()
+            .put("requestType", "tour")
+            .put("earthRadius", 1.0)
+            .put("response", 1.0)
+            .put("places", places)
+            .toString();
+        HttpResponse response = postRequest("/api/tour", requestBodyJSON);
+        assertEquals(200, response.getStatusLine().getStatusCode());
+    }
 }
