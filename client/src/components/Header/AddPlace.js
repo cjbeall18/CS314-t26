@@ -110,10 +110,11 @@ function PlaceInfo(props) {
 }
 
 function SelectComponent({options, onChange}) {
-	console.log("options: ", options[0])
+	console.log("options: ", options[0]?.label)
 	return (
 		<div data-testid="select-component">
 			<Select
+				// defaultValue={value: options[0]?.value, label: options[0]?.label} Displays the first option after Add Page is re-rendered
 				options={options}
 				onChange={(e) => onChange(e)}
 				defaultValue={onChange(options[0])}

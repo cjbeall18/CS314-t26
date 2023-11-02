@@ -90,33 +90,31 @@ describe('AddPlace', () => {
 		expect(randomState).toBeTruthy();
 	});
 
-	// test('clayroby: test that two random places are not equal', async () => {
-	// 	// Add the first random location
-	// 	const randomButton = screen.getByTestId('random-button');
-	// 	await waitFor(() => {
-	// 		user.click(randomButton);
-	// 	});
-	// 	const selectComponent = screen.getByTestId('select-component');
-	// 	fireEvent.keyDown(selectComponent.firstChild, {key: 'ArrowDown'});
-	// 	fireEvent.keyDown(selectComponent.firstChild, {key: 'ArrowDown'});
-	// 	console.log("first child: ", selectComponent.firstChild.nextSibling);
-	// 	await waitFor(() => {
-	// 		fireEvent.keyDown(selectComponent.firstChild, {key: 'Enter'});
-	// 		// fireEvent.mouseDown()
-	// 	});
-	// 	const addButton = screen.getByTestId('add-place-button');
-	// 	expect(addButton.classList.contains('disabled')).toBe(false);
-	// 	await waitFor(() => {
-	// 		user.click(addButton);
-	// 	});
-	// 	// Add the second random location
-	// 	await waitFor(() => {
-	// 		user.click(randomButton);
-	// 	});
-	// 	expect(addButton.classList.contains('disabled')).toBe(false);
-	// 	await waitFor(() => {
-	// 		user.click(addButton);
-	// 	});
-	// 	expect(props.placeActions.length).toEqual(2);
-	// });
+	test('clayroby: test that two random places are not equal', async () => {
+		// Add the first random location
+		const randomButton = screen.getByTestId('random-button');
+		await waitFor(() => {
+			user.click(randomButton);
+		});
+		const selectComponent = screen.getByTestId('select-component');
+		console.log("first child: ", selectComponent.firstChild.nextSibling);
+		await waitFor(() => {
+			fireEvent.keyDown(selectComponent.firstChild, {key: 'Enter'});
+		// 	// fireEvent.mouseDown()
+		});
+		const addButton = screen.getByTestId('add-place-button');
+		expect(addButton.classList.contains('disabled')).toBe(false);
+		await waitFor(() => {
+			user.click(addButton);
+		});
+		// Add the second random location
+		await waitFor(() => {
+			user.click(randomButton);
+		});
+		expect(addButton.classList.contains('disabled')).toBe(false);
+		await waitFor(() => {
+			user.click(addButton);
+		});
+		expect(props.placeActions.length).toEqual(2);
+	});
 });
