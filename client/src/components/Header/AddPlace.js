@@ -71,6 +71,10 @@ function PlaceSearch(props) {
         label: place.formatPlace()
     }));
 
+	const selectComponentChange = selectedOption => {
+		props.setSelectedPlace(selectedOption ? selectedOption.value : null);
+	}
+
 	return (
 		<ModalBody>
 			<Col>
@@ -90,15 +94,7 @@ function PlaceSearch(props) {
 					</Button> 
 				</InputGroup>
 				<Label className="mt-2">Select a place:</Label>
-				<Select
-					options={placeOptions}
-					onChange={(selectedOption) => {
-						props.setSelectedPlace(selectedOption ? selectedOption.value : null);
-					}}
-					placeholder="Select a place..."
-					isClearable
-					isSearchable
-				/>
+				<SelectComponent options={placeOptions} onChange={selectComponentChange}/>
 			</Col>
 		</ModalBody>
 	);
@@ -111,6 +107,22 @@ function PlaceInfo(props) {
 			{props.foundPlace?.formatPlace()}
 		</Collapse>
 	);
+}
+
+function SelectComponent({options, onChange}) {
+	console.log("options: ", options[0])
+	return (
+		<div data-testid="select-component">
+			<Select
+				options={options}
+				onChange={(e) => onChange(e)}
+				defaultValue={onChange(options[0])}
+				placeholder="Select a place..."
+				isClearable
+				isSearchable
+			/>
+		</div>
+	)
 }
 
 function AddPlaceFooter(props) {
