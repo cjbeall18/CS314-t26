@@ -132,37 +132,63 @@ function AddPlaceFooter(props) {
 }
 
 async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, randomState, serverSettings) {
-	try {
-		let limit = 20;
-		if (isCoordinateText(coordString)) {
-			const latLngPlace = new Coordinates(coordString);
-			const lat = latLngPlace.getLatitude();
-			const lng = latLngPlace.getLongitude();
-			if (isLatLngValid(lat,lng)) {
-				const fullPlace = await reverseGeocode({ lat, lng });
-				setFoundPlaces([fullPlace]);
-				setSelectedPlace(fullPlace);
-			}
-		} else if (coordString.length > 2 || randomState) {
-			if (randomState) { 
-				coordString = "RANDOM " + coordString;
-				limit = 1;
-			}
-			const requestBody = {
-				"requestType": "find",
-				"match": coordString,
-				"limit": limit
-			};
+    try {
+        const isCoordText = isCoordinateText(coordString);
 
-			const response = await sendAPIRequest(requestBody, serverSettings.serverUrl);
-			const places = response.places.map(place => new Place(place));
-			setFoundPlaces(places);
-			setSelectedPlace(null);
-		}
-	} catch (error) {
-		setFoundPlaces([]);
-		setSelectedPlace(null);
-	}
+        if (isCoordText || randomState) {
+            await processCoordinates(coordString, setFoundPlaces, setSelectedPlace, randomState, serverSettings, isCoordText);
+        } else if (coordString.length > 2) {
+            await findPlacesByName(coordString, setFoundPlaces, setSelectedPlace, serverSettings);
+        }
+    } catch (error) {
+        handleErrors(setFoundPlaces, setSelectedPlace);
+    }
+}
+
+async function processCoordinates(coordString, setFoundPlaces, setSelectedPlace, randomState, serverSettings, isCoordText) {
+    if (isCoordText) {
+        await findPlaceByCoordinates(coordString, setFoundPlaces, setSelectedPlace);
+    } else if (randomState) {
+        await findRandomPlace(coordString, setFoundPlaces, setSelectedPlace, serverSettings);
+    }
+}
+
+async function findPlaceByCoordinates(coordString, setFoundPlaces, setSelectedPlace) {
+    const coordinates = new Coordinates(coordString);
+    const lat = coordinates.getLatitude();
+    const lng = coordinates.getLongitude();
+
+    if (isLatLngValid(lat, lng)) {
+        const fullPlace = await reverseGeocode({ lat, lng });
+        setFoundPlaces([fullPlace]);
+        setSelectedPlace(fullPlace);
+    } else {
+        setFoundPlaces([]);
+        setSelectedPlace(null);
+    }
+}
+
+async function findRandomPlace(coordString, setFoundPlaces, setSelectedPlace, serverSettings) {
+    coordString = "RANDOM " + coordString;
+    await findPlacesByName(coordString, setFoundPlaces, setSelectedPlace, serverSettings, 1);
+}
+
+async function findPlacesByName(name, setFoundPlaces, setSelectedPlace, serverSettings, limit = 20) {
+    const requestBody = {
+        "requestType": "find",
+        "match": name,
+        "limit": limit
+    };
+
+    const response = await sendAPIRequest(requestBody, serverSettings.serverUrl);
+    const places = response.places.map(place => new Place(place));
+    setFoundPlaces(places);
+    setSelectedPlace(null);
+}
+
+function handleErrors(setFoundPlaces, setSelectedPlace) {
+    setFoundPlaces([]);
+    setSelectedPlace(null);
 }
 
 function isLatLngValid(lat,lng) {
