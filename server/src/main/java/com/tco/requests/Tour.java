@@ -19,5 +19,5 @@ public abstract class Tour {
         
     }
 
-    public abstract void improve ();
+    abstract void improve ();
 }
