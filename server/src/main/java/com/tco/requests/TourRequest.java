@@ -11,6 +11,7 @@ public class TourRequest extends Request {
     private double earthRadius;
     private double response;
     private Places places;
+    //public Tour tour;
 
     @Override
     public void buildResponse() {
@@ -31,7 +32,6 @@ public class TourRequest extends Request {
     }
 
     private void optimizeTour() {
-        //Tour tour = new Tour();
         if (this.response <= 0.0) {
             //Do Nothing
         } 
