@@ -3,16 +3,21 @@ package com.tco.requests;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Tour {
+public abstract class Tour {
     double[][] distances; 
     int[] tour;
     Places places;
 
+    public Tour () {
+
+    }
+
     public void shorter () {
 
     }
-
-    public void improve () {
-
+    public void construct () {
+        
     }
+
+    public abstract void improve ();
 }
