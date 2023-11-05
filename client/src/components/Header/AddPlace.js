@@ -135,21 +135,18 @@ async function verifyCoordinates(coordString, setFoundPlaces, setSelectedPlace, 
     try {
         const isCoordText = isCoordinateText(coordString);
 
-        if (isCoordText || randomState) {
-            await processCoordinates(coordString, setFoundPlaces, setSelectedPlace, randomState, serverSettings, isCoordText);
-        } else if (coordString.length > 2) {
-            await findPlacesByName(coordString, setFoundPlaces, setSelectedPlace, serverSettings);
+        if (isCoordText) {
+            await findPlaceByCoordinates(coordString, setFoundPlaces, setSelectedPlace);
+        } else if (coordString.length > 2 || randomState) {
+			if (randomState) {
+				await findRandomPlace(coordString, setFoundPlaces, setSelectedPlace, serverSettings);
+			} else {
+				const requestBody = createRequestBody(coordString, 20);
+            	await findPlacesByName(requestBody, setFoundPlaces, setSelectedPlace, serverSettings);
+			}
         }
     } catch (error) {
         handleErrors(setFoundPlaces, setSelectedPlace);
-    }
-}
-
-async function processCoordinates(coordString, setFoundPlaces, setSelectedPlace, randomState, serverSettings, isCoordText) {
-    if (isCoordText) {
-        await findPlaceByCoordinates(coordString, setFoundPlaces, setSelectedPlace);
-    } else if (randomState) {
-        await findRandomPlace(coordString, setFoundPlaces, setSelectedPlace, serverSettings);
     }
 }
 
@@ -169,21 +166,23 @@ async function findPlaceByCoordinates(coordString, setFoundPlaces, setSelectedPl
 }
 
 async function findRandomPlace(coordString, setFoundPlaces, setSelectedPlace, serverSettings) {
-    coordString = "RANDOM " + coordString;
-    await findPlacesByName(coordString, setFoundPlaces, setSelectedPlace, serverSettings, 1);
+    const requestBody = createRequestBody("RANDOM " + coordString, 1);
+    await findPlacesByName(requestBody, setFoundPlaces, setSelectedPlace, serverSettings);
 }
 
-async function findPlacesByName(name, setFoundPlaces, setSelectedPlace, serverSettings, limit = 20) {
-    const requestBody = {
-        "requestType": "find",
-        "match": name,
-        "limit": limit
-    };
-
+async function findPlacesByName(requestBody, setFoundPlaces, setSelectedPlace, serverSettings) {
     const response = await sendAPIRequest(requestBody, serverSettings.serverUrl);
     const places = response.places.map(place => new Place(place));
     setFoundPlaces(places);
     setSelectedPlace(null);
+}
+
+function createRequestBody(search, limit) {
+    return {
+        "requestType": "find",
+        "match": search,
+        "limit": limit
+    };
 }
 
 function handleErrors(setFoundPlaces, setSelectedPlace) {
