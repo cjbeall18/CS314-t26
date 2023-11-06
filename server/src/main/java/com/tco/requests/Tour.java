@@ -12,16 +12,18 @@ public abstract class Tour {
 
     // Method to find the shortest tour using the nearest neighbor heuristic
     public Places shorter(Places places, double earthRadius) {
+        System.out.println("Inside shorter");
         Places bestTour = null;
         long bestDistance = Long.MAX_VALUE;
-
+        System.out.println("Right before setting distances.");
         // Calculate the distance between all pairs of cities once, to avoid recalculating
+        distances = new double[places.size()][places.size()];
         for (int i = 0; i < places.size(); i++) {
             for (int j = 0; j < places.size(); j++) {
                 distances[i][j] = DistanceCalculator.calculator(places.get(i), places.get(j), earthRadius);
             }
         }
-
+        System.out.println("After setting distances.");
         // Try constructing a tour starting from each city
         for (int i = 0; i < places.size(); i++) {
             Places currentTour = construct(i, places, earthRadius);
@@ -32,7 +34,7 @@ public abstract class Tour {
                 bestTour = currentTour;
             }
         }
-
+        System.out.println("Finished in shorter");
         return bestTour;
     }
     
@@ -74,7 +76,7 @@ public abstract class Tour {
     }
     
     // Helper method to calculate the total distance of a tour
-    private long calculateTourDistance(Places tour, double earthRadius) {
+    public long calculateTourDistance(Places tour, double earthRadius) {
         long totalDistance = 0;
 
         for (int i = 0; i < tour.size(); i++) {
