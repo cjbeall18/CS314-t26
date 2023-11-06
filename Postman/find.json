@@ -108,9 +108,9 @@
 						"id": "875a776d-58ee-4b85-b03d-74072f899d37",
 						"exec": [
 							"\r",
-							"pm.test(\"Match is Chris, but limit is 0. Expect places to be empty\", () => {\r",
+							"pm.test(\"Match is Chris, but limit is 0. Expect places to include all 79 entries\", () => {\r",
 							"    const response = pm.response.json();\r",
-							"    pm.expect(response.places.length).to.eql(0);\r",
+							"    pm.expect(response.places.length).to.eql(79);\r",
 							"});\r",
 							""
 						],
