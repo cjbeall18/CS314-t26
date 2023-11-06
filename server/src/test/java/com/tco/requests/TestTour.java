@@ -28,6 +28,7 @@ public class TestTour {
         Places shorterTour = tour.shorter(places, 5225616L);
         long shorterTourDistance = tour.calculateTourDistance(shorterTour, 5225616L);
         assertTrue(shorterTourDistance < 39985224);
-        
+        System.out.println("shorterTour is: " + shorterTour);
+        System.out.println("places is: " + places);
     }
 }

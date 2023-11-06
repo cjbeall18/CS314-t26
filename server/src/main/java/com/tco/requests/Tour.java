@@ -1,6 +1,7 @@
 package com.tco.requests;
 import com.tco.misc.DistanceCalculator;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +13,9 @@ public abstract class Tour {
 
     // Method to find the shortest tour using the nearest neighbor heuristic
     public Places shorter(Places places, double earthRadius) {
-        System.out.println("Inside shorter");
         Places bestTour = null;
         long bestDistance = Long.MAX_VALUE;
-        System.out.println("Right before setting distances.");
+
         // Calculate the distance between all pairs of cities once, to avoid recalculating
         distances = new double[places.size()][places.size()];
         for (int i = 0; i < places.size(); i++) {
@@ -23,7 +23,7 @@ public abstract class Tour {
                 distances[i][j] = DistanceCalculator.calculator(places.get(i), places.get(j), earthRadius);
             }
         }
-        System.out.println("After setting distances.");
+
         // Try constructing a tour starting from each city
         for (int i = 0; i < places.size(); i++) {
             Places currentTour = construct(i, places, earthRadius);
@@ -34,7 +34,12 @@ public abstract class Tour {
                 bestTour = currentTour;
             }
         }
-        System.out.println("Finished in shorter");
+
+        // Need if block to rotate bestTour to make first place same as first place in given places arraylist from user
+        if (places.get(0) != bestTour.get(0)) {
+            int firstPlaceIndex = bestTour.indexOf(places.get(0));
+            Collections.rotate(bestTour, firstPlaceIndex);
+        }
         return bestTour;
     }
     
