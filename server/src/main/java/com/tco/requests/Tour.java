@@ -38,6 +38,7 @@ public abstract class Tour {
         // Need if block to rotate bestTour to make first place same as first place in given places arraylist from user
         if (places.get(0) != bestTour.get(0)) {
             int firstPlaceIndex = bestTour.indexOf(places.get(0));
+            firstPlaceIndex *= -1;
             Collections.rotate(bestTour, firstPlaceIndex);
         }
         return bestTour;
