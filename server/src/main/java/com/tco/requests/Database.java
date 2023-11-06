@@ -41,6 +41,11 @@ public class Database {
 	}
 
 	public static Places places(String match, Integer limit) throws Exception {
+		if(limit <= 0) {
+            limit = 100;
+        } else {
+            limit = limit;
+        }
 		String sql      = Select.match(match, limit);
 		String url      = Credential.url();
 		String user     = Credential.USER;
