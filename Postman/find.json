@@ -107,10 +107,9 @@
 					"script": {
 						"id": "875a776d-58ee-4b85-b03d-74072f899d37",
 						"exec": [
-							"\r",
-							"pm.test(\"Match is Chris, but limit is 0. Expect places to be empty\", () => {\r",
+							"pm.test(\"Match is Chris, but limit is 0. Expect places to include all 79 entries\", () => {\r",
 							"    const response = pm.response.json();\r",
-							"    pm.expect(response.places.length).to.eql(0);\r",
+							"    pm.expect(response.places.length).to.eql(79);\r",
 							"});\r",
 							""
 						],
@@ -335,6 +334,53 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"melbourne\",\r\n    \"limit\": 15\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cjbeall-test-er",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77ac167a-d326-4115-b15d-32b5a03a299d",
+						"exec": [
+							"pm.test(\"Match is er. Expect places to have 100 length\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.places.length).to.eql(100);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "82ad3ab3-fa16-4da9-bd05-928cc61daeac",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"er\",\r\n    \"limit\": 0\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
