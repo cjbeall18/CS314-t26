@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useToggle } from '../../../hooks/useToggle';
-import { Table, Collapse } from 'reactstrap';
+import { Table, Collapse, Button } from 'reactstrap';
 import { latLngToText, placeToLatLng } from '../../../utils/transformers';
 import { BsChevronDown } from 'react-icons/bs';
 import PlaceActions from './PlaceActions';
@@ -8,7 +8,6 @@ import Distance from './Distance';
 import Units from './Units';
 import {useDistances} from "../../../hooks/useDistances";
 import {LuArrowBigRight, LuArrowBigRightDash } from 'react-icons/lu';
-
 
 export default function Itinerary(props) {
 
@@ -57,6 +56,14 @@ function TripHeader(props) {
 				>
 					{props.tripName} is <Distance distance={props.total}/> <Units {...props}/>
 				</th>
+
+				<Button
+				color='primary'
+				data-testid='optimizeButton'
+			>
+				Optimize
+				</Button>
+
 				<td align={'center'}><LuArrowBigRight fontSize={24}></LuArrowBigRight></td>
 				<td align={'center'}><LuArrowBigRightDash fontSize={24}></LuArrowBigRightDash></td>
 			</tr>
