@@ -15,6 +15,9 @@ public class TourRequest extends Request {
 
     @Override
     public void buildResponse() {
+        if (this.response > 30.0) {
+            this.response = 30.0;
+        }
         optimizeTour();
         log.trace("buildResponse -> {}", this);
     }
