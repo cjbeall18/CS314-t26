@@ -12,15 +12,41 @@ public abstract class Tour {
     int[] tour;
     Places places;
 
-    public Tour () {
-
-    }
-
     public void shorter () {
 
     }
-    public void construct () {
-        
+    
+    private Places construct (int startIndex, Places places, double earthRadius) {
+        Places tour = new Places();
+        boolean[] visited = new boolean[places.size()];
+        Arrays.fill(visited, false);
+        visited[startIndex] = true;
+        tour.add(places.get(startIndex));
+
+        int currentCityIndex = startIndex;
+        while (tour.size() < places.size()) {
+            int nearestCityIndex = -1;
+            double nearestDistance = Double.MAX_VALUE;
+
+            for (int i = 0; i < places.size(); i++) {
+                if (!visited[i]) {
+                    double distance = distances[currentCityIndex][i];
+                    if (distance < nearestDistance) {
+                        nearestDistance = distance;
+                        nearestCityIndex = i;
+                    }
+                }
+            }
+
+            if (nearestCityIndex == -1) {
+                break; 
+            }
+
+            visited[nearestCityIndex] = true;
+            tour.add(places.get(nearestCityIndex));
+            currentCityIndex = nearestCityIndex;
+        }
+        return tour;
     }
 
     public long calculateTourDistance(Places tour, double earthRadius) {
