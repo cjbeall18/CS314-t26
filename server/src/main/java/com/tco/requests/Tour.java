@@ -12,20 +12,23 @@ public abstract class Tour {
     int[] tour;
     Places places;
 
-    public Places shorter (Places places, double earthRadius) {
-        Places bestTour = null;
-        long bestDistance = Long.MAX_VALUE;
+    public Places shorter (Places places, double earthRadius, double response) {
+        Places bestTour = places;
+        long bestDistance = calculateTourDistance(places, earthRadius);
+        long startTime = System.currentTimeMillis() / 100;
 
         // Calculate the distance between all pairs of cities once, to avoid recalculating
         distances = new double[places.size()][places.size()];
         for (int i = 0; i < places.size(); i++) {
             for (int j = 0; j < places.size(); j++) {
+                if (timeCheck(startTime, response)) {break;}
                 distances[i][j] = DistanceCalculator.calculator(places.get(i), places.get(j), earthRadius);
             }
         }
 
         // Try constructing a tour starting from each city
         for (int i = 0; i < places.size(); i++) {
+            if (timeCheck(startTime, response)) {break;}
             Places currentTour = construct(i, places, earthRadius);
             long currentDistance = calculateTourDistance(currentTour, earthRadius);
 
@@ -36,12 +39,25 @@ public abstract class Tour {
         }
 
         // Need if block to rotate bestTour to make first place same as first place in given places arraylist from user
-        if (places.get(0) != bestTour.get(0)) {
-            int firstPlaceIndex = bestTour.indexOf(places.get(0));
-            firstPlaceIndex *= -1;
-            Collections.rotate(bestTour, firstPlaceIndex);
+        if (!places.isEmpty()) {
+            if (places.get(0) != bestTour.get(0)) {
+                int firstPlaceIndex = bestTour.indexOf(places.get(0));
+                firstPlaceIndex *= -1;
+                Collections.rotate(bestTour, firstPlaceIndex);
+            }
         }
         return bestTour;
+    }
+
+    private boolean timeCheck(long startTime, double endTime) {
+        long currTime = System.currentTimeMillis() / 100;
+        long totTime = currTime - startTime;
+
+        if (endTime <= totTime) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     private Places construct (int startIndex, Places places, double earthRadius) {
