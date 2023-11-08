@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class TestTour {
+public class TestOneOpt {
     Tour tour;
     
     @Test
@@ -43,5 +43,44 @@ public class TestTour {
         long regTourDistance = tour.calculateTourDistance(places, earthRadius);
 
         assertTrue(shorterTourDistance < regTourDistance);
+    }
+
+    @Test
+    @DisplayName("evanloy: Test OneOpt inherits calculateTourDistance from Tour with expected distance")
+    public void testInheritanceOfCalculateTourDistanceWithRoundedExpectedDistance() {
+        tour = new OneOpt();
+        Places places = new Places();
+        places.add(new Place("1", "0"));
+        places.add(new Place("2", "0")); 
+    
+        double earthRadius = 6371;
+        long expectedDistance = Math.round(2 * Math.toRadians(1) * earthRadius);
+        long calculatedDistance = tour.calculateTourDistance(places, earthRadius);
+    
+        assertEquals(expectedDistance, calculatedDistance);
+    }
+    
+    @Test
+    @DisplayName("evanloy: Test OneOpt improve method is callable")
+    public void testOneOptImproveIsCallable() {
+        tour = new OneOpt();
+        tour.improve();
+        assertTrue(true);
+    }
+
+    @Test
+    @DisplayName("evanloy: test Tour shorter method rotates to the original starting place")
+    public void testTourRotationLogic() {
+        tour = new OneOpt();
+        Places places = new Places();
+        places.add(new Place("38.84", "-104.859"));
+        places.add(new Place("-22.739", "-47.629"));
+        places.add(new Place("35.458", "138.76"));
+        places.add(new Place("-33.9", "151.165"));
+    
+        long earthRadius = 6371;
+        Places bestTour = tour.shorter(places, earthRadius);
+    
+        assertEquals(places.get(0), bestTour.get(0));
     }
 }
