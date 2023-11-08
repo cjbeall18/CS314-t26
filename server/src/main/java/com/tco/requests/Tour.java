@@ -20,7 +20,6 @@ public abstract class Tour {
         // Calculate the distance between all pairs of cities once, to avoid recalculating
         distances = new double[places.size()][places.size()];
         for (int i = 0; i < places.size(); i++) {
-            if (timeCheck(startTime, response)) {break;}
             for (int j = 0; j < places.size(); j++) {
                 if (timeCheck(startTime, response)) {break;}
                 distances[i][j] = DistanceCalculator.calculator(places.get(i), places.get(j), earthRadius);
