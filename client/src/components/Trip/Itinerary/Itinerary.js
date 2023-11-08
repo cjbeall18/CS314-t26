@@ -48,6 +48,7 @@ export default function Itinerary(props) {
 
 function TripHeader(props) {
 	return (
+		
 		<thead>
 			<tr>
 				<th
@@ -57,12 +58,14 @@ function TripHeader(props) {
 					{props.tripName} is <Distance distance={props.total}/> <Units {...props}/>
 				</th>
 
-				<Button
-				color='primary'
-				data-testid='optimizeButton'
-			>
-				Optimize
-				</Button>
+				<td>
+					<Button
+						color='primary'
+						qdata-testid='optimizeButton'
+					>
+						Optimize
+					</Button>
+				</td>
 
 				<td align={'center'}><LuArrowBigRight fontSize={24}></LuArrowBigRight></td>
 				<td align={'center'}><LuArrowBigRightDash fontSize={24}></LuArrowBigRightDash></td>
