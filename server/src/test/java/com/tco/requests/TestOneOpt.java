@@ -38,7 +38,7 @@ public class TestOneOpt {
 
         // Now check that shorter is shorter than regular distance
         long earthRadius =  5225616L;
-        Places shorterTour = tour.shorter(places, earthRadius);
+        Places shorterTour = tour.shorter(places, earthRadius, 1.0);
         long shorterTourDistance = tour.calculateTourDistance(shorterTour, earthRadius);
         long regTourDistance = tour.calculateTourDistance(places, earthRadius);
 
@@ -79,7 +79,7 @@ public class TestOneOpt {
         places.add(new Place("-33.9", "151.165"));
     
         long earthRadius = 6371;
-        Places bestTour = tour.shorter(places, earthRadius);
+        Places bestTour = tour.shorter(places, earthRadius, 1.0);
     
         assertEquals(places.get(0), bestTour.get(0));
     }

@@ -32,9 +32,12 @@ public class TourRequest extends Request {
     }
 
     private void optimizeTour() {
-        if (this.response <= 0.0) {
-            //Do Nothing
-        } 
+        Tour tour = new OneOpt();
+        Places shorterTour = tour.shorter(this.places, this.earthRadius, this.response * 0.75);
+        this.places = shorterTour;
+        // if (this.response <= 0.0) {
+        //     //Do Nothing
+        // } 
         
     }
 }
