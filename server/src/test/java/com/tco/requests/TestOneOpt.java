@@ -2,15 +2,25 @@ package com.tco.requests;
 
 import com.tco.requests.OneOpt;
 import com.tco.requests.Tour;
+import com.tco.requests.TourRequest;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.FileReader;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+import java.util.*;
 
 
 public class TestOneOpt {
     Tour tour;
+    JSONParser parser = new JSONParser();
     
     @Test
     @DisplayName("tamo: test no improve using 1Opt")
@@ -82,5 +92,33 @@ public class TestOneOpt {
         Places bestTour = tour.shorter(places, earthRadius, 1.0);
     
         assertEquals(places.get(0), bestTour.get(0));
+    }
+
+    @Test
+    @DisplayName("clayroby: test Tour timeout. Expect shorter to run for >0.1 second +/- 10 milliseconds")
+    public void testTourTimeout() {
+        Places places = new Places();
+        long earthRadius = 6371;
+        tour = new OneOpt();
+        double response = 0.01;
+        boolean result = false;
+
+        try {
+            String cobrewsDir = System.getProperty("user.dir");
+            cobrewsDir = cobrewsDir + "/src/test/brews/brews.json";
+            Object obj = parser.parse(new FileReader(cobrewsDir));
+            JSONObject jsonObject = (JSONObject) obj;
+            JSONArray jsonPlaces = (JSONArray)jsonObject.get("places");
+            Type type = new TypeToken<Places>(){}.getType();
+            places = new Gson().fromJson(jsonPlaces.toString(), type);
+            long startTime = System.currentTimeMillis();
+            Places bestTour = tour.shorter(places, earthRadius, response);
+            long endTime = System.currentTimeMillis();
+            long totTime = endTime - startTime;
+            result = totTime <= (response * 1000 + 10);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        assertEquals(true, result);
     }
 }
