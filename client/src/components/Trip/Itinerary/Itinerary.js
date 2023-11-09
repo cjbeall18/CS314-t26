@@ -9,25 +9,28 @@ import Units from './Units';
 import {useDistances} from "../../../hooks/useDistances";
 import {LuArrowBigRight, LuArrowBigRightDash } from 'react-icons/lu';
 import {sendAPIRequest} from "../../../utils/restfulAPI";
+import { Place } from '../../../models/place.model';
 
 export default function Itinerary(props) {
 
 	const [earthRadius, setEarthRadius] = useState(3959.0);
 	const [distanceUnits, setDistanceUnits] = useState("miles");
 	const [response, setResponse] = useState (1);
+	const [places, setPlaces] = useState([]);
 	const serverSettings = props.serverSettings;
 	//const serverUrl = "http://localhost:41326";
 
 	console.log("serverSettings:", serverSettings);
 
 	useEffect(() => {
+		setPlaces(props.places)
     }, [props.serverSettings]);
 
 	const {distances} = useDistances(props.places, earthRadius, props.serverSettings);
 
 	const placeListProps = {
-		places: props.places,
-		setPlaces: props.setPlaces,
+		places: places,
+		setPlaces: setPlaces,
 		distances: distances,
 		placeActions: props.placeActions,
 		selectedIndex: props.selectedIndex,
@@ -56,7 +59,7 @@ export default function Itinerary(props) {
 				{...unitsProps}
 				{...tourProps}
 				tripName={props.tripName}
-				places = {props.places}
+				places = {places}
 				serverSettings = {serverSettings}
 				total = {total}
 				//setPlaces={props.setPlaces}
@@ -82,7 +85,7 @@ function createRequestBody(props) {
     return requestBody
 }
 
-async function optimizeTour (props) {
+async function optimizeTour (props, setPlaces) {
 	console.log("Entered Optimize TOUR");
 	//console.log("serverUrl", serverSettings.serverUrl);
 	console.log("Props in optimizeTour:", props);
@@ -100,9 +103,15 @@ async function optimizeTour (props) {
 		console.log("Response from API:", responseBody);
 
 		if (responseBody && responseBody.places) {
+			let optimizedPlaces = new Array();
 			console.log("Response from API:", responseBody);
-			const optimizedPlaces = responseBody.places;
-			console.log("optimizedPlaces:" + optimizedPlaces);
+			for (let i = 0; i < responseBody.places.length; i++) {
+				let place = new Place(responseBody.places[i]);
+				optimizedPlaces.push(place);
+			}
+			// const optimizedPlaces = responseBody.places;
+			console.log("optimizedPlaces:");
+			console.log(optimizedPlaces);
 			setPlaces(optimizedPlaces);
 		  } else {
 			console.log("Response from API:", responseBody);
@@ -132,7 +141,7 @@ function TripHeader(props) {
 						data-testid='optimizeButton'
 						onClick={() => {
 							console.log("Button got clicked");
-							optimizeTour(props);
+							optimizeTour(props, props.setPlaces);
 						}}
 					>
 						Optimize
@@ -190,6 +199,8 @@ function PlaceRow(props) {
 }
 
 function AdditionalPlaceInfo(props) {
+	console.log("additionalInfo prop: ");
+	console.log(props.place);
 	return (
 		<Collapse isOpen={props.showFullName}>
 			{props.place.formatPlace().replace(`${props.place.defaultDisplayName}, `, '')}
