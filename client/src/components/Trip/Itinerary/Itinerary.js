@@ -26,7 +26,7 @@ export default function Itinerary(props) {
 		setPlaces(props.places)
     }, [props.serverSettings]);
 
-	const {distances} = useDistances(props.places, earthRadius, props.serverSettings);
+	const {distances} = useDistances(places, earthRadius, props.serverSettings);
 
 	const placeListProps = {
 		places: places,
@@ -51,6 +51,8 @@ export default function Itinerary(props) {
 	}
 
 	const total = distances.total;
+	console.log("PROPS.PLACES: ", props.places);
+	// props.setPlaces(places);
 	
 	return (
 		<Table responsive>
@@ -113,6 +115,7 @@ async function optimizeTour (props, setPlaces) {
 			console.log("optimizedPlaces:");
 			console.log(optimizedPlaces);
 			setPlaces(optimizedPlaces);
+			// props.places = optimizedPlaces;
 		  } else {
 			console.log("Response from API:", responseBody);
 			console.log("Server response does not contain valid 'places' data.");
