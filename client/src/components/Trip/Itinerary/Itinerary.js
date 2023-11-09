@@ -13,7 +13,6 @@ import {sendAPIRequest} from "../../../utils/restfulAPI";
 export default function Itinerary(props) {
 
 	const [earthRadius, setEarthRadius] = useState(3959.0);
-	const [places, setPlaces] = useState([]);
 	const [distanceUnits, setDistanceUnits] = useState("miles");
 	const [response, setResponse] = useState (1);
 	const serverSettings = props.serverSettings;
@@ -22,10 +21,10 @@ export default function Itinerary(props) {
 
 	const placeListProps = {
 		places: props.places,
-		setPlaces: props.setPlaces,
 		distances: distances,
 		placeActions: props.placeActions,
-		selectedIndex: props.selectedIndex
+		selectedIndex: props.selectedIndex,
+		serverSettings
 	}
 
 	const unitsProps = {
@@ -39,7 +38,6 @@ export default function Itinerary(props) {
 		setEarthRadius: setEarthRadius,
 		response: response,
 		setResponse: setResponse,
-		serverSettings
 	}
 
 	const total = distances.total;
@@ -49,10 +47,9 @@ export default function Itinerary(props) {
 			<TripHeader
 				{...unitsProps}
 				{...tourProps}
-				{...placeListProps}
 				tripName={props.tripName}
 				total = {total}
-				setPlaces={props.setPlaces}
+				//setPlaces={props.setPlaces}
 			/>
 			<PlaceList 
 				{...placeListProps}
@@ -60,20 +57,22 @@ export default function Itinerary(props) {
 		</Table>
 	);
 }
-function createRequestBody(earthRadius, response, places) {
+function createRequestBody(props) {
     return {
         "requestType": "tour",
-        "earthRadius": earthRadius,
-		"reponse": response,
-        "places": places
+        "earthRadius": props.earthRadius,
+		"reponse": props.response,
+        "places": props.places
     };
 }
 
-async function optimizeTour (earthRadius, response, places, serverSettings, setPlaces) {
-	const requestBody = createRequestBody(earthRadius, response, places);
-	const responseBody = await sendAPIRequest(requestBody, serverSettings.serverUrl);
-	const optimizedPlaces = responseBody.places
-	setPlaces(optimizedPlaces);
+async function optimizeTour (props) {
+	console.log("Entered Optimize TOUR");
+	const requestBody = createRequestBody(props.earthRadius, props.response, props.places);
+	const responseBody = await sendAPIRequest(requestBody, 'http://localhost:8000');
+	const optimizedPlaces = responseBody.places;
+	console.log("optimizedPlaces:" + optimizedPlaces);
+	//setPlaces(optimizedPlaces);
 }
 
 function TripHeader(props) {
@@ -93,7 +92,7 @@ function TripHeader(props) {
 						color='primary'
 						data-testid='optimizeButton'
 						onClick={() => {
-							optimizeTour(props.earthRadius, props.response, props.places, props.serverSettings, setPlaces);
+							optimizeTour(props);
 						}}
 					>
 						Optimize
