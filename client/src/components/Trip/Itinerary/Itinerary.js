@@ -27,6 +27,7 @@ export default function Itinerary(props) {
 
 	const placeListProps = {
 		places: props.places,
+		setPlaces: props.setPlaces,
 		distances: distances,
 		placeActions: props.placeActions,
 		selectedIndex: props.selectedIndex,
@@ -100,13 +101,9 @@ async function optimizeTour (props) {
 
 		if (responseBody && responseBody.places) {
 			console.log("Response from API:", responseBody);
-			const optimizedPlaces = responseBody.places.map(place => ({
-				latitude: place.latitude,
-				longitude: place.longitude,
-				name: place.defaultDisplayName || "Unknown", // Provide a default name if it's undefined
-			}))
+			const optimizedPlaces = responseBody.places;
 			console.log("optimizedPlaces:" + optimizedPlaces);
-			//setPlaces(optimizedPlaces);
+			setPlaces(optimizedPlaces);
 		  } else {
 			console.log("Response from API:", responseBody);
 			console.log("Server response does not contain valid 'places' data.");
