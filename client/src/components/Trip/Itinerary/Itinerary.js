@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useToggle } from '../../../hooks/useToggle';
 import { Table, Collapse, Button } from 'reactstrap';
 import { latLngToText, placeToLatLng } from '../../../utils/transformers';
@@ -8,19 +8,27 @@ import Distance from './Distance';
 import Units from './Units';
 import {useDistances} from "../../../hooks/useDistances";
 import {LuArrowBigRight, LuArrowBigRightDash } from 'react-icons/lu';
+import {sendAPIRequest} from "../../../utils/restfulAPI";
 
 export default function Itinerary(props) {
 
 	const [earthRadius, setEarthRadius] = useState(3959.0);
 	const [distanceUnits, setDistanceUnits] = useState("miles");
+	const [response, setResponse] = useState (1);
+	const serverSettings = props.serverSettings;
+
+	useEffect(() => {
+    }, [props.serverSettings]);
 
 	const {distances} = useDistances(props.places, earthRadius, props.serverSettings);
 
 	const placeListProps = {
 		places: props.places,
+		setPlaces: props.setPlaces,
 		distances: distances,
 		placeActions: props.placeActions,
-		selectedIndex: props.selectedIndex
+		selectedIndex: props.selectedIndex,
+		serverSettings: serverSettings
 	}
 
 	const unitsProps = {
@@ -29,15 +37,26 @@ export default function Itinerary(props) {
 		distanceUnits: distanceUnits,
 		setDistanceUnits: setDistanceUnits,
 	}
+	const tourProps = {
+		earthRadius: earthRadius,
+		setEarthRadius: setEarthRadius,
+		response: response,
+		setResponse: setResponse,
+	}
 
 	const total = distances.total;
 	
 	return (
 		<Table responsive>
 			<TripHeader
+				{...placeListProps}
 				{...unitsProps}
+				{...tourProps}
 				tripName={props.tripName}
+				places = {props.places}
+				serverSettings = {serverSettings}
 				total = {total}
+				//setPlaces={props.setPlaces}
 			/>
 			<PlaceList 
 				{...placeListProps}
@@ -45,10 +64,29 @@ export default function Itinerary(props) {
 		</Table>
 	);
 }
+function createRequestBody(props) {
+	const requestBody = {
+        "requestType": "tour",
+        "earthRadius": props.earthRadius,
+        "response": props.response,
+		"places": props.places.map(place => ({
+            latitude: place.latitude,
+            longitude: place.longitude,
+            name: place.defaultDisplayName
+        })),
+    };
+    return requestBody
+}
+
+async function optimizeTour (props) {
+	const requestBody = createRequestBody(props);
+	const responseBody = await sendAPIRequest(requestBody, "http://localhost:41326");
+	const optimizedPlaces = responseBody.places;
+	setPlaces(optimizedPlaces);
+}
 
 function TripHeader(props) {
 	return (
-		
 		<thead>
 			<tr>
 				<th
@@ -62,6 +100,9 @@ function TripHeader(props) {
 					<Button
 						color='primary'
 						data-testid='optimizeButton'
+						onClick={() => {
+							optimizeTour(props);
+						}}
 					>
 						Optimize
 					</Button>
