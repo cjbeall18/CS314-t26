@@ -14,6 +14,7 @@ const SCHEMAS = {
 
 export async function sendAPIRequest(requestBody, serverUrl) {
     const response = await sendRequest(requestBody, serverUrl);
+    console.log("Response from API in restfulAPI.js", response);
 
     if (isRequestNotSupported(requestBody)) {
         throw new Error(`sendAPIRequest() does not have support for type: ${requestBody.requestType}. Please add the schema to 'SCHEMAS'.`);

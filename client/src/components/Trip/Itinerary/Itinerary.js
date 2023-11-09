@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useToggle } from '../../../hooks/useToggle';
 import { Table, Collapse, Button } from 'reactstrap';
 import { latLngToText, placeToLatLng } from '../../../utils/transformers';
@@ -16,6 +16,12 @@ export default function Itinerary(props) {
 	const [distanceUnits, setDistanceUnits] = useState("miles");
 	const [response, setResponse] = useState (1);
 	const serverSettings = props.serverSettings;
+	//const serverUrl = "http://localhost:41326";
+
+	console.log("serverSettings:", serverSettings);
+
+	useEffect(() => {
+    }, [props.serverSettings]);
 
 	const {distances} = useDistances(props.places, earthRadius, props.serverSettings);
 
@@ -24,7 +30,7 @@ export default function Itinerary(props) {
 		distances: distances,
 		placeActions: props.placeActions,
 		selectedIndex: props.selectedIndex,
-		serverSettings
+		serverSettings: serverSettings
 	}
 
 	const unitsProps = {
@@ -45,9 +51,12 @@ export default function Itinerary(props) {
 	return (
 		<Table responsive>
 			<TripHeader
+				{...placeListProps}
 				{...unitsProps}
 				{...tourProps}
 				tripName={props.tripName}
+				places = {props.places}
+				serverSettings = {serverSettings}
 				total = {total}
 				//setPlaces={props.setPlaces}
 			/>
@@ -58,21 +67,54 @@ export default function Itinerary(props) {
 	);
 }
 function createRequestBody(props) {
-    return {
+	const requestBody = {
         "requestType": "tour",
         "earthRadius": props.earthRadius,
-		"reponse": props.response,
-        "places": props.places
+        "response": props.response,
+		"places": props.places.map(place => ({
+            latitude: place.latitude,
+            longitude: place.longitude,
+            name: place.defaultDisplayName || "Unknown", // Provide a default name if it's undefined
+        })),
     };
+	console.log("Request body:", requestBody);
+    return requestBody
 }
 
 async function optimizeTour (props) {
 	console.log("Entered Optimize TOUR");
-	const requestBody = createRequestBody(props.earthRadius, props.response, props.places);
-	const responseBody = await sendAPIRequest(requestBody, 'http://localhost:8000');
-	const optimizedPlaces = responseBody.places;
-	console.log("optimizedPlaces:" + optimizedPlaces);
-	//setPlaces(optimizedPlaces);
+	//console.log("serverUrl", serverSettings.serverUrl);
+	console.log("Props in optimizeTour:", props);
+	const requestBody = createRequestBody(props);
+	console.log("Request body:", requestBody);
+
+	try{
+		if (!props.places) {
+            console.error("Error: props.places is not defined");
+            return;
+        }
+
+		
+		const responseBody = await sendAPIRequest(requestBody, "http://localhost:41326");
+		console.log("Response from API:", responseBody);
+
+		if (responseBody && responseBody.places) {
+			console.log("Response from API:", responseBody);
+			const optimizedPlaces = responseBody.places.map(place => ({
+				latitude: place.latitude,
+				longitude: place.longitude,
+				name: place.defaultDisplayName || "Unknown", // Provide a default name if it's undefined
+			}))
+			console.log("optimizedPlaces:" + optimizedPlaces);
+			//setPlaces(optimizedPlaces);
+		  } else {
+			console.log("Response from API:", responseBody);
+			console.log("Server response does not contain valid 'places' data.");
+		  }
+	}
+	catch (e) {
+		console.log("Error in API request:", e);
+	}
 }
 
 function TripHeader(props) {
@@ -92,6 +134,7 @@ function TripHeader(props) {
 						color='primary'
 						data-testid='optimizeButton'
 						onClick={() => {
+							console.log("Button got clicked");
 							optimizeTour(props);
 						}}
 					>
