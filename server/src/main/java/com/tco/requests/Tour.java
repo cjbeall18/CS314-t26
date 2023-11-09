@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 public abstract class Tour {
     double[][] distances; 
-    int[] tour;
     Places places;
 
     public Places shorter (Places places, double earthRadius, double response) {
