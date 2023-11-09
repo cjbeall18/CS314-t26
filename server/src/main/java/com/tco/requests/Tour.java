@@ -14,7 +14,7 @@ public abstract class Tour {
     public Places shorter (Places places, double earthRadius, double response) {
         Places bestTour = places;
         long bestDistance = calculateTourDistance(places, earthRadius);
-        long startTime = System.currentTimeMillis() / 100;
+        long startTime = System.currentTimeMillis();
 
         // Calculate the distance between all pairs of cities once, to avoid recalculating
         distances = new double[places.size()][places.size()];
@@ -49,10 +49,10 @@ public abstract class Tour {
     }
 
     private boolean timeCheck(long startTime, double endTime) {
-        long currTime = System.currentTimeMillis() / 100;
+        long currTime = System.currentTimeMillis();
         long totTime = currTime - startTime;
 
-        if (endTime <= totTime) {
+        if (endTime * 1000 <= totTime) {
             return true;
         } else {
             return false;
