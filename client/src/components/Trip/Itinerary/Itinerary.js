@@ -18,9 +18,6 @@ export default function Itinerary(props) {
 	const [response, setResponse] = useState (1);
 	const [places, setPlaces] = useState([]);
 	const serverSettings = props.serverSettings;
-	//const serverUrl = "http://localhost:41326";
-
-	console.log("serverSettings:", serverSettings);
 
 	useEffect(() => {
 		setPlaces(props.places)
@@ -51,8 +48,6 @@ export default function Itinerary(props) {
 	}
 
 	const total = distances.total;
-	console.log("PROPS.PLACES: ", props.places);
-	// props.setPlaces(places);
 	
 	return (
 		<Table responsive>
@@ -83,47 +78,18 @@ function createRequestBody(props) {
             name: place.defaultDisplayName || "Unknown", // Provide a default name if it's undefined
         })),
     };
-	console.log("Request body:", requestBody);
     return requestBody
 }
 
 async function optimizeTour (props, setPlaces) {
-	console.log("Entered Optimize TOUR");
-	//console.log("serverUrl", serverSettings.serverUrl);
-	console.log("Props in optimizeTour:", props);
 	const requestBody = createRequestBody(props);
-	console.log("Request body:", requestBody);
-
-	try{
-		if (!props.places) {
-            console.error("Error: props.places is not defined");
-            return;
-        }
-
-		
-		const responseBody = await sendAPIRequest(requestBody, "http://localhost:41326");
-		console.log("Response from API:", responseBody);
-
-		if (responseBody && responseBody.places) {
-			let optimizedPlaces = new Array();
-			console.log("Response from API:", responseBody);
-			for (let i = 0; i < responseBody.places.length; i++) {
-				let place = new Place(responseBody.places[i]);
-				optimizedPlaces.push(place);
-			}
-			// const optimizedPlaces = responseBody.places;
-			console.log("optimizedPlaces:");
-			console.log(optimizedPlaces);
-			setPlaces(optimizedPlaces);
-			// props.places = optimizedPlaces;
-		  } else {
-			console.log("Response from API:", responseBody);
-			console.log("Server response does not contain valid 'places' data.");
-		  }
-	}
-	catch (e) {
-		console.log("Error in API request:", e);
-	}
+	const responseBody = await sendAPIRequest(requestBody, "http://localhost:41326");
+		let optimizedPlaces = new Array();
+		for (let i = 0; i < responseBody.places.length; i++) {
+			let place = new Place(responseBody.places[i]);
+			optimizedPlaces.push(place);
+		}
+		setPlaces(optimizedPlaces);
 }
 
 function TripHeader(props) {
@@ -143,7 +109,6 @@ function TripHeader(props) {
 						color='primary'
 						data-testid='optimizeButton'
 						onClick={() => {
-							console.log("Button got clicked");
 							optimizeTour(props, props.setPlaces);
 						}}
 					>
@@ -202,8 +167,6 @@ function PlaceRow(props) {
 }
 
 function AdditionalPlaceInfo(props) {
-	console.log("additionalInfo prop: ");
-	console.log(props.place);
 	return (
 		<Collapse isOpen={props.showFullName}>
 			{props.place.formatPlace().replace(`${props.place.defaultDisplayName}, `, '')}
