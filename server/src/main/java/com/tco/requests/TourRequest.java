@@ -11,7 +11,6 @@ public class TourRequest extends Request {
     private double earthRadius;
     private double response;
     private Places places;
-    public Tour tour;
 
     @Override
     public void buildResponse() {
@@ -38,7 +37,7 @@ public class TourRequest extends Request {
         if (this.response <= 0.0) {
             this.places = this.places;
         } else {
-            tour = new OneOpt();
+            Tour tour = new OneOpt();
             Places shorterTour = tour.shorter(this.places, this.earthRadius, this.response * 0.75);
             this.places = shorterTour;
         }
