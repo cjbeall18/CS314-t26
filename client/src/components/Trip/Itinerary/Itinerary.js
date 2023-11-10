@@ -9,22 +9,25 @@ import Units from './Units';
 import {useDistances} from "../../../hooks/useDistances";
 import {LuArrowBigRight, LuArrowBigRightDash } from 'react-icons/lu';
 import {sendAPIRequest} from "../../../utils/restfulAPI";
+import { Place } from '../../../models/place.model';
 
 export default function Itinerary(props) {
 
 	const [earthRadius, setEarthRadius] = useState(3959.0);
 	const [distanceUnits, setDistanceUnits] = useState("miles");
 	const [response, setResponse] = useState (1);
+	const [places, setPlaces] = useState([]);
 	const serverSettings = props.serverSettings;
 
 	useEffect(() => {
+		setPlaces(props.places)
     }, [props.serverSettings]);
 
 	const {distances} = useDistances(props.places, earthRadius, props.serverSettings);
 
 	const placeListProps = {
-		places: props.places,
-		setPlaces: props.setPlaces,
+		places: places,
+		setPlaces: setPlaces,
 		distances: distances,
 		placeActions: props.placeActions,
 		selectedIndex: props.selectedIndex,
@@ -53,10 +56,9 @@ export default function Itinerary(props) {
 				{...unitsProps}
 				{...tourProps}
 				tripName={props.tripName}
-				places = {props.places}
+				places = {places}
 				serverSettings = {serverSettings}
 				total = {total}
-				//setPlaces={props.setPlaces}
 			/>
 			<PlaceList 
 				{...placeListProps}
@@ -81,8 +83,11 @@ function createRequestBody(props) {
 async function optimizeTour (props) {
 	const requestBody = createRequestBody(props);
 	const responseBody = await sendAPIRequest(requestBody, "http://localhost:41326");
-	const optimizedPlaces = responseBody.places;
-	setPlaces(optimizedPlaces);
+	let optimizedPlaces = new Array();
+	for (let i = 0; i < responseBody.places.length; i++) {
+		let place = new Place(responseBody.places[i]);
+		optimizedPlaces.push(place);
+	}
 }
 
 function TripHeader(props) {
