@@ -174,7 +174,11 @@ async function findPlacesByName(requestBody, setFoundPlaces, setSelectedPlace, s
     const response = await sendAPIRequest(requestBody, serverSettings.serverUrl);
     const places = response.places.map(place => new Place(place));
     setFoundPlaces(places);
-    setSelectedPlace(null);
+	if (places.length > 0) {
+        setSelectedPlace(places[0]);
+    } else {
+        setSelectedPlace(null);
+    }
 }
 
 function createRequestBody(search, limit) {
