@@ -23,7 +23,7 @@ export default function Itinerary(props) {
 		setPlaces(props.places)
     }, [props.serverSettings]);
 
-	const {distances} = useDistances(props.places, earthRadius, props.serverSettings);
+	const {distances} = useDistances(places, earthRadius, props.serverSettings);
 
 	const placeListProps = {
 		places: places,
@@ -59,6 +59,7 @@ export default function Itinerary(props) {
 				places = {places}
 				serverSettings = {serverSettings}
 				total = {total}
+				//setPlaces={props.setPlaces}
 			/>
 			<PlaceList 
 				{...placeListProps}
@@ -74,24 +75,26 @@ function createRequestBody(props) {
 		"places": props.places.map(place => ({
             latitude: place.latitude,
             longitude: place.longitude,
-            name: place.defaultDisplayName
+            name: place.defaultDisplayName || "Unknown", // Provide a default name if it's undefined
         })),
     };
     return requestBody
 }
 
-async function optimizeTour (props) {
+async function optimizeTour (props, setPlaces) {
 	const requestBody = createRequestBody(props);
-	const responseBody = await sendAPIRequest(requestBody, "http://localhost:41326");
-	let optimizedPlaces = new Array();
-	for (let i = 0; i < responseBody.places.length; i++) {
-		let place = new Place(responseBody.places[i]);
-		optimizedPlaces.push(place);
-	}
+	const responseBody = await sendAPIRequest(requestBody, props.serverSettings.serverUrl);
+		let optimizedPlaces = new Array();
+		for (let i = 0; i < responseBody.places.length; i++) {
+			let place = new Place(responseBody.places[i]);
+			optimizedPlaces.push(place);
+		}
+		props.placeActions.setPlaces(optimizedPlaces);
 }
 
 function TripHeader(props) {
 	return (
+		
 		<thead>
 			<tr>
 				<th
@@ -106,7 +109,7 @@ function TripHeader(props) {
 						color='primary'
 						data-testid='optimizeButton'
 						onClick={() => {
-							optimizeTour(props);
+							optimizeTour(props, props.setPlaces);
 						}}
 					>
 						Optimize
