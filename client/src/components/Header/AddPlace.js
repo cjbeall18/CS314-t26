@@ -28,15 +28,11 @@ export default function AddPlace(props) {
 	const serverSettings = props.serverSettings;
 
 	const addPlaceProps = {
-		foundPlaces,
-		setFoundPlaces,
-		selectedPlace,
-		setSelectedPlace,
-		coordString,
-		setCoordString,
+		foundPlaces, setFoundPlaces,
+		selectedPlace, setSelectedPlace,
+		coordString, setCoordString,
 		append: props.placeActions.append,
-		randomState,
-		setRandomState,
+		randomState, setRandomState,
 		serverSettings
 	}
 	return (
@@ -174,7 +170,11 @@ async function findPlacesByName(requestBody, setFoundPlaces, setSelectedPlace, s
     const response = await sendAPIRequest(requestBody, serverSettings.serverUrl);
     const places = response.places.map(place => new Place(place));
     setFoundPlaces(places);
-    setSelectedPlace(null);
+	if (places.length == 1) {
+        setSelectedPlace(places[0]);
+    } else {
+        setSelectedPlace(null);
+    }
 }
 
 function createRequestBody(search, limit) {
