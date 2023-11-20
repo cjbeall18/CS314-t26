@@ -9,7 +9,29 @@ import java.util.Collections;
 public class TwoOpt extends Tour {
     void twoOpt() {}
 
-    void improve() {}
+    @Override
+    void improve() {
+        Places route = this.places;
+        route.add(route.get(0));
+        boolean improvement = true;
+        while (improvement) {
+            improvement = false;
+            for (int i=0; i<=route.size()-3; i++) {
+                for (int k=i+2; k<route.size()-1; k++) {
+                    if (twoOptImproves(route, i, k)) {
+                        twoOptReverse(route, i+1, k);
+                        improvement = true;
+                    }
+                }
+            }
+        }
+        route.remove(route.size()-1);
+        if (route.get(0) != this.places.get(0)) {
+            int firstPlaceIndex = route.indexOf(this.places.get(0));
+            firstPlaceIndex *= -1;
+            Collections.rotate(route, firstPlaceIndex);
+        }
+    }
 
     private boolean twoOptImproves(Places route, int i, int k) {
         return DistanceCalculator.calculator(route.get(i), route.get(k), 3695.0) + 

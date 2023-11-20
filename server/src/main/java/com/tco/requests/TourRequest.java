@@ -36,10 +36,15 @@ public class TourRequest extends Request {
     private void optimizeTour() {
         if (this.response <= 0.0) {
             this.places = this.places;
-        } else {
+        } else if (this.places.size() > 0 && this.places.size() >= 100) {
             Tour tour = new OneOpt();
             Places shorterTour = tour.shorter(this.places, this.earthRadius, this.response * 0.75);
             this.places = shorterTour;
+        } else if (this.places.size() > 0){
+            Tour tour = new TwoOpt();
+            tour.places = this.places;
+            tour.improve();
+            this.places = tour.places;
         }
         
     }
