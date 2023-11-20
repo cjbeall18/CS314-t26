@@ -18,6 +18,12 @@ public class TwoOpt extends Tour {
         DistanceCalculator.calculator(route.get(k), route.get(k+1), 3695.0);
     }
 
-    private void twoOptReverse() {}
+    private void twoOptReverse(Places route, int i1, int k) {
+        while (i1 < k) {
+            Collections.swap(route, i1, k);
+            i1++;
+            k--;
+        }
+    }
 
 }
