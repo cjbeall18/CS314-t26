@@ -41,7 +41,6 @@ public class TwoOpt extends Tour {
     }
 
     private void twoOptReverse(Places route, int i1, int k) {
-        System.out.println("inside reverse");
         while (i1 < k) {
             Collections.swap(route, i1, k);
             i1++;
