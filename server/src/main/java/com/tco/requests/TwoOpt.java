@@ -7,4 +7,10 @@ public class TwoOpt extends Tour {
     void twoOpt() {}
 
     void improve() {}
+
+    private boolean twoOptImproves() {
+        return false;
+    }
+
+    private void twoOptReverse() {}
 }
