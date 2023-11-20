@@ -24,6 +24,7 @@ public class TwoOpt extends Tour {
                 }
             }
         }
+        route.remove(route.size()-1);
     }
 
     private boolean twoOptImproves(Places route, int i, int k) {
