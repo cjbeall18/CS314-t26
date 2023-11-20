@@ -15,8 +15,9 @@ public class TwoOpt extends Tour {
         route.add(route.get(0));
         boolean improvement = true;
         while (improvement) {
+            improvement = false;
             for (int i=0; i<=route.size()-3; i++) {
-                for (int k=i+2; k<=route.size()-1; k++) {
+                for (int k=i+2; k<route.size()-1; k++) {
                     if (twoOptImproves(route, i, k)) {
                         twoOptReverse(route, i+1, k);
                         improvement = true;
@@ -40,6 +41,7 @@ public class TwoOpt extends Tour {
     }
 
     private void twoOptReverse(Places route, int i1, int k) {
+        System.out.println("inside reverse");
         while (i1 < k) {
             Collections.swap(route, i1, k);
             i1++;
