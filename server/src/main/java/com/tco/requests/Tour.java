@@ -97,5 +97,5 @@ public abstract class Tour {
         return totalDistance;
     }
 
-    abstract void improve ();
+    abstract void improve();
 }
