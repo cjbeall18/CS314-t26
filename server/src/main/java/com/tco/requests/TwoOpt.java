@@ -25,6 +25,11 @@ public class TwoOpt extends Tour {
             }
         }
         route.remove(route.size()-1);
+        if (route.get(0) != this.places.get(0)) {
+            int firstPlaceIndex = route.indexOf(this.places.get(0));
+            firstPlaceIndex *= -1;
+            Collections.rotate(route, firstPlaceIndex);
+        }
     }
 
     private boolean twoOptImproves(Places route, int i, int k) {
