@@ -48,4 +48,8 @@ public class TourRequest extends Request {
         }
         
     }
+
+    public double getEarthRadius() { return this.earthRadius; }
+    public double getResponse() { return this.response; }
+    public Places getPlaces() { return this.places; }
 }

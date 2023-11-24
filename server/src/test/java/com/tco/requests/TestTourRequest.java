@@ -16,5 +16,21 @@ public class TestTourRequest {
         tourReq.buildResponse();
     }
 
+    @Test
+    @DisplayName("tamo: Request type is \"tour\"")
+    public void testTour() {
+        String type = tourReq.getRequestType();
+        assertEquals("tour", type);
+    }
 
+    @Test
+    @DisplayName("tamo: Test default ctor values")
+    public void testDefaultTourRequestVariables() {
+        double earthRadius = tourReq.getEarthRadius();
+        double response = tourReq.getResponse();
+        int placesSize = tourReq.getPlaces().size();
+        assertEquals(earthRadius, 1);
+        assertEquals(response, 1);
+        assertEquals(placesSize, 0);
+    }
 }
