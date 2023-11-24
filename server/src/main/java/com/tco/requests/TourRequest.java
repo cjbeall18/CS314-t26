@@ -44,7 +44,6 @@ public class TourRequest extends Request {
             Tour tour = new TwoOpt();
             tour.places = this.places;
             tour.improve();
-            this.places = tour.places;
         }
         
     }
