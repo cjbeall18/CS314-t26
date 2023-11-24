@@ -7,6 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.beans.Transient;
+
 public class TestTourRequest {
     private TourRequest tourReq;
 
@@ -32,5 +34,13 @@ public class TestTourRequest {
         assertEquals(earthRadius, 1);
         assertEquals(response, 1);
         assertEquals(placesSize, 0);
+    }
+
+    @Test
+    @DisplayName("ejpitera: Test response value")
+    public void testTourRequestResponse() {
+        tourReq = new TourRequest(1.0, 50.0, new Places());
+        double response = tourReq.getResponse();
+        assertEquals(response, 50.0);
     }
 }
