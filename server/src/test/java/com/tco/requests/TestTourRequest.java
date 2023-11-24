@@ -7,8 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.beans.Transient;
-
 public class TestTourRequest {
     private TourRequest tourReq;
 
