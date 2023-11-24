@@ -33,4 +33,12 @@ public class TestTourRequest {
         assertEquals(response, 1);
         assertEquals(placesSize, 0);
     }
+
+    @Test
+    @DisplayName("ejpitera: Test response value")
+    public void testTourRequestResponse() {
+        tourReq = new TourRequest(1.0, 50.0, new Places());
+        double response = tourReq.getResponse();
+        assertEquals(response, 50.0);
+    }
 }
