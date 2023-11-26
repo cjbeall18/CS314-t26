@@ -40,12 +40,15 @@ public class TourRequest extends Request {
             Tour tour = new OneOpt();
             Places shorterTour = tour.shorter(this.places, this.earthRadius, this.response * 0.75);
             this.places = shorterTour;
-        } else if (this.places.size() > 0){
+        } else if (this.places.size() > 0 && this.places.size() <= 50){
             Tour tour = new TwoOpt();
             tour.places = this.places;
             tour.improve();
+        } else if (this.places.size() > 0) {
+            Tour tour = new ThreeOpt();
+            tour.places = this.places;
+            tour.improve();
         }
-        
     }
 
     public double getEarthRadius() { return this.earthRadius; }

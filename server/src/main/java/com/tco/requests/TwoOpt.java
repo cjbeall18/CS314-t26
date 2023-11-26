@@ -25,9 +25,13 @@ public class TwoOpt extends Tour {
                 }
             }
         }
+        rotateStart(route, this.places);
+    }
+
+    public static void rotateStart (Places route, Places places) {
         route.remove(route.size()-1);
-        if (route.get(0) != this.places.get(0)) {
-            int firstPlaceIndex = route.indexOf(this.places.get(0));
+        if (route.get(0) != places.get(0)) {
+            int firstPlaceIndex = route.indexOf(places.get(0));
             firstPlaceIndex *= -1;
             Collections.rotate(route, firstPlaceIndex);
         }
@@ -40,7 +44,7 @@ public class TwoOpt extends Tour {
         DistanceCalculator.calculator(route.get(k), route.get(k+1), 3695.0);
     }
 
-    private void twoOptReverse(Places route, int i1, int k) {
+    public static void twoOptReverse(Places route, int i1, int k) {
         while (i1 < k) {
             Collections.swap(route, i1, k);
             i1++;
