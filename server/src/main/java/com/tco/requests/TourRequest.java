@@ -42,8 +42,9 @@ public class TourRequest extends Request {
             this.places = shorterTour;
         } else if (this.places.size() > 0){
             Tour tour = new TwoOpt();
-            tour.places = this.places;
+            tour.places = new Places(this.places);
             tour.improve();
+            this.places = new Places(tour.places);
         }
         
     }

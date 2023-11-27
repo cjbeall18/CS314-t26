@@ -12,6 +12,7 @@ public class TwoOpt extends Tour {
     @Override
     void improve() {
         Places route = this.places;
+        Places OGPlaces = new Places(this.places);
         route.add(route.get(0));
         boolean improvement = true;
         while (improvement) {
@@ -25,7 +26,7 @@ public class TwoOpt extends Tour {
                 }
             }
         }
-        rotateStart(route, this.places);
+        rotateStart(route, OGPlaces);
     }
 
     public static void rotateStart (Places route, Places places) {
