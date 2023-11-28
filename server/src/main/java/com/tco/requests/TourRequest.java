@@ -22,7 +22,7 @@ public class TourRequest extends Request {
     }
 
     public TourRequest () {
-        this(1,1,new Places());
+        this(1,0.0,new Places());
     }
     
     public TourRequest(double earthRadius, double response, Places places) {
@@ -40,12 +40,12 @@ public class TourRequest extends Request {
             Tour tour = new OneOpt();
             Places shorterTour = tour.shorter(this.places, this.earthRadius, this.response * 0.75);
             this.places = shorterTour;
-        } else if (this.places.size() > 0){
-            Tour tour = new TwoOpt();
-            tour.places = new Places(this.places);
-            tour.improve();
-            this.places = new Places(tour.places);
-        }
+        } //else if (this.places.size() > 0){
+        //     Tour tour = new TwoOpt();
+        //     tour.places = new Places(this.places);
+        //     tour.improve();
+        //     this.places = new Places(tour.places);
+        // }
         
     }
 

@@ -30,7 +30,7 @@ public class TestTourRequest {
         double response = tourReq.getResponse();
         int placesSize = tourReq.getPlaces().size();
         assertEquals(earthRadius, 1);
-        assertEquals(response, 1);
+        assertEquals(response, 0.0);
         assertEquals(placesSize, 0);
     }
 
