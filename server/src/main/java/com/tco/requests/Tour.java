@@ -12,7 +12,6 @@ public abstract class Tour {
     Places places;
 
     public Places shorter (Places places, double earthRadius, double response) {
-        System.out.println("inside shorter");
         Places bestTour = places;
         long bestDistance = calculateTourDistance(places, earthRadius);
         long startTime = System.currentTimeMillis();
@@ -33,7 +32,6 @@ public abstract class Tour {
             currentTour = twoOptTour.places;
             long currentDistance = calculateTourDistance(currentTour, earthRadius);
 
-            System.out.println("count: " + i + " || currentDistance: " + currentDistance);
 
             if (currentDistance < bestDistance) {
                 bestDistance = currentDistance;
