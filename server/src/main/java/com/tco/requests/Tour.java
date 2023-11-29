@@ -26,10 +26,12 @@ public abstract class Tour {
         for (int i = 0; i < places.size(); i++) {
             if (timeCheck(startTime, response)) {break;}
             Places currentTour = construct(i, places, earthRadius);
-            Tour twoOptTour = new TwoOpt();
-            twoOptTour.places = currentTour;
-            twoOptTour.improve();
-            currentTour = twoOptTour.places;
+            if (places.size() <= 250) {
+                Tour twoOptTour = new TwoOpt();
+                twoOptTour.places = currentTour;
+                twoOptTour.improve();
+                currentTour = twoOptTour.places;
+            }
             long currentDistance = calculateTourDistance(currentTour, earthRadius);
 
 
