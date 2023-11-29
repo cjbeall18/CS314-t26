@@ -15,7 +15,7 @@ export default function Itinerary(props) {
 
 	const [earthRadius, setEarthRadius] = useState(3959.0);
 	const [distanceUnits, setDistanceUnits] = useState("miles");
-	const [response, setResponse] = useState (10);
+	const [response, setResponse] = useState (2);
 	const [places, setPlaces] = useState([]);
 	const serverSettings = props.serverSettings;
 
