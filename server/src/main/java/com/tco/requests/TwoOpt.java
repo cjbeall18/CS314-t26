@@ -15,6 +15,7 @@ public class TwoOpt extends Tour {
         Places OGPlaces = new Places(this.places);
         route.add(route.get(0));
         Place[] routeArray = route.toArray(new Place[route.size()]);
+        System.out.println("routeArray: " + routeArray[0]);
         boolean improvement = true;
         while (improvement) {
             improvement = false;
@@ -29,7 +30,7 @@ public class TwoOpt extends Tour {
         }
         route = new Places(routeArray);
         rotateStart(route, OGPlaces);
-        System.out.println("EXITING TWO OPT IMPROVE");
+        System.out.println("EXITING TWO OPT IMPROVE distance:" + calculateTourDistance(route, 3959.0));
     }
 
     public static void rotateStart (Places route, Places places) {

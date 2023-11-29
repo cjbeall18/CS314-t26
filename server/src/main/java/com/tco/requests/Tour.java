@@ -30,10 +30,11 @@ public abstract class Tour {
                 Tour twoOptTour = new TwoOpt();
                 twoOptTour.places = currentTour;
                 twoOptTour.improve();
+                System.out.println("after improve distance:" + calculateTourDistance(twoOptTour.places, 3959.0));
                 currentTour = twoOptTour.places;
             }
             long currentDistance = calculateTourDistance(currentTour, earthRadius);
-
+            System.out.println("currentDistance after if: " + currentDistance);
 
             if (currentDistance < bestDistance) {
                 bestDistance = currentDistance;
