@@ -86,34 +86,34 @@ public class TestOneOpt {
         assertEquals(places.get(0), bestTour.get(0));
     }
 
-    // @Test
-    // @DisplayName("clayroby: test Tour timeout. Expect control group time to be greater than test group time")
-    // public void testTourTimeout() {
-    //     Places places = new Places();
-    //     long earthRadius = 6371;
-    //     tour = new OneOpt();
-    //     double response = 1.0;
-    //     boolean result = false;
-    //     Random rand = new Random();
+    @Test
+    @DisplayName("clayroby: test Tour timeout. Expect control group time to be greater than test group time")
+    public void testTourTimeout() {
+        Places places = new Places();
+        long earthRadius = 6371;
+        tour = new OneOpt();
+        double response = 1.0;
+        boolean result = false;
+        Random rand = new Random();
 
-    //     places = randTourBuilder(rand, 1000, places);
+        places = randTourBuilder(rand, 1000, places);
        
-    //     // run test with short response. usually take 1.4 seconds to run
-    //     long testStartTime = System.currentTimeMillis();
-    //     Places bestTour = tour.shorter(places, earthRadius, response);
-    //     long testEndTime = System.currentTimeMillis();
-    //     long testTotTime = testEndTime - testStartTime;
+        // run test with short response. usually take 1.4 seconds to run
+        long testStartTime = System.currentTimeMillis();
+        Places bestTour = tour.shorter(places, earthRadius, response);
+        long testEndTime = System.currentTimeMillis();
+        long testTotTime = testEndTime - testStartTime;
 
-    //     // run a control test on same places, but with no limit to response
-    //     long controlStartTime = System.currentTimeMillis();
-    //     Places controlTour = tour.shorter(places, earthRadius, 10.0);
-    //     long controlEndTime = System.currentTimeMillis();
-    //     long controlTotTime = controlEndTime - controlStartTime;
+        // run a control test on same places, but with no limit to response
+        long controlStartTime = System.currentTimeMillis();
+        Places controlTour = tour.shorter(places, earthRadius, 10.0);
+        long controlEndTime = System.currentTimeMillis();
+        long controlTotTime = controlEndTime - controlStartTime;
 
-    //     result = testTotTime < controlTotTime;
+        result = testTotTime < controlTotTime;
         
-    //     assertEquals(true, result);
-    // }
+        assertEquals(true, result);
+    }
 
     private Places randTourBuilder(Random rand, int num_places, Places places) {
         for (int i = 0; i < num_places; i++) {
