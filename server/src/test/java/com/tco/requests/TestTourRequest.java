@@ -41,4 +41,29 @@ public class TestTourRequest {
         double response = tourReq.getResponse();
         assertEquals(response, 50.0);
     }
+
+    @Test
+    @DisplayName("evanloy: Test response value below threshold")
+    public void testResponseValueBelowThreshold() {
+        double testResponse = 25.0;
+        tourReq = new TourRequest(1.0, testResponse, new Places());
+        tourReq.buildResponse();
+        assertEquals(tourReq.getResponse(), testResponse);
+    }
+
+    @Test
+    @DisplayName("evanloy: Test optimizeTour with zero or negative response")
+    public void testOptimizeTourWithZeroOrNegativeResponse() {
+        tourReq = new TourRequest(1.0, -10.0, new Places());
+        tourReq.buildResponse();
+        assertEquals(tourReq.getPlaces().size(), 0);
+    }
+    
+    @Test
+    @DisplayName("evanloy: Test optimizeTour with positive response and empty places")
+    public void testOptimizeTourWithPositiveResponseAndEmptyPlaces() {
+        tourReq = new TourRequest(1.0, 20.0, new Places());
+        tourReq.buildResponse();
+        assertEquals(tourReq.getPlaces().size(), 0);
+    }
 }
