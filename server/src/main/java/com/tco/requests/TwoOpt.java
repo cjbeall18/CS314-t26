@@ -14,19 +14,22 @@ public class TwoOpt extends Tour {
         Places route = this.places;
         Places OGPlaces = new Places(this.places);
         route.add(route.get(0));
+        Place[] routeArray = route.toArray(new Place[route.size()]);
         boolean improvement = true;
         while (improvement) {
             improvement = false;
-            for (int i=0; i<=route.size()-3; i++) {
-                for (int k=i+2; k<route.size()-1; k++) {
-                    if (twoOptImproves(route, i, k)) {
-                        twoOptReverse(route, i+1, k);
+            for (int i=0; i<=routeArray.length-3; i++) {
+                for (int k=i+2; k<routeArray.length-1; k++) {
+                    if (twoOptImproves(routeArray, i, k)) {
+                        routeArray = twoOptReverse(routeArray, i+1, k);
                         improvement = true;
                     }
                 }
             }
         }
+        route = new Places(routeArray);
         rotateStart(route, OGPlaces);
+        System.out.println("EXITING TWO OPT IMPROVE");
     }
 
     public static void rotateStart (Places route, Places places) {
@@ -38,19 +41,22 @@ public class TwoOpt extends Tour {
         }
     }
 
-    private boolean twoOptImproves(Places route, int i, int k) {
-        return DistanceCalculator.calculator(route.get(i), route.get(k), 3695.0) + 
-        DistanceCalculator.calculator(route.get(i+1), route.get(k+1), 3695.0) < 
-        DistanceCalculator.calculator(route.get(i), route.get(i+1), 3695.0) + 
-        DistanceCalculator.calculator(route.get(k), route.get(k+1), 3695.0);
+    private boolean twoOptImproves(Place[] routeArray, int i, int k) {
+        return DistanceCalculator.calculator(routeArray[i], routeArray[k], 3695.0) + 
+        DistanceCalculator.calculator(routeArray[i+1], routeArray[k+1], 3695.0) < 
+        DistanceCalculator.calculator(routeArray[i], routeArray[i+1], 3695.0) + 
+        DistanceCalculator.calculator(routeArray[k], routeArray[k+1], 3695.0);
     }
 
-    public static void twoOptReverse(Places route, int i1, int k) {
+    public static Place[] twoOptReverse(Place[] routeArray, int i1, int k) {
+        Places tmp = new Places(routeArray);
         while (i1 < k) {
-            Collections.swap(route, i1, k);
+            Collections.swap(tmp, i1, k);
             i1++;
             k--;
         }
+        routeArray = tmp.toArray(new Place[routeArray.length]);
+        return routeArray;
     }
 
 }
