@@ -21,7 +21,7 @@ export default function Itinerary(props) {
 
 	useEffect(() => {
 		setPlaces(props.places)
-    }, [props.serverSettings]);
+    }, [props.places, props.serverSettings]);
 
 	const {distances} = useDistances(places, earthRadius, props.serverSettings);
 
