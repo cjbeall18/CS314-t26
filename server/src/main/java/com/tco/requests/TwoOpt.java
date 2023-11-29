@@ -49,13 +49,14 @@ public class TwoOpt extends Tour {
     }
 
     public static Place[] twoOptReverse(Place[] routeArray, int i1, int k) {
-        Places tmp = new Places(routeArray);
         while (i1 < k) {
-            Collections.swap(tmp, i1, k);
+            Place tmp = routeArray[i1];
+            routeArray[i1] = routeArray[k];
+            routeArray[k] = tmp;
+
             i1++;
             k--;
         }
-        routeArray = tmp.toArray(new Place[routeArray.length]);
         return routeArray;
     }
 
