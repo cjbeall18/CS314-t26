@@ -19,22 +19,20 @@ public abstract class Tour {
         distances = new double[places.size()][places.size()];
         for (int i = 0; i < places.size(); i++) {
             for (int j = 0; j < places.size(); j++) {
-                //if (timeCheck(startTime, response)) {break;}
+                if (timeCheck(startTime, response)) {break;}
                 distances[i][j] = DistanceCalculator.calculator(places.get(i), places.get(j), earthRadius);
             }
         }
         for (int i = 0; i < places.size(); i++) {
-            //if (timeCheck(startTime, response)) {break;}
+            if (timeCheck(startTime, response)) {break;}
             Places currentTour = construct(i, places, earthRadius);
             if (places.size() <= 250) {
                 Tour twoOptTour = new TwoOpt();
                 twoOptTour.places = currentTour;
                 twoOptTour.improve();
-                System.out.println("after improve distance:" + calculateTourDistance(twoOptTour.places, 3959.0));
                 currentTour = twoOptTour.places;
             }
             long currentDistance = calculateTourDistance(currentTour, earthRadius);
-            System.out.println("currentDistance after if: " + currentDistance);
 
             if (currentDistance < bestDistance) {
                 bestDistance = currentDistance;

@@ -12,11 +12,11 @@ public class TwoOpt extends Tour {
     @Override
     void improve() {
         Places route = this.places;
-        Places OGPlaces = new Places(this.places);
-        route.add(route.get(0));
-        Place[] routeArray = route.toArray(new Place[route.size()]);
-        System.out.println("routeArray: " + routeArray[0]);
+        Place firstPlace = this.places.get(0);
+        Place[] routeArray = route.toArray(new Place[route.size()+1]);
+        routeArray[routeArray.length-1] = routeArray[0];
         boolean improvement = true;
+
         while (improvement) {
             improvement = false;
             for (int i=0; i<=routeArray.length-3; i++) {
@@ -29,15 +29,14 @@ public class TwoOpt extends Tour {
             }
         }
         route = new Places(routeArray);
-        rotateStart(route, OGPlaces);
-        System.out.println("EXITING TWO OPT IMPROVE distance:" + calculateTourDistance(route, 3959.0));
+        rotateStart(route, firstPlace);
         this.places = route;
     }
 
-    public static void rotateStart (Places route, Places places) {
+    public static void rotateStart (Places route, Place firstPlace) {
         route.remove(route.size()-1);
-        if (route.get(0) != places.get(0)) {
-            int firstPlaceIndex = route.indexOf(places.get(0));
+        if (route.get(0) != firstPlace) {
+            int firstPlaceIndex = route.indexOf(firstPlace);
             firstPlaceIndex *= -1;
             Collections.rotate(route, firstPlaceIndex);
         }
