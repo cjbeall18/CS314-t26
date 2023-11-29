@@ -11,7 +11,6 @@ public class TwoOpt extends Tour {
 
     @Override
     void improve() {
-        System.out.println("inside improve");
         Places route = this.places;
         Places OGPlaces = new Places(this.places);
         route.add(route.get(0));
