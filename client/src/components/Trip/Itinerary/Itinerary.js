@@ -81,7 +81,7 @@ function createRequestBody(props) {
     return requestBody
 }
 
-async function optimizeTour (props, setPlaces) {
+async function optimizeTour (props) {
 	const requestBody = createRequestBody(props);
 	const responseBody = await sendAPIRequest(requestBody, props.serverSettings.serverUrl);
 		let optimizedPlaces = new Array();
@@ -109,7 +109,7 @@ function TripHeader(props) {
 						color='primary'
 						data-testid='optimizeButton'
 						onClick={() => {
-							optimizeTour(props, props.setPlaces);
+							optimizeTour(props);
 						}}
 					>
 						Optimize
