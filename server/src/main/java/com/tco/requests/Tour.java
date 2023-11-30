@@ -34,7 +34,6 @@ public abstract class Tour {
             }
             long currentDistance = calculateTourDistance(currentTour, earthRadius);
 
-
             if (currentDistance < bestDistance) {
                 bestDistance = currentDistance;
                 bestTour = currentTour;
