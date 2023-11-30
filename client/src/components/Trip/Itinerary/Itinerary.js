@@ -75,7 +75,7 @@ function createRequestBody(props) {
 		"places": props.places.map(place => ({
             latitude: place.latitude,
             longitude: place.longitude,
-            name: place.defaultDisplayName || "Unknown", // Provide a default name if it's undefined
+            name: place.defaultDisplayName
         })),
     };
     return requestBody
