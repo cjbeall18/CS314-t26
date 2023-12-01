@@ -12,6 +12,7 @@ public abstract class Tour {
     Places places;
 
     public Places shorter (Places places, double earthRadius, double response) {
+        boolean isNN = true;
         // System.out.println("places.size: " + places.size());
         Place[] places_arr = places.toArray(new Place[places.size()+1]);
         places_arr[places_arr.length-1] = places_arr[0];
@@ -31,6 +32,7 @@ public abstract class Tour {
             if (timeCheck(startTime, response)) {break;}
             Place[] currentTour = construct(i, places_arr, earthRadius);
             // if (places_arr.length <= 250) {
+            //     isNN = false;
             //     Tour twoOptTour = new TwoOpt();
             //     twoOptTour.places = currentTour;
             //     twoOptTour.improve();
@@ -48,11 +50,17 @@ public abstract class Tour {
         if (!places.isEmpty()) {
             if (places.get(0) != bestTourList.get(0)) {
                 int firstPlaceIndex = bestTourList.indexOf(places.get(0));
+                System.out.println("FirstPlaceIndex: " + firstPlaceIndex);   
                 firstPlaceIndex *= -1;
                 Collections.rotate(bestTourList, firstPlaceIndex);
+                if (isNN)
+                {
+                    bestTourList.remove(0);
+                }
             }
         }
-        return bestTourList;
+
+            return bestTourList;
     }
 
     private boolean timeCheck(long startTime, double endTime) {
