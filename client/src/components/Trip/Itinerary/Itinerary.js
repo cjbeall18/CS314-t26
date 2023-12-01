@@ -59,7 +59,6 @@ export default function Itinerary(props) {
 				places = {places}
 				serverSettings = {serverSettings}
 				total = {total}
-				//setPlaces={props.setPlaces}
 			/>
 			<PlaceList 
 				{...placeListProps}
