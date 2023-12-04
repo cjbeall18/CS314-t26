@@ -12,10 +12,20 @@ public abstract class Tour {
     Places places;
 
     public Places shorter (Places places, double earthRadius, double response) {
-        boolean isNN = true;
+        boolean isNN;
+        boolean isTwoOpt;
+        Place[] places_arr;
+        if (false/*places_arr.length <= 250*/) {
+            isTwoOpt = true; 
+            places_arr = places.toArray(new Place[places.size()+1]);
+            
+            //places_arr[places_arr.length-1] = places_arr[0];
+        }
+        else {
+            isNN = true;
+            places_arr = places.toArray(new Place[places.size()]);
+        }
         // System.out.println("places.size: " + places.size());
-        Place[] places_arr = places.toArray(new Place[places.size()+1]);
-        places_arr[places_arr.length-1] = places_arr[0];
         Place[] bestTour = places_arr;
         long bestDistance = calculateTourDistance(places_arr, earthRadius);
         // System.out.println("Best distance################################################################ ");
@@ -53,10 +63,10 @@ public abstract class Tour {
                 System.out.println("FirstPlaceIndex: " + firstPlaceIndex);   
                 firstPlaceIndex *= -1;
                 Collections.rotate(bestTourList, firstPlaceIndex);
-                if (isNN)
-                {
-                    bestTourList.remove(0);
-                }
+                // if (isNN)
+                // {
+                //     bestTourList.remove(0);
+                // }
             }
         }
 
