@@ -28,7 +28,7 @@ public abstract class Tour {
         // System.out.println("places.size: " + places.size());
         Place[] bestTour = places_arr;
         long bestDistance = calculateTourDistance(places_arr, earthRadius);
-        // System.out.println("Best distance################################################################ ");
+        System.out.println("Best distance################################################################ ");
         long startTime = System.currentTimeMillis();
 
         distances = new double[places_arr.length][places_arr.length];
@@ -59,6 +59,7 @@ public abstract class Tour {
         Places bestTourList = new Places(bestTour);
         if (!places.isEmpty()) {
             if (places.get(0) != bestTourList.get(0)) {
+                System.out.println("In Rotate clause: ")
                 int firstPlaceIndex = bestTourList.indexOf(places.get(0));
                 System.out.println("FirstPlaceIndex: " + firstPlaceIndex);   
                 firstPlaceIndex *= -1;
