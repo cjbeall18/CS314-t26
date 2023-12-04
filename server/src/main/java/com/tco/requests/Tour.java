@@ -45,8 +45,8 @@ public abstract class Tour {
             if (isTwoOpt) {
                 Tour twoOptTour = new TwoOpt();
                 twoOptTour.globalPlaces = currentTour;
-                currentTour = twoOptTour.improve();
-                //currentTour = twoOptTour.globalPlaces;
+                twoOptTour.improve();
+                currentTour = twoOptTour.globalPlaces;
             }
             long currentDistance = calculateTourDistance(currentTour, earthRadius);
 
@@ -56,7 +56,7 @@ public abstract class Tour {
             }
         }
         Places bestTourList = new Places(bestTour);
-        if (!places.isEmpty()) {
+        if (!places.isEmpty() && !isTwoOpt) {
             if (places.get(0) != bestTourList.get(0)) {
                 int firstPlaceIndex = bestTourList.indexOf(places.get(0));
                 firstPlaceIndex *= -1;
