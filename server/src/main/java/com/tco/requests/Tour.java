@@ -12,11 +12,22 @@ public abstract class Tour {
     Places places;
 
     public Places shorter (Places places, double earthRadius, double response) {
-        Place[] places_arr = places.toArray(new Place[places.size()+1]);
-        places_arr[places_arr.length-1] = places_arr[0];
         Place[] bestTour = places_arr;
         long bestDistance = calculateTourDistance(places_arr, earthRadius);
         long startTime = System.currentTimeMillis();
+
+        boolean isNN;
+        boolean isTwoOpt;
+        Place[] places_arr;
+        if (places_arr.length <= 250) {
+            isTwoOpt = true; 
+            places_arr = places.toArray(new Place[places.size()+1]);
+        }
+        else {
+            isNN = true;
+            places_arr = places.toArray(new Place[places.size()]);
+        }
+
 
         distances = new double[places_arr.length][places_arr.length];
         for (int i = 0; i < places_arr.length; i++) {
@@ -33,7 +44,6 @@ public abstract class Tour {
             //     twoOptTour.places = currentTour;
             //     twoOptTour.improve();
             //     currentTour = twoOptTour.places;
-            // } else if(i = places_arr.length -1){delete last index}
             long currentDistance = calculateTourDistance(currentTour, earthRadius);
 
             if (currentDistance < bestDistance) {
