@@ -81,14 +81,19 @@ function createRequestBody(props) {
 }
 
 async function optimizeTour (props) {
-	const requestBody = createRequestBody(props);
-	const responseBody = await sendAPIRequest(requestBody, props.serverSettings.serverUrl);
-		let optimizedPlaces = new Array();
-		for (let i = 0; i < responseBody.places.length; i++) {
-			let place = new Place(responseBody.places[i]);
-			optimizedPlaces.push(place);
-		}
-		props.placeActions.setPlaces(optimizedPlaces);
+	const originalPlaces = [...props.places];
+	try {
+		const requestBody = createRequestBody(props);
+		const responseBody = await sendAPIRequest(requestBody, props.serverSettings.serverUrl);
+			let optimizedPlaces = new Array();
+			for (let i = 0; i < responseBody.places.length; i++) {
+				let place = new Place(responseBody.places[i]);
+				optimizedPlaces.push(place);
+			}
+			props.placeActions.setPlaces(optimizedPlaces);
+	} catch (error) {
+		props.placeActions.setPlaces(originalPlaces);
+	}
 }
 
 function TripHeader(props) {
