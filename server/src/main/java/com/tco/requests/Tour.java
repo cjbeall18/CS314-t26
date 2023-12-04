@@ -10,10 +10,11 @@ import org.slf4j.LoggerFactory;
 public abstract class Tour {
     double[][] distances; 
     Places places;
+    Place[] globalPlaces;
 
     public Places shorter (Places places, double earthRadius, double response) {
         boolean isNN;
-        boolean isTwoOpt;
+        boolean isTwoOpt = false;
         Place[] places_arr;
      
 
@@ -41,11 +42,12 @@ public abstract class Tour {
         for (int i = 0; i < places_arr.length; i++) {
             if (timeCheck(startTime, response)) {break;}
             Place[] currentTour = construct(i, places_arr, earthRadius);
-            // if (places_arr.length <= 250) {
-            //     Tour twoOptTour = new TwoOpt();
-            //     twoOptTour.places = currentTour;
-            //     twoOptTour.improve();
-            //     currentTour = twoOptTour.places;
+            if (isTwoOpt) {
+                Tour twoOptTour = new TwoOpt();
+                twoOptTour.globalPlaces = currentTour;
+                twoOptTour.improve();
+                currentTour = twoOptTour.globalPlaces;
+            }
             long currentDistance = calculateTourDistance(currentTour, earthRadius);
 
             if (currentDistance < bestDistance) {
@@ -59,6 +61,9 @@ public abstract class Tour {
                 int firstPlaceIndex = bestTourList.indexOf(places.get(0));
                 firstPlaceIndex *= -1;
                 Collections.rotate(bestTourList, firstPlaceIndex);
+            }
+            if (isTwoOpt) {
+                bestTourList.remove(0);
             }
         }
         return bestTourList;
