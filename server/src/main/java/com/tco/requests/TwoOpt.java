@@ -11,11 +11,8 @@ public class TwoOpt extends Tour {
 
     @Override
     void improve() {
-        //Places route = this.places;
         Place firstPlace = this.globalPlaces[0];
         Place[] routeArray = this.globalPlaces;
-        //Place[] routeArray = route.toArray(new Place[route.size()+1]);
-        //routeArray[routeArray.length-1] = routeArray[0];
         boolean improvement = true;
 
         while (improvement) {
@@ -33,14 +30,9 @@ public class TwoOpt extends Tour {
         rotateStart(route, firstPlace);
         route.remove(0);
         this.globalPlaces = route.toArray(new Place[route.size()]);
-<<<<<<< HEAD
-        //return route.toArray(new Place[route.size()]);
-=======
->>>>>>> bea1a570dfc8f0b340cf987e2026a659bd1bee7c
     }
 
     public static void rotateStart (Places route, Place firstPlace) {
-        //route.remove(route.size()-1);
         if (route.get(0) != firstPlace) {
             int firstPlaceIndex = route.indexOf(firstPlace);
             firstPlaceIndex *= -1;
