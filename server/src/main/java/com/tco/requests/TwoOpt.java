@@ -33,7 +33,10 @@ public class TwoOpt extends Tour {
         rotateStart(route, firstPlace);
         route.remove(0);
         this.globalPlaces = route.toArray(new Place[route.size()]);
+<<<<<<< HEAD
         //return route.toArray(new Place[route.size()]);
+=======
+>>>>>>> bea1a570dfc8f0b340cf987e2026a659bd1bee7c
     }
 
     public static void rotateStart (Places route, Place firstPlace) {
