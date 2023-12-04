@@ -56,11 +56,14 @@ public abstract class Tour {
             }
         }
         Places bestTourList = new Places(bestTour);
-        if (!places.isEmpty() && !isTwoOpt) {
+        if (!places.isEmpty() /*&& !isTwoOpt*/) {
             if (places.get(0) != bestTourList.get(0)) {
                 int firstPlaceIndex = bestTourList.indexOf(places.get(0));
                 firstPlaceIndex *= -1;
                 Collections.rotate(bestTourList, firstPlaceIndex);
+            }
+            if (isTwoOpt) {
+                bestTourList.remove(0);
             }
         }
         return bestTourList;

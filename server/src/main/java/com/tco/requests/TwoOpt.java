@@ -26,10 +26,6 @@ public class TwoOpt extends Tour {
                 }
             }
         }
-        Places route = new Places(routeArray);
-        rotateStart(route, firstPlace);
-        route.remove(0);
-        this.globalPlaces = route.toArray(new Place[route.size()]);
     }
 
     public static void rotateStart (Places route, Place firstPlace) {
