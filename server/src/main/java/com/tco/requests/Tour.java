@@ -45,6 +45,7 @@ public abstract class Tour {
             if (isTwoOpt) {
                 Tour twoOptTour = new TwoOpt();
                 twoOptTour.globalPlaces = currentTour;
+                twoOptTour.distances = distances;
                 twoOptTour.improve();
                 currentTour = twoOptTour.globalPlaces;
             }

@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class TwoOpt extends Tour {
+    double[][] distances; 
     void twoOpt() {}
 
     @Override
@@ -19,7 +20,7 @@ public class TwoOpt extends Tour {
             improvement = false;
             for (int i=0; i<=routeArray.length-3; i++) {
                 for (int k=i+2; k<routeArray.length-1; k++) {
-                    if (twoOptImproves(routeArray, i, k)) {
+                    if (twoOptImproves(/*routeArray,*/ i, k)) {
                         routeArray = twoOptReverse(routeArray, i+1, k);
                         improvement = true;
                     }
@@ -36,11 +37,12 @@ public class TwoOpt extends Tour {
         }
     }
 
-    private boolean twoOptImproves(Place[] routeArray, int i, int k) {
-        return DistanceCalculator.calculator(routeArray[i], routeArray[k], 3695.0) + 
-        DistanceCalculator.calculator(routeArray[i+1], routeArray[k+1], 3695.0) < 
-        DistanceCalculator.calculator(routeArray[i], routeArray[i+1], 3695.0) + 
-        DistanceCalculator.calculator(routeArray[k], routeArray[k+1], 3695.0);
+    private boolean twoOptImproves(/*Place[] routeArray,*/ int i, int k) {
+        return distances[i][k] + distances[i+1][k+1] < distances[i][i+1] + distances[k][k+1];
+        // return DistanceCalculator.calculator(routeArray[i], routeArray[k], 3695.0) + 
+        // DistanceCalculator.calculator(routeArray[i+1], routeArray[k+1], 3695.0) < 
+        // DistanceCalculator.calculator(routeArray[i], routeArray[i+1], 3695.0) + 
+        // DistanceCalculator.calculator(routeArray[k], routeArray[k+1], 3695.0);
     }
 
     public static Place[] twoOptReverse(Place[] routeArray, int i1, int k) {
