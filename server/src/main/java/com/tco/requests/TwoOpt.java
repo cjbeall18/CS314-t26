@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class TwoOpt extends Tour {
-    void twoOpt() {}
-
     @Override
     void improve() {
         Place firstPlace = this.globalPlaces[0];
