@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class TwoOpt extends Tour {
-    double[][] distances; 
+    double[][] distances_matrix; 
     void twoOpt() {}
 
     @Override
@@ -15,6 +15,8 @@ public class TwoOpt extends Tour {
         Place firstPlace = this.globalPlaces[0];
         Place[] routeArray = this.globalPlaces;
         boolean improvement = true;
+        distances_matrix = this.distances;
+        // System.out.println("DISTANCES: " + distances_matrix);
 
         while (improvement) {
             improvement = false;
@@ -38,7 +40,7 @@ public class TwoOpt extends Tour {
     }
 
     private boolean twoOptImproves(/*Place[] routeArray,*/ int i, int k) {
-        return distances[i][k] + distances[i+1][k+1] < distances[i][i+1] + distances[k][k+1];
+        return distances_matrix[i][k] + distances_matrix[i+1][k+1] < distances_matrix[i][i+1] + distances_matrix[k][k+1];
         // return DistanceCalculator.calculator(routeArray[i], routeArray[k], 3695.0) + 
         // DistanceCalculator.calculator(routeArray[i+1], routeArray[k+1], 3695.0) < 
         // DistanceCalculator.calculator(routeArray[i], routeArray[i+1], 3695.0) + 
