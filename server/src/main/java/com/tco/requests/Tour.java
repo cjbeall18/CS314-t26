@@ -13,6 +13,7 @@ public abstract class Tour {
     Place[] globalPlaces;
 
     public Places shorter (Places places, double earthRadius, double response) {
+        System.out.println("In shorter");
         boolean isNN;
         boolean isTwoOpt = false;
         Place[] places_arr;
@@ -42,6 +43,14 @@ public abstract class Tour {
         for (int i = 0; i < places_arr.length; i++) {
             if (timeCheck(startTime, response)) {break;}
             Place[] currentTour = construct(i, places_arr, earthRadius);
+            for (int a = 0; a < distances.length; a++)
+            {
+                for (int b = 0; b< distances.length; b++)
+                {
+                    System.out.println("Distances in tour: " + distances[a][b]);
+                }
+            }
+            
             if (isTwoOpt) {
                 Tour twoOptTour = new TwoOpt();
                 twoOptTour.globalPlaces = currentTour;
