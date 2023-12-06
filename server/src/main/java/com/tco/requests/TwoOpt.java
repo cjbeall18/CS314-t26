@@ -28,14 +28,6 @@ public class TwoOpt extends Tour {
         }
     }
 
-    public static void rotateStart (Places route, Place firstPlace) {
-        if (route.get(0) != firstPlace) {
-            int firstPlaceIndex = route.indexOf(firstPlace);
-            firstPlaceIndex *= -1;
-            Collections.rotate(route, firstPlaceIndex);
-        }
-    }
-
     private boolean twoOptImproves(Place[] routeArray, int i, int k) {
         return DistanceCalculator.calculator(routeArray[i], routeArray[k], 3695.0) + 
         DistanceCalculator.calculator(routeArray[i+1], routeArray[k+1], 3695.0) < 
@@ -52,7 +44,6 @@ public class TwoOpt extends Tour {
             i1++;
             k--;
         }
-        System.out.println("twoOptImproves routeArray:"+routeArray);
         return routeArray;
     }
 
