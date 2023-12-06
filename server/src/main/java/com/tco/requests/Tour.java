@@ -46,7 +46,7 @@ public abstract class Tour {
                 Tour twoOptTour = new TwoOpt();
                 twoOptTour.globalPlaces = currentTour;
                 twoOptTour.improve();
-                currentTour = twoOptTour.globalPlaces;
+                //currentTour = twoOptTour.globalPlaces;
             }
             long currentDistance = calculateTourDistance(currentTour, earthRadius);
 

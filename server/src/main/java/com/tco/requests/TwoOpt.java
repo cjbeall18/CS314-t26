@@ -52,6 +52,7 @@ public class TwoOpt extends Tour {
             i1++;
             k--;
         }
+        System.out.println("twoOptImproves routeArray:"+routeArray);
         return routeArray;
     }
 
