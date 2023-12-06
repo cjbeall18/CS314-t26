@@ -1,17 +1,17 @@
-// package com.tco.requests;
+package com.tco.requests;
 
-// import com.tco.requests.TwoOpt;
-// import com.tco.requests.Tour;
-// import com.tco.requests.TourRequest;
+import com.tco.requests.TwoOpt;
+import com.tco.requests.Tour;
+import com.tco.requests.TourRequest;
 
-// import org.junit.jupiter.api.DisplayName;
-// import org.junit.jupiter.api.Test;
-// import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
-// import java.util.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.*;
 
-// public class TestTwoOpt {
-//     Tour tour;
+public class TestTwoOpt {
+    Tour tour;
 
 //     @Test
 //     @DisplayName("cjbeall")
@@ -39,66 +39,49 @@
 //         assertEquals(tour.places.get(3), checkPlaces.get(1));
 //     }
 
-//     @Test
-//     @DisplayName("evanloy: Test for No Improvement Needed")
-//     public void testNoImprovementNeeded() {
-//         tour = new TwoOpt();
-//         Places unoptimizedPlaces = new Places();
-//         unoptimizedPlaces.add(new Place("0", "0"));
-//         unoptimizedPlaces.add(new Place("1", "0"));
-//         unoptimizedPlaces.add(new Place("2", "0"));
-    
-//         tour.places = unoptimizedPlaces;
+    @Test
+    @DisplayName("evanloy: Test for No Improvement Needed")
+    public void testNoImprovementNeeded() {
+        tour = new TwoOpt();
+        tour.globalPlaces = new Place[]{new Place("0", "0"), new Place("1", "0"), new Place("2", "0")};
 
-//         Places checkPlaces = new Places();
-//         checkPlaces.add(new Place("0", "0")); 
-//         checkPlaces.add(new Place("1", "0")); 
-//         checkPlaces.add(new Place("2", "0")); 
-    
-//         tour.improve();
-    
-//         for (int i = 0; i < tour.places.size(); i++) {
-//             assertEquals(tour.places.get(i), checkPlaces.get(i));
-//         }
-//     }
-    
-//     @Test
-//     @DisplayName("evanloy: Test with Two Places")
-//     public void testWithTwoPlaces() {
-//         tour = new TwoOpt();
-//         Places unoptimizedPlaces = new Places();
-//         unoptimizedPlaces.add(new Place("0", "0"));
-//         unoptimizedPlaces.add(new Place("1", "1")); 
-    
-//         tour.places = unoptimizedPlaces;
+        Place[] checkPlaces = new Place[]{new Place("0", "0"), new Place("1", "0"), new Place("2", "0")};
 
-//         Places checkPlaces = new Places();
-//         checkPlaces.add(new Place("0", "0")); 
-//         checkPlaces.add(new Place("1", "1"));     
-    
-//         tour.improve();
-//         assertEquals(2, tour.places.size());
-//         assertEquals(tour.places.get(0), checkPlaces.get(0));
-//         assertEquals(tour.places.get(1), checkPlaces.get(1));
-//     }
-    
-//     @Test
-//     @DisplayName("evanloy: Test that starting point is always the same")
-//     public void testSpecificRouteRotation() {
-//         tour = new TwoOpt();
-//         Places unoptimizedPlaces = new Places();
-//         unoptimizedPlaces.add(new Place("1", "1"));
-//         unoptimizedPlaces.add(new Place("100", "100")); 
-//         unoptimizedPlaces.add(new Place("99", "99")); 
-    
-//         tour.places = unoptimizedPlaces;
-    
-//         tour.improve();
-    
-//         Places expectedPlaces = new Places();
-//         expectedPlaces.add(new Place("1", "1"));
-    
-//         assertEquals(expectedPlaces.get(0), tour.places.get(0));
+        tour.improve();
 
-//     }
-// }
+        for (int i = 0; i < tour.globalPlaces.length; i++) {
+            assertEquals(tour.globalPlaces[i], checkPlaces[i]);
+        }
+    }
+
+    
+    @Test
+    @DisplayName("evanloy: Test with Two Places")
+    public void testWithTwoPlaces() {
+        tour = new TwoOpt();
+        tour.globalPlaces = new Place[]{new Place("0", "0"), new Place("1", "1")};
+    
+        Place[] checkPlaces = new Place[]{new Place("0", "0"), new Place("1", "1")};
+    
+        tour.improve();
+    
+        assertEquals(2, tour.globalPlaces.length);
+        assertEquals(tour.globalPlaces[0], checkPlaces[0]);
+        assertEquals(tour.globalPlaces[1], checkPlaces[1]);
+    }
+    
+    
+    @Test
+    @DisplayName("evanloy: Test that starting point is always the same")
+    public void testSpecificRouteRotation() {
+        tour = new TwoOpt();
+        tour.globalPlaces = new Place[]{new Place("1", "1"), new Place("100", "100"), new Place("99", "99")};
+    
+        tour.improve();
+    
+        Place expectedFirstPlace = new Place("1", "1");
+    
+        assertEquals(expectedFirstPlace, tour.globalPlaces[0]);
+    }
+    
+}
