@@ -112,7 +112,7 @@ public abstract class Tour {
 
     public long calculateTourDistance(Place[] tour, double earthRadius) {
         long totalDistance = 0;
-        for (int i = 0; i < tour.length; i++) {
+        for (int i = 0; i < tour.length-1; i++) {
             Place from = tour[i];
             Place to = (i + 1 < tour.length - 1) ? tour[i + 1] : tour[0]; // loop back to the start
             totalDistance += DistanceCalculator.calculator(from, to, earthRadius);
