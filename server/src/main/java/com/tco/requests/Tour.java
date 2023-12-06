@@ -46,7 +46,6 @@ public abstract class Tour {
                 Tour twoOptTour = new TwoOpt();
                 twoOptTour.globalPlaces = currentTour;
                 twoOptTour.improve();
-                currentTour = twoOptTour.globalPlaces;
             }
             long currentDistance = calculateTourDistance(currentTour, earthRadius);
 
@@ -56,14 +55,14 @@ public abstract class Tour {
             }
         }
         Places bestTourList = new Places(bestTour);
+        if (isTwoOpt) {
+            bestTourList.remove(bestTourList.indexOf(places.get(0)));
+        }
         if (!places.isEmpty()) {
             if (places.get(0) != bestTourList.get(0)) {
                 int firstPlaceIndex = bestTourList.indexOf(places.get(0));
                 firstPlaceIndex *= -1;
                 Collections.rotate(bestTourList, firstPlaceIndex);
-            }
-            if (isTwoOpt) {
-                bestTourList.remove(0);
             }
         }
         return bestTourList;
