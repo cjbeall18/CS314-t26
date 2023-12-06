@@ -66,4 +66,13 @@ public class TestTourRequest {
         tourReq.buildResponse();
         assertEquals(tourReq.getPlaces().size(), 0);
     }
+
+    @Test
+    @DisplayName("cjbeall: Test Response 0 returns original list of places")
+    public void testIfResponseZeroOriginalPlaces() {
+        Places originalPlaces = new Places(tourReq.getPlaces());
+        tourReq = new TourRequest(1.0, 0, new Places());
+        tourReq.buildResponse();
+        assertEquals(originalPlaces, tourReq.getPlaces());
+    }
 }
