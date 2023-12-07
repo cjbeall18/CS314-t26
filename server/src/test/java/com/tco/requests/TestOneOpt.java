@@ -3,6 +3,7 @@ package com.tco.requests;
 import com.tco.requests.OneOpt;
 import com.tco.requests.Tour;
 import com.tco.requests.TourRequest;
+import com.tco.misc.DistanceCalculator;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,45 +48,39 @@ public class TestOneOpt {
 //         assertTrue(shorterTourDistance < regTourDistance);
 //     }
 
-//     @Test
-//     @DisplayName("evanloy: Test OneOpt inherits calculateTourDistance from Tour with expected distance")
-//     public void testInheritanceOfCalculateTourDistanceWithRoundedExpectedDistance() {
-//         tour = new OneOpt();
-//         Places places = new Places();
-//         places.add(new Place("1", "0"));
-//         places.add(new Place("2", "0")); 
-    
-//         double earthRadius = 6371;
-//         long expectedDistance = Math.round(2 * Math.toRadians(1) * earthRadius);
-//         long calculatedDistance = tour.calculateTourDistance(places, earthRadius);
-    
-//         assertEquals(expectedDistance, calculatedDistance);
-//     }
-    
-//     @Test
-//     @DisplayName("evanloy: Test OneOpt improve method is callable")
-//     public void testOneOptImproveIsCallable() {
-//         tour = new OneOpt();
-//         tour.improve();
-//         assertTrue(true);
-//     }
+    @Test
+    @DisplayName("evanloy: Test OneOpt inherits calculateTourDistance from Tour with expected distance")
+    public void testInheritanceOfCalculateTourDistanceWithRoundedExpectedDistance() {
+        tour = new OneOpt();
+        tour.globalPlaces = new Place[]{new Place("1", "0"), new Place("2", "0")};
 
-//     @Test
-//     @DisplayName("evanloy: test Tour shorter method rotates to the original starting place")
-//     public void testTourRotationLogic() {
-//         tour = new OneOpt();
-//         Places places = new Places();
-//         places.add(new Place("38.84", "-104.859"));
-//         places.add(new Place("-22.739", "-47.629"));
-//         places.add(new Place("35.458", "138.76"));
-//         places.add(new Place("-33.9", "151.165"));
-    
-//         long earthRadius = 6371;
-//         Places bestTour = tour.shorter(places, earthRadius, 1.0);
-    
-//         assertEquals(places.get(0), bestTour.get(0));
-//     }
+        double earthRadius = 6371;
+        long expectedDistance = DistanceCalculator.calculator(tour.globalPlaces[0], tour.globalPlaces[1], earthRadius);
+        long calculatedDistance = tour.calculateTourDistance(tour.globalPlaces, earthRadius);
 
+        assertEquals(expectedDistance, calculatedDistance);
+    }
+    
+    @Test
+    @DisplayName("evanloy: Test OneOpt improve method is callable")
+    public void testOneOptImproveIsCallable() {
+        tour = new OneOpt();
+        tour.improve();
+        assertTrue(true);
+    }
+    
+    @Test
+    @DisplayName("evanloy: test Tour shorter method rotates to the original starting place")
+    public void testTourRotationLogic() {
+        tour = new OneOpt();
+        Place[] placesArray = new Place[]{new Place("38.84", "-104.859"), new Place("-22.739", "-47.629"), new Place("35.458", "138.76"), new Place("-33.9", "151.165")};
+    
+        long earthRadius = 6371;
+        Places bestTour = tour.shorter(new Places(placesArray), earthRadius, 1.0);
+    
+        assertEquals(placesArray[0], bestTour.get(0));
+    }
+    
 //     @Test
 //     @DisplayName("clayroby: test Tour timeout. Expect control group time to be greater than test group time")
 //     public void testTourTimeout() {
