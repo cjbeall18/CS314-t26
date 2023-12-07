@@ -9,35 +9,38 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.*;
+import java.util.Arrays;
 
 public class TestTwoOpt {
     Tour tour;
 
-//     @Test
-//     @DisplayName("cjbeall")
-//     public void testPlacesAreDifferent() {
-//         tour = new TwoOpt();
-//         Places unoptimizedPlaces = new Places();
-//         unoptimizedPlaces.add(new Place("0", "0")); //A
-//         unoptimizedPlaces.add(new Place("0", "2")); //B
-//         unoptimizedPlaces.add(new Place("1", "0")); //C
-//         unoptimizedPlaces.add(new Place("5", "5")); //D
-    
-//         tour.places = unoptimizedPlaces;
+    @Test
+    @DisplayName("cjbeall: test that places are different")
+    public void testPlacesAreDifferent() {
+        tour = new TwoOpt();
+        tour.globalPlaces = new Place[]{
+            new Place("14.34", "-37.62"),
+            new Place("-8.86", "-1.76"),
+            new Place("-10.76", "-49.04"),
+            new Place("19.88", "10.72"), 
+            new Place("-18.33", "-27.77")
+        };
 
-//         Places checkPlaces = new Places();
-//         checkPlaces.add(new Place("0", "0")); //A
-//         checkPlaces.add(new Place("0", "2")); //B
-//         checkPlaces.add(new Place("1", "0")); //C
-//         checkPlaces.add(new Place("5", "5")); //D
-//         //reorder should be ACDB
-
-//         tour.improve();
-//         assertEquals(tour.places.get(0),checkPlaces.get(0));
-//         assertEquals(tour.places.get(1), checkPlaces.get(2));
-//         assertEquals(tour.places.get(2), checkPlaces.get(3));
-//         assertEquals(tour.places.get(3), checkPlaces.get(1));
-//     }
+        Place[] checkPlaces = new Place[]{
+            new Place("14.34", "-37.62"),
+            new Place("-8.86", "-1.76"), 
+            new Place("-10.76", "-49.04"),
+            new Place("19.88", "10.72"),
+            new Place("-18.33", "-27.77")
+        };
+        tour.improve();
+        
+        assertEquals(tour.globalPlaces[0],checkPlaces[0]); 
+        assertEquals(tour.globalPlaces[1],checkPlaces[3]);
+        assertEquals(tour.globalPlaces[2],checkPlaces[1]);
+        assertEquals(tour.globalPlaces[3],checkPlaces[2]);
+        assertEquals(tour.globalPlaces[4],checkPlaces[4]);
+    }
 
     @Test
     @DisplayName("evanloy: Test for No Improvement Needed")
