@@ -3,6 +3,7 @@ package com.tco.requests;
 import com.tco.requests.TwoOpt;
 import com.tco.requests.Tour;
 import com.tco.requests.TourRequest;
+import com.tco.requests.TestOneOpt;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,32 @@ import java.util.Arrays;
 
 public class TestTwoOpt {
     Tour tour;
+
+    @Test
+    @DisplayName("clayroby: test that TwoOpt optimizes better than NN")
+    public void testTwoOptBetterOneOpt() {
+        Places places = new Places();
+        long earthRadius = 6371;
+        Tour tourOne = new OneOpt();
+        Tour tourTwo = new TwoOpt();
+        double response = 10.0;
+        boolean result = false;
+        Random rand = new Random();
+
+        places = TestOneOpt.randTourBuilder(rand, 300, places);
+
+        tourTwo.globalPlaces = places.toArray(new Place[places.size()]);
+
+        Places bestTourOne = tourOne.shorter(places, earthRadius, response);
+        tourTwo.improve();
+
+        Place[] bestTourOneArr = bestTourOne.toArray(new Place[bestTourOne.size()]);
+
+        long tourOneDistance = tourOne.calculateTourDistance(bestTourOneArr, earthRadius);
+        long tourTwoDistance = tourTwo.calculateTourDistance(tourTwo.globalPlaces, earthRadius);
+
+        assertTrue(tourOneDistance < tourTwoDistance);
+    }
 
     @Test
     @DisplayName("cjbeall: test that places are different")
