@@ -1,18 +1,18 @@
-// package com.tco.requests;
+package com.tco.requests;
 
-// import com.tco.requests.OneOpt;
-// import com.tco.requests.Tour;
-// import com.tco.requests.TourRequest;
+import com.tco.requests.OneOpt;
+import com.tco.requests.Tour;
+import com.tco.requests.TourRequest;
 
-// import org.junit.jupiter.api.DisplayName;
-// import org.junit.jupiter.api.Test;
-// import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
-// import java.util.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.*;
 
 
-// public class TestOneOpt {
-//     Tour tour;
+public class TestOneOpt {
+    Tour tour;
     
 //     @Test
 //     @DisplayName("tamo: test no improve using 1Opt")
@@ -123,4 +123,27 @@
 //         }
 //         return places;
 //     }
-// }
+
+    @Test
+    @DisplayName("cjbeall: test that places in close proximity still optmize")
+    public void testClosePlaces() {
+        long earthRadius = 5931;
+        tour = new OneOpt();
+        Places places = new Places();
+        places.add(new Place("39.174930", "-106.955120"));
+        places.add(new Place("39.96180", "-105.50891"));
+        places.add(new Place("38.265665", "-104.610022"));
+        places.add(new Place("40.062586", "-105.204699"));
+        places.add(new Place("39.740889", "-104.830027"));
+        Place[] placeArray = places.toArray(new Place[places.size()]);
+        long originalTourDistance = tour.calculateTourDistance(placeArray, 5931.0);
+
+        Places places1 = new Places();
+        places1 = tour.shorter(places, earthRadius, 1.0);
+
+        Place[] placeArray1 = places1.toArray(new Place[places1.size()]);
+        long optimizedTourDistance = tour.calculateTourDistance(placeArray1, 5931.0);
+        assertTrue(optimizedTourDistance < originalTourDistance);
+    }
+
+}
