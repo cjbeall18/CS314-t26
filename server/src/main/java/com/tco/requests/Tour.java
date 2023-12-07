@@ -86,7 +86,6 @@ public abstract class Tour {
         tour[0]=places_arr[startIndex];
 
         int currentCityIndex = startIndex;
-        int increment = 0;
         for(int j = 0; j < places_arr.length; j++) {
             int nearestCityIndex = -1;
             double nearestDistance = Double.MAX_VALUE;
