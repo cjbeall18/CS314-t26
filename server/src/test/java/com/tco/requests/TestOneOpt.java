@@ -15,38 +15,32 @@ import java.util.*;
 public class TestOneOpt {
     Tour tour;
     
-//     @Test
-//     @DisplayName("tamo: test no improve using 1Opt")
-//     public void test1Opt() {
-//         tour = new OneOpt();
-//         Places places = new Places();
-//         places.add(new Place("38.84", "-104.859"));
-//         places.add(new Place("-22.739", "-47.629"));
-//         places.add(new Place("35.458", "138.76"));
-//         places.add(new Place("-33.9", "151.165"));
-
-//         tour.improve();
-//         assertEquals(tour.calculateTourDistance(places, 5225616L), 39985224);
-//     }
+    @Test
+    @DisplayName("tamo: test no improve using 1Opt")
+    public void test1Opt() {
+        tour = new OneOpt();
+        Place[] places = new Place[]{new Place("38.84", "-104.859"),new Place("-22.739", "-47.629"),new Place("35.458", "138.76"),new Place("-33.9", "151.165")};
+        tour.globalPlaces = places;
+        tour.improve();
+        assertEquals(tour.calculateTourDistance(places, 5225616L), 41351519);
+    }
     
-//     @Test
-//     @DisplayName("tamo: test shorter tour method is shorter than base tour distance")
-//     public void testShorter() {
-//         tour = new OneOpt();
-//         Places places = new Places();
-//         places.add(new Place("38.84", "-104.859"));
-//         places.add(new Place("-22.739", "-47.629"));
-//         places.add(new Place("35.458", "138.76"));
-//         places.add(new Place("-33.9", "151.165"));
+    @Test
+    @DisplayName("tamo: test shorter tour method is shorter than base tour distance")
+    public void testShorter() {
+        tour = new OneOpt();        
+        Place[] places = new Place[]{new Place("42","42"),new Place("38.84", "-104.859"),new Place("-22.739", "-47.629"),new Place("35.458", "138.76"),new Place("-33.9", "151.165"), new Place("40","-40")};
+        tour.globalPlaces = places;
+        // Now check that shorter is shorter than regular distance
+        
+        long earthRadius =  5225616L;
+        long regTourDistance = tour.calculateTourDistance(places, earthRadius);
+        Places placesList = new Places(places);
+        Place[] newArray = tour.shorter(placesList, earthRadius, 10).toArray(new Place[placesList.size()]);
+        long shorterTourDistance = tour.calculateTourDistance(newArray, earthRadius);
 
-//         // Now check that shorter is shorter than regular distance
-//         long earthRadius =  5225616L;
-//         Places shorterTour = tour.shorter(places, earthRadius, 1.0);
-//         long shorterTourDistance = tour.calculateTourDistance(shorterTour, earthRadius);
-//         long regTourDistance = tour.calculateTourDistance(places, earthRadius);
-
-//         assertTrue(shorterTourDistance < regTourDistance);
-//     }
+        assertTrue(shorterTourDistance < regTourDistance);
+    }
 
     @Test
     @DisplayName("evanloy: Test OneOpt inherits calculateTourDistance from Tour with expected distance")
