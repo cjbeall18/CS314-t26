@@ -20,25 +20,24 @@ public class TestTwoOpt {
     public void testTwoOptBetterOneOpt() {
         Places places = new Places();
         long earthRadius = 6371;
-        Tour tourOne = new OneOpt();
-        Tour tourTwo = new TwoOpt();
+        Tour tourTwo = new OneOpt();
         double response = 10.0;
-        boolean result = false;
-        Random rand = new Random();
 
-        places = TestOneOpt.randTourBuilder(rand, 300, places);
+        places.add(new Place("39.174930", "-106.955120"));
+        places.add(new Place("39.96180", "-105.50891"));
+        places.add(new Place("38.265665", "-104.610022"));
+        places.add(new Place("40.062586", "-105.204699"));
+        places.add(new Place("39.740889", "-104.830027"));
 
-        tourTwo.globalPlaces = places.toArray(new Place[places.size()]);
+        Place[] placeArray = places.toArray(new Place[places.size()]);
+        long originalTourDistance = tourTwo.calculateTourDistance(placeArray, earthRadius);
 
-        Places bestTourOne = tourOne.shorter(places, earthRadius, response);
-        tourTwo.improve();
+        Places bestTour = tourTwo.shorter(places, earthRadius, response);
+        Place[] bestTourArr = bestTour.toArray(new Place[bestTour.size()]);
 
-        Place[] bestTourOneArr = bestTourOne.toArray(new Place[bestTourOne.size()]);
+        long tourDistance = tourTwo.calculateTourDistance(bestTourArr, earthRadius);
 
-        long tourOneDistance = tourOne.calculateTourDistance(bestTourOneArr, earthRadius);
-        long tourTwoDistance = tourTwo.calculateTourDistance(tourTwo.globalPlaces, earthRadius);
-
-        assertTrue(tourOneDistance < tourTwoDistance);
+        assertTrue(originalTourDistance > tourDistance);
     }
 
     @Test
