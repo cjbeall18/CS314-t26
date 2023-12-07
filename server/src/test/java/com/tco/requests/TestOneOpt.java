@@ -106,7 +106,7 @@ public class TestOneOpt {
         assertEquals(true, result);
     }
 
-    private Places randTourBuilder(Random rand, int num_places, Places places) {
+    public static Places randTourBuilder(Random rand, int num_places, Places places) {
         for (int i = 0; i < num_places; i++) {
             String lat = String.valueOf(rand.nextInt(90) + 1);
             String lon = String.valueOf(rand.nextInt(180) + 1);
