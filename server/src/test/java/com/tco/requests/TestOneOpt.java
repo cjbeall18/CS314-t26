@@ -137,4 +137,25 @@ public class TestOneOpt {
         assertTrue(optimizedTourDistance < originalTourDistance);
     }
 
+    @Test
+    @DisplayName("ejpitera: test that places only optimizes once when button clicked")
+    public void testOptimizeOnce() {
+        long earthRadius = 5931;
+        tour = new OneOpt();
+        Places places = new Places();
+
+        places.add(new Place("42.27", "-118.65"));
+        places.add(new Place("31.94", "-86.48"));
+        places.add(new Place("52.13", "-100.90"));
+        places.add(new Place("29.83", "-105.47"));
+
+        Places newPlaces = new Places();
+        newPlaces = tour.shorter(places, earthRadius, 1.0);
+        assertEquals(places.get(2), newPlaces.get(1));
+
+        Places newNewPlaces = new Places();
+        newNewPlaces = tour.shorter(newPlaces, earthRadius, 1.0);
+        assertEquals(newPlaces, newNewPlaces);
+    }
+
 }
